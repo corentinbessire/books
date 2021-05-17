@@ -1,0 +1,25 @@
+uuid: 0706a92f-7a81-4c06-ac69-3021cc4a52bb
+langcode: en
+status: true
+dependencies:
+  module:
+    - ctools
+    - taxonomy
+id: terms
+label: Terms
+type: 'canonical_entities:taxonomy_term'
+pattern: '[term:vocabulary]/[term:name]'
+selection_criteria:
+  e4d3460b-3c8e-4018-a620-450625e26f9e:
+    id: 'entity_bundle:taxonomy_term'
+    bundles:
+      author: author
+      genre: genre
+      serie: serie
+    negate: false
+    context_mapping:
+      taxonomy_term: taxonomy_term
+    uuid: e4d3460b-3c8e-4018-a620-450625e26f9e
+selection_logic: and
+weight: -5
+relationships: {  }

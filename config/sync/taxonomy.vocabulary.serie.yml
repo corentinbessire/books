@@ -1,0 +1,8 @@
+uuid: 030e2c59-64b4-4072-a323-ec8abcfee24b
+langcode: en
+status: true
+dependencies: {  }
+name: Serie
+vid: serie
+description: ''
+weight: 0

@@ -1,0 +1,70 @@
+id: books_books
+label: Books - Books
+migration_tags:
+  - Books
+source:
+   plugin: csv
+   path: public://import/books.csv
+   ids: [bid]
+   fields:
+     - name: bid
+       label: bid
+     - name: author
+       label: author
+     - name: title
+       label: title
+     - name: description
+       label: description
+     - name: serie
+       label: serie
+     - name: created
+       label: created
+     - name: publisher
+       label: publisher
+     - name: published
+       label: published
+     - name: pages
+       label: pages
+     - name: isbn
+       label: isbn
+     - name: aid
+       label: aid
+     - name: sid
+       label: sid
+     - name: pid
+       label: pid
+process:
+ entity_type:
+   plugin: default_value
+   default_value: 'node'
+ title: title
+ field_description: description
+ #created: created
+ field_release: published
+ field_pages: pages
+ field_isbn: isbn
+ field_authors/target_id:
+   plugin: migration_lookup
+   migration: books_authors
+   source: aid
+ field_serie/target_id:
+   plugin: migration_lookup
+   migration: books_series
+   source: sid
+ field_publisher/target_id:
+   plugin: migration_lookup
+   migration: books_publishers
+   source: pid
+
+ status:
+   plugin: default_value
+   default_value: '1'
+destination:
+  plugin: entity:node
+  default_bundle: book
+
+migration_dependencies:
+  required:
+    - books_authors
+    - books_series
+    - books_publishers

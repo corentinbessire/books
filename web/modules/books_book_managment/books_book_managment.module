@@ -1,0 +1,20 @@
+<?php
+
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * @file
+ * Primary module hooks for Books - Book Managment module.
+ *
+ * @DCG
+ * This file is no longer required in Drupal 8.
+ * @see https://www.drupal.org/node/2217931
+ */
+
+function books_book_managment_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($entity_type->id() === 'node' && $bundle === 'book') {
+    if (isset($fields['field_isbn'])) {
+      $fields['field_isbn']->addConstraint('UniqueField');
+    }
+  }
+}

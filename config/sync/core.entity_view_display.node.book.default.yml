@@ -1,0 +1,86 @@
+uuid: a2c650ab-dbb7-4b6d-a3ec-d6d6cdc5131d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.book.field_authors
+    - field.field.node.book.field_genres
+    - field.field.node.book.field_isbn
+    - field.field.node.book.field_pages
+    - field.field.node.book.field_release
+    - field.field.node.book.field_serie
+    - field.field.node.book.field_serie_number
+    - node.type.book
+  module:
+    - datetime
+    - isbn
+    - user
+id: node.book.default
+targetEntityType: node
+bundle: book
+mode: default
+content:
+  field_authors:
+    weight: 103
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_genres:
+    weight: 106
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_isbn:
+    weight: 102
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: isbn_default
+    region: content
+  field_pages:
+    weight: 108
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  field_release:
+    weight: 107
+    label: above
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_serie:
+    weight: 104
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_serie_number:
+    weight: 105
+    label: above
+    settings:
+      thousand_separator: ''
+      prefix_suffix: true
+    third_party_settings: {  }
+    type: number_integer
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden: {  }

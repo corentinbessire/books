@@ -1,0 +1,8 @@
+uuid: 17786398-b7d5-470f-ad01-b526e4edc66e
+langcode: en
+status: true
+dependencies: {  }
+name: Publisher
+vid: publisher
+description: ''
+weight: 0

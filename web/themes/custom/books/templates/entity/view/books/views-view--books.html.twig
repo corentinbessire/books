@@ -1,0 +1,11 @@
+<header class="header bg-white shadow py-4 px-4">
+  {{ exposed }}
+</header>
+<div class="main-content flex flex-col flex-grow bg-gray-300 p-4 overflow-scroll">
+  {% if rows -%}
+    {{ rows }}
+  {% elseif empty -%}
+    {{ empty }}
+  {% endif %}
+  {{ pager }}
+</div>

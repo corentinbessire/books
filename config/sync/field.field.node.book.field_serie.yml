@@ -1,0 +1,29 @@
+uuid: be03862a-3466-495e-b776-c077beffbc1f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_serie
+    - node.type.book
+    - taxonomy.vocabulary.serie
+id: node.book.field_serie
+field_name: field_serie
+entity_type: node
+bundle: book
+label: Serie
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      serie: serie
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,20 @@
+<article class="transform transition duration-500 hover:scale-105">
+  {{ content.field_cover }}
+  {# <img class="rounded-lg w-full overflow-hidden"
+       src="http://www.hodderscape.co.uk/wp-content/uploads/2017/03/Dune-Messiah-Cover.jpg"/>
+  #}
+  <a href="{{ url }}" class="block">
+    <div
+      class="opacity-0 hover:opacity-100 bg-gray-300 bg-opacity-50 duration-300 absolute inset-0 z-10 justify-center flex items-center">
+      <div class="text-center">
+        <h3 class="text-xl">{{ label }}</h3>
+        <p>{{ content.field_authors }}</p>
+        {% if content.field_serie | render %}
+          <p>{{ content.field_serie }} (#{{ content.field_serie_number }})</p>
+        {% endif %}
+        <p>{{ content.field_release }}</p>
+      </div>
+
+    </div>
+  </a>
+</article>

@@ -1,0 +1,4 @@
+services:
+  books.open_library:
+    class: Drupal\books_book_managment\Service\OpenLibraryService
+    arguments: ['@http_client', '@logger.factory', '@entity_type.manager', '@file_system']
