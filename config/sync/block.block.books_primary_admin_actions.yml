@@ -1,15 +1,15 @@
-uuid: 4e5f6d68-8925-49da-b262-2032b10ad609
+uuid: 2744c979-ba6d-48ea-92b1-54946be6cb56
 langcode: en
 status: true
 dependencies:
   theme:
-    - tailwindcss
+    - books
 _core:
-  default_config_hash: PffmQ-ABSz5tFjWmVsR7NesunDnEivvopnJnBjl8KNE
-id: tailwindcss_local_actions
-theme: tailwindcss
-region: content
-weight: -10
+  default_config_hash: sBMSSrWtP58IZaz1i3-MJ9yq_y32w1nc7N5DZJmt-4M
+id: books_primary_admin_actions
+theme: books
+region: highlighted
+weight: -5
 provider: null
 plugin: local_actions_block
 settings:

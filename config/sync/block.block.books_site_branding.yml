@@ -1,15 +1,15 @@
-uuid: b305db83-2502-4c67-8bb6-fd65ac6566b7
+uuid: 242babe6-b34b-4881-a7aa-1998bf52d8f2
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - tailwindcss
+    - books
 _core:
-  default_config_hash: fRKXNB91UxDvEMkzCR8ZBsawfC6Fqbme2gtobei3gu4
-id: tailwindcss_branding
-theme: tailwindcss
+  default_config_hash: sYjScJ6uW1UvGZ-G3AtTcZmPoOiQJtndHqamm8FAFgU
+id: books_site_branding
+theme: books
 region: header
 weight: 0
 provider: null
@@ -21,5 +21,5 @@ settings:
   label_display: '0'
   use_site_logo: true
   use_site_name: true
-  use_site_slogan: true
+  use_site_slogan: false
 visibility: {  }

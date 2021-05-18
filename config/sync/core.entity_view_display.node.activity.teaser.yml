@@ -1,0 +1,28 @@
+uuid: 709647ac-dc96-4e42-9867-b00a88cf3bd8
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.activity.field_book
+    - field.field.node.activity.field_end_date
+    - field.field.node.activity.field_start_date
+    - field.field.node.activity.field_status
+    - node.type.activity
+  module:
+    - user
+id: node.activity.teaser
+targetEntityType: node
+bundle: activity
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  field_book: true
+  field_end_date: true
+  field_start_date: true
+  field_status: true

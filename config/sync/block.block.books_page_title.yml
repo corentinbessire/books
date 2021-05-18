@@ -1,15 +1,15 @@
-uuid: 1c5c4767-a99f-4c3f-b1f1-eb5dc4c9993f
+uuid: 81709883-f1d8-4961-8c82-78284207ed3b
 langcode: en
 status: true
 dependencies:
   theme:
-    - stark
+    - books
 _core:
-  default_config_hash: 8yptDf6WrXxeyevUz4nP5vfr7BtxQqCBMninhV2IJ1g
-id: stark_page_title
-theme: stark
-region: content
-weight: -30
+  default_config_hash: WImvmaBdDpwIqobqbDWebBnyxssRvrNEnZSQbOsvOe4
+id: books_page_title
+theme: books
+region: sidebar_first
+weight: -5
 provider: null
 plugin: page_title_block
 settings:

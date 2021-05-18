@@ -1,17 +1,24 @@
 module:
   admin_toolbar: 0
   block: 0
+  books_activity: 0
+  books_book_managment: 0
   books_import: 0
   breakpoint: 0
   ctools: 0
   datetime: 0
+  datetime_range: 0
   dblog: 0
   dynamic_page_cache: 0
   field: 0
   field_ui: 0
   file: 0
   filter: 0
+  image: 0
   isbn: 0
+  media: 0
+  media_image_display_entity_view: 0
+  media_library: 0
   migrate: 0
   migrate_plus: 0
   migrate_source_csv: 0
@@ -25,15 +32,17 @@ module:
   text: 0
   token: 0
   toolbar: 0
+  twig_vardumper: 0
   update: 0
   user: 0
+  views_ui: 0
   pathauto: 1
+  views: 10
   minimal: 1000
 theme:
-  stark: 0
   stable: 0
-  tailwindcss: 0
   claro: 0
+  books: 0
 profile: minimal
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

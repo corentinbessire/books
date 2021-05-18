@@ -4,9 +4,11 @@ status: true
 dependencies:
   config:
     - field.field.node.book.field_authors
+    - field.field.node.book.field_cover
     - field.field.node.book.field_genres
     - field.field.node.book.field_isbn
     - field.field.node.book.field_pages
+    - field.field.node.book.field_publisher
     - field.field.node.book.field_release
     - field.field.node.book.field_serie
     - field.field.node.book.field_serie_number
@@ -27,6 +29,15 @@ content:
       link: true
     third_party_settings: {  }
     type: entity_reference_label
+    region: content
+  field_cover:
+    type: entity_reference_entity_view
+    weight: 109
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
     region: content
   field_genres:
     weight: 106
@@ -51,6 +62,14 @@ content:
       prefix_suffix: true
     third_party_settings: {  }
     type: number_integer
+    region: content
+  field_publisher:
+    weight: 110
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   field_release:
     weight: 107

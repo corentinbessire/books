@@ -1,17 +1,17 @@
-uuid: 16c68954-e5d6-4cf0-90d0-05e4d649ecb6
+uuid: cca95064-7841-412e-b38a-e4668e93956d
 langcode: en
 status: true
 dependencies:
   module:
     - system
   theme:
-    - tailwindcss
+    - books
 _core:
-  default_config_hash: 5MNdk3fpMKx_xxBTcz2T11DL4XEU1H5SgHl8BsYdFsA
-id: tailwindcss_messages
-theme: tailwindcss
+  default_config_hash: KfyaTPRJEcAyy2e5AxEfWQnuHcn4WrfvcWek7lSmHZQ
+id: books_messages
+theme: books
 region: highlighted
-weight: 0
+weight: -5
 provider: null
 plugin: system_messages_block
 settings:
