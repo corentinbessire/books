@@ -1,25 +1,29 @@
-uuid: d4a61459-75f2-45a6-9b79-31c99d19fd41
+uuid: bac2ce91-89fe-4dd0-827c-5ef82b6bf74d
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.media.card
     - field.field.media.book_cover.field_media_image
-    - image.style.large
+    - image.style.scale_450w
     - media.type.book_cover
   module:
     - image
-id: media.book_cover.default
+    - image_class
+id: media.book_cover.card
 targetEntityType: media
 bundle: book_cover
-mode: default
+mode: card
 content:
   field_media_image:
     label: hidden
     weight: 0
     settings:
-      image_style: large
+      image_style: scale_450w
       image_link: ''
-    third_party_settings: {  }
+    third_party_settings:
+      image_class:
+        class: 'rounded-lg w-full overflow-hidden'
     type: image
     region: content
 hidden:

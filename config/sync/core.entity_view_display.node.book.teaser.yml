@@ -15,7 +15,6 @@ dependencies:
     - field.field.node.book.field_serie_number
     - node.type.book
   module:
-    - media_image_display_entity_view
     - user
 id: node.book.teaser
 targetEntityType: node
@@ -31,17 +30,12 @@ content:
       link: true
     third_party_settings: {  }
   field_cover:
-    type: media_image_display
+    type: entity_reference_entity_view
     weight: 2
     region: content
     label: hidden
     settings:
-      view_mode: default
-      image_field: field_media_image
-      image_style: ''
-      link_source: nothing
-      media_link_field: ''
-      content_link_field: ''
+      view_mode: card
       link: false
     third_party_settings: {  }
   field_serie:
