@@ -1,0 +1,21 @@
+uuid: f6bc9673-7ec7-4a93-8d16-a93c258a8a30
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_excerpt
+    - node.type.book
+  module:
+    - text
+id: node.book.field_excerpt
+field_name: field_excerpt
+entity_type: node
+bundle: book
+label: Excerpt
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

@@ -1,0 +1,26 @@
+<div class="max-w-screen-lg xl:max-w-screen-xl mx-auto">
+  <div class="bg-red-400">
+    <div>
+      {{ content.field_cover }}
+    </div>
+    <div>
+       <h1>{{ label }}</h1>
+      ({{ field_serie }} #{{ content.field_serie_number }})
+      {{ 'By' |t  }} {{ content.field_authors }}
+      <div>
+          {{ content.field_excerpt }}
+      </div>
+    </div>
+  </div>
+  <div class="bg-green-400">
+    {{ content.field_isbn }}
+    {{ content.field_pages }}
+    {{ content.field_publisher }}
+    {{ content.field_release }}
+    {{ content.field_genres }}
+  </div>
+
+  <div class="bg-blue-400">
+    Activities
+  </div>
+</div>
