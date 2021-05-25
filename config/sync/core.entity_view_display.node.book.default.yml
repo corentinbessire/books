@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.book.field_authors
     - field.field.node.book.field_cover
+    - field.field.node.book.field_excerpt
     - field.field.node.book.field_genres
     - field.field.node.book.field_isbn
     - field.field.node.book.field_pages
@@ -16,6 +17,7 @@ dependencies:
   module:
     - datetime
     - isbn
+    - text
     - user
 id: node.book.default
 targetEntityType: node
@@ -24,7 +26,7 @@ mode: default
 content:
   field_authors:
     weight: 103
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -33,15 +35,22 @@ content:
   field_cover:
     type: entity_reference_entity_view
     weight: 109
-    label: above
+    label: hidden
     settings:
       view_mode: default
       link: false
     third_party_settings: {  }
     region: content
+  field_excerpt:
+    weight: 111
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
   field_genres:
     weight: 106
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -49,14 +58,14 @@ content:
     region: content
   field_isbn:
     weight: 102
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: isbn_default
     region: content
   field_pages:
     weight: 108
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -65,7 +74,7 @@ content:
     region: content
   field_publisher:
     weight: 110
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -73,7 +82,7 @@ content:
     region: content
   field_release:
     weight: 107
-    label: above
+    label: hidden
     settings:
       format_type: medium
       timezone_override: ''
@@ -82,7 +91,7 @@ content:
     region: content
   field_serie:
     weight: 104
-    label: above
+    label: hidden
     settings:
       link: true
     third_party_settings: {  }
@@ -90,7 +99,7 @@ content:
     region: content
   field_serie_number:
     weight: 105
-    label: above
+    label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -99,7 +108,7 @@ content:
     region: content
   links:
     weight: 100
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden: {  }
