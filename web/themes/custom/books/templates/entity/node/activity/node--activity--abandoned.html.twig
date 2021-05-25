@@ -7,8 +7,14 @@
       </svg>
     </p>
   </div>
-  <div class="order-1 border-2 border-red-200 rounded-lg shadow-xl w-5/12 px-6 py-4">
-    <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
-    <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }} - {{ 'Abandonned' | t }} {{ content.field_end_date }}</p>
+  <div class="order-1 border-2 border-red-200 rounded-lg shadow-xl w-5/12 px-6 py-4 flex">
+    <div class="w-1/4">
+      {{ content.extra_field_book_cover }}
+    </div>
+    <div class="w-3/4 m-4">
+      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+      <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+      {{ content.field_book }}
+    </div>
   </div>
 </div>

@@ -9,23 +9,15 @@
     </p>
   </div>
   <div class="order-1 bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
-    <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
-{#    <p class="text-sm leading-snug tracking-wide text-gray-900 text-opacity-100">Lorem Ipsum is simply dummy text of the
-      printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-      when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
-  </div>#}
-  <a class="shadow bg-green-500 hover:bg-green-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" href="#">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-    </svg>
-    {{ 'Mark as Finished' | t }}
-  </a>
-  <a class="shadow bg-red-500 hover:bg-red-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded" href="#">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-    </svg>
-    {{ 'Mark as Finished' | t }}
-  </a>
+    <div class="w-1/4">
+      {{ content.extra_field_book_cover }}
+    </div>
+    <div class="m-4">
+      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+      <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+      {{ content.field_book }}
+    </div>
+  </div>
 </div>
 
 

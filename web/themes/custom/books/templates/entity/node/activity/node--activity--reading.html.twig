@@ -8,23 +8,34 @@
       </svg>
     </p>
   </div>
-  <div class="order-1 border-2 border-gray-200 rounded-lg shadow-xl w-5/12 px-6 py-4">
-    <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
-    <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
-    <div class="m-4 space-x-4 m-auto" >
-      <a class="bg-green-300 hover:bg-green-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-        </svg>
-        {{ 'Mark as Finished' | t }}
-      </a>
-      <a class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636" />
-        </svg>
-        {{ 'Mark as Abandonned' | t }}
-      </a>
+  <div class="order-1 border-2 border-gray-200 rounded-lg shadow-xl w-5/12 px-6 py-4 flex">
+    <div class="w-1/4">
+      {{ content.extra_field_book_cover }}
+    </div>
+    <div class="m-4 ">
+      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+      <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+      {{ content.field_book }}
+      <div class="m-4 space-x-4 m-auto">
+        <a href="{{ url('books_activity.finish', {'activity': node.id}) }}"
+           class="bg-green-300 hover:bg-green-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+          {{ 'Mark as Finished' | t }}
+        </a>
+        <a href="{{ url('books_activity.abandon', {'activity': node.id}) }}"
+           class="bg-red-300 hover:bg-red-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24"
+               stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+          </svg>
+          {{ 'Mark as Abandonned' | t }}
+        </a>
+      </div>
     </div>
   </div>
-
 </div>

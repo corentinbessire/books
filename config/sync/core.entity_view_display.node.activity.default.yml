@@ -16,8 +16,13 @@ targetEntityType: node
 bundle: activity
 mode: default
 content:
+  extra_field_book_cover:
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   field_book:
-    weight: 101
+    weight: 2
     label: hidden
     settings:
       link: true
@@ -25,7 +30,7 @@ content:
     type: entity_reference_label
     region: content
   field_end_date:
-    weight: 105
+    weight: 5
     label: hidden
     settings:
       timezone_override: ''
@@ -34,7 +39,7 @@ content:
     type: datetime_default
     region: content
   field_start_date:
-    weight: 104
+    weight: 4
     label: hidden
     settings:
       timezone_override: ''
@@ -43,7 +48,7 @@ content:
     type: datetime_default
     region: content
   field_status:
-    weight: 102
+    weight: 3
     label: hidden
     settings:
       link: true
@@ -51,7 +56,7 @@ content:
     type: entity_reference_label
     region: content
   links:
-    weight: 100
+    weight: 0
     region: content
     settings: {  }
     third_party_settings: {  }

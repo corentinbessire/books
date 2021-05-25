@@ -1,0 +1,22 @@
+books_activity.finish:
+  path: 'activity/{activity}/finish'
+  defaults:
+    _title: 'Finish activity'
+    _controller: '\Drupal\books_activity\Controller\ActivityController::finish'
+  requirements:
+    _permission: 'create activity content'
+  options:
+    parameters:
+      activity:
+        type: entity:node
+books_activity.abandon:
+  path: 'activity/{activity}/abandon'
+  defaults:
+    _title: 'Abandon activity'
+    _controller: '\Drupal\books_activity\Controller\ActivityController::abandon'
+  requirements:
+    _permission: 'create activity content'
+  options:
+    parameters:
+      activity:
+        type: entity:node
