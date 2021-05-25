@@ -9,6 +9,8 @@
  * @see https://www.drupal.org/node/2217931
  */
 
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\node\Entity\Node;
 
 
@@ -21,5 +23,18 @@ function books_activity_node_presave($node) {
   if ($node->bundle() === 'activity') {
     $title = $node->get('field_book')->entity->get('title')->value;
     $node->set('title', $title);
+  }
+}
+
+/**
+ * Implements hook_entity_view_alter().
+ */
+/**
+ * Implements hook_entity_view_mode_alter().
+ */
+function books_activity_entity_view_mode_alter(&$view_mode, EntityInterface $entity, $context) {
+  if ($entity->bundle() === 'activity') {
+    $status = $entity->get('field_status')->entity->name->value;
+    $view_mode = strtolower($status);
   }
 }
