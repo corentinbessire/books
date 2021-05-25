@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.full
+    - core.entity_view_mode.node.timeline
     - node.type.activity
     - taxonomy.vocabulary.sta
   content:
@@ -65,7 +65,8 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: full
+          relationship: none
+          view_mode: timeline
       fields:
         title:
           id: title
