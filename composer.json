@@ -30,6 +30,7 @@
         "drupal/migrate_tools": "^5.0",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0@beta",
+        "drupal/require_login": "^2.4",
         "drupal/twig_vardumper": "^3.0",
         "drush/drush": "^10.3",
         "vlucas/phpdotenv": "^5.1",
