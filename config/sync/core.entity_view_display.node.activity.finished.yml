@@ -1,8 +1,9 @@
-uuid: 0ed9145a-7453-4597-8fef-379ec911b189
+uuid: cfe0d295-c5de-42d2-84a7-4e9fc61dbc09
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.finished
     - field.field.node.activity.field_book
     - field.field.node.activity.field_end_date
     - field.field.node.activity.field_start_date
@@ -11,10 +12,10 @@ dependencies:
   module:
     - datetime
     - user
-id: node.activity.default
+id: node.activity.finished
 targetEntityType: node
 bundle: activity
-mode: default
+mode: finished
 content:
   extra_field_book_cover:
     weight: 1

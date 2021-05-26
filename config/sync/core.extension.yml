@@ -10,6 +10,7 @@ module:
   datetime_range: 0
   dblog: 0
   dynamic_page_cache: 0
+  extra_field: 0
   field: 0
   field_ui: 0
   file: 0
@@ -28,6 +29,7 @@ module:
   page_cache: 0
   path: 0
   path_alias: 0
+  rabbit_hole: 0
   system: 0
   taxonomy: 0
   text: 0

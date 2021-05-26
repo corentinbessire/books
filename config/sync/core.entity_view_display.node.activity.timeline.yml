@@ -1,8 +1,9 @@
-uuid: 0ed9145a-7453-4597-8fef-379ec911b189
+uuid: e8836a8d-4224-403d-9520-2b0d84e0b56e
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.timeline
     - field.field.node.activity.field_book
     - field.field.node.activity.field_end_date
     - field.field.node.activity.field_start_date
@@ -11,10 +12,10 @@ dependencies:
   module:
     - datetime
     - user
-id: node.activity.default
+id: node.activity.timeline
 targetEntityType: node
 bundle: activity
-mode: default
+mode: timeline
 content:
   extra_field_book_cover:
     weight: 1

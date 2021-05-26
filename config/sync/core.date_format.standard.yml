@@ -1,0 +1,8 @@
+uuid: a94cccca-0fa0-448c-b31b-e2803ec8539c
+langcode: en
+status: true
+dependencies: {  }
+id: standard
+label: Standard
+locked: false
+pattern: 'd M Y'

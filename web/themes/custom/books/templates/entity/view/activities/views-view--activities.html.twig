@@ -1,0 +1,10 @@
+<div class="relative wrap overflow-scroll p-10 h-full">
+  {% if rows -%}
+    <div class="border-2-2 absolute border-opacity-20 border-gray-700 h-full border" style="left: 50%"></div>
+    {{ rows }}
+  {% elseif empty -%}
+    {{ empty }}
+  {% endif %}
+</div>
+
+
