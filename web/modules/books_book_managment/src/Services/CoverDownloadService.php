@@ -1,11 +1,7 @@
 <?php
 
-namespace Drupal\books_book_managment\Service;
+namespace Drupal\books_book_managment\Services;
 
-use Drupal\Core\Entity\EntityManagerInterface;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
-use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use GuzzleHttp\ClientInterface;
 
 /**
@@ -14,38 +10,19 @@ use GuzzleHttp\ClientInterface;
 class CoverDownloadService {
 
   /**
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-  /**
    * @var \GuzzleHttp\ClientInterface
    */
   private $httpClient;
 
-  /**
-   * @var \Drupal\Core\Logger\LoggerChannelInterface
-   */
-  private $logger;
 
   /**
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  private $fileSystem;
-
-  /**
-   * Constructs a CoverDownloadService object.
+   * CoverDownloadService constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \GuzzleHttp\ClientInterface $http_client
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory, FileSystemInterface $file_system) {
+  public function __construct(ClientInterface $http_client) {
     $this->httpClient = $http_client;
-    $this->logger = $loggerChannelFactory->get('CoverDownloadService');
-    $this->entityTypeManager = $entity_type_manager;
-    $this->fileSystem = $file_system;
   }
-
-
 
   /**
    * Method description.

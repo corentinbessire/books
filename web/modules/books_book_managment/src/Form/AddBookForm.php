@@ -87,12 +87,6 @@ class AddBookForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
 
-    \Drupal::service('books.cover_download')
-      ->getHachetteCover($isbn);
-    \Drupal::service('books.cover_download')
-      ->getMcMillanCover($isbn);
-
-    die();
     $isbn = $form_state->getValue('isbn');
     $ol_book_data = \Drupal::service('books.open_library')
       ->getBookData($isbn);

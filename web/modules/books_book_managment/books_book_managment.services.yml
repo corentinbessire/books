@@ -9,5 +9,5 @@ services:
     class: Drupal\books_book_managment\Services\BooksUtilsService
     arguments: ['@logger.factory', '@entity_type.manager', '@file_system']
   books.cover_download:
-    class: Drupal\books_book_managment\Service\CoverDownloadService
-    arguments: ['@entity_type.manager', '@http_client' , '@logger.factory', '@file_system']
+    class: Drupal\books_book_managment\Services\CoverDownloadService
+    arguments: ['@http_client']
