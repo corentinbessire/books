@@ -79,7 +79,7 @@ class AddBookForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
-    $nid = \Drupal::service('books.open_library')
+    $nid = \Drupal::service('books.google_books')
       ->getBookData($form_state->getValue('isbn'));
     if ($nid) {
       $this->messenger()->addStatus($this->t('Book has been created'));
