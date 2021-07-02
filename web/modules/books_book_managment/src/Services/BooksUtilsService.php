@@ -26,12 +26,6 @@ class BooksUtilsService {
    */
   protected $entityTypeManager;
 
-  /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
 
   /**
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -54,18 +48,15 @@ class BooksUtilsService {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
    *   The logger channel factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(LoggerChannelFactoryInterface $logger, EntityTypeManagerInterface $entity_type_manager, FileSystemInterface $file_system) {
+  public function __construct(LoggerChannelFactoryInterface $logger, EntityTypeManagerInterface $entity_type_manager) {
     $this->logger = $logger;
     $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
     $this->nodeStorage = $entity_type_manager->getStorage('node');
-    $this->fileSystem = $file_system;
   }
 
   /**
@@ -82,9 +73,9 @@ class BooksUtilsService {
       if ($book->hasField($fieldId)) {
         if ($this->vids[$fieldId]) {
           $fieldValue = $this->getTermByName($fieldValue, $this->vids[$fieldId]);
-          $fieldValue = (count($fieldValue) === 1 ) ? reset($fieldValue) : $fieldValue;
+          $fieldValue = (count($fieldValue) === 1) ? reset($fieldValue) : $fieldValue;
         }
-          $book->set($fieldId, $fieldValue);
+        $book->set($fieldId, $fieldValue);
       }
     }
     $book->save();
@@ -111,8 +102,8 @@ class BooksUtilsService {
    * Return an array of Term ID for given Names and Vocabularies.
    * If Terms doesn't exists, will create theme
    *
-   * @param array|string  $termNames  Array of Term Name to look for or Create
-   * @param string        $vid        Vocabulary ID in wich Terms are looked for in.
+   * @param array|string $termNames Array of Term Name to look for or Create
+   * @param string $vid Vocabulary ID in wich Terms are looked for in.
    *
    * @return array      Array of TID formated to be saved in Field.
    * @throws \Drupal\Core\Entity\EntityStorageException
