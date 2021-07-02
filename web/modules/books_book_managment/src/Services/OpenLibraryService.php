@@ -10,9 +10,9 @@ use GuzzleHttp\Exception\RequestException;
 
 
 /**
- * GoogleBooksService service.
+ * OpenLibraryService service.
  */
-class GoogleBooksService {
+class OpenLibraryService {
 
   /**
    * The HTTP client.
@@ -34,37 +34,39 @@ class GoogleBooksService {
    */
   public function __construct(ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory) {
     $this->httpClient = $http_client;
-    $this->logger = $loggerChannelFactory->get('GoogleBooksService');
+    $this->logger = $loggerChannelFactory->get('OpenLibraryService');
   }
 
   /**
    * Method description.
    */
   public function getBookData($isbn) {
-    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=AIzaSyD9AKjGv-hjic3m3LQgeUvOT5V-bKxKGyM';
+    $uri = 'https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:' . $isbn;
+    $request = $this->httpClient->request('GET', $uri);
+
     try {
       $request = $this->httpClient->request('GET', $uri);
-      $data = json_decode($request->getBody()->read(99999), TRUE);
+      $request->getBody();
+      $data = json_decode($request->getBody()->read(4096), TRUE);
     } catch (RequestException $e) {
       $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
     }
-
-    if ($data['totalItems'] === 0) {
+    if (!isset($data['ISBN:'. $isbn])) {
       $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
       return FALSE;
     }
-    $data = array_pop($data['items']);
+
+    $data = $data['ISBN:'. $isbn];
     dump($data);
-    $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
-
-
-    $book_data['title'] =  $data['volumeInfo']['title'];
-    $book_data['field_pages'] =  $data['volumeInfo']['pageCount'];
-    $book_data['field_authors'] = $data['volumeInfo']['authors'];
-    $book_data['field_publisher'] = $data['volumeInfo']['publisher'];
-    $book_data['field_excerpt'] = $data['volumeInfo']['description'];
+    $book_data['title'] =  $data['title'];
+    $book_data['field_pages'] =  $data['number_of_pages'];
+    foreach ($data['authors'] as $author) {
+      $book_data['field_authors'][] = $author['name'];
+    }
+    $data['publishers'] = reset($data['publishers']);
+    $book_data['field_publisher'] = $data['publishers']['name'];
     $book_data['field_isbn'] =  $isbn;
-    $book_data['field_release'] =  $release;
+    $book_data['field_release'] =  date('Y-m-d', strtotime($data['publish_date']));
     return $book_data;
   }
 

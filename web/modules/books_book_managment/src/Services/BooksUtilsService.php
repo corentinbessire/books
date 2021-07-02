@@ -43,6 +43,11 @@ class BooksUtilsService {
    */
   private $nodeStorage;
 
+  private $vids = [
+    'field_authors' => 'authors',
+    'field_publisher' => 'publishers',
+  ];
+
   /**
    * Constructs a BooksUtilsService object.
    *
@@ -75,9 +80,14 @@ class BooksUtilsService {
     $book = $this->getBook($isbn);
     foreach ($data as $fieldId => $fieldValue) {
       if ($book->hasField($fieldId)) {
-        $book->set($fieldId, $fieldValue);
+        if ($this->vids[$fieldId]) {
+          $fieldValue = $this->getTermByName($fieldValue, $this->vids[$fieldId]);
+          $fieldValue = (count($fieldValue) === 1 ) ? reset($fieldValue) : $fieldValue;
+        }
+          $book->set($fieldId, $fieldValue);
       }
     }
+    $book->save();
     return $book;
   }
 
@@ -101,18 +111,17 @@ class BooksUtilsService {
    * Return an array of Term ID for given Names and Vocabularies.
    * If Terms doesn't exists, will create theme
    *
-   * @param $termNames  Array of Term Name to look for or Create
-   * @param $vid        Vocabulary ID in wich Terms are looked for in.
+   * @param array|string  $termNames  Array of Term Name to look for or Create
+   * @param string        $vid        Vocabulary ID in wich Terms are looked for in.
    *
    * @return array      Array of TID formated to be saved in Field.
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function getTermByName($termNames, $vid): array {
+  public function getTermByName($termNames, string $vid): array {
     if (!is_array($termNames)) {
       $termNames = [$termNames];
     }
     foreach ($termNames as $termName) {
-
       $result = $this->termStorage->getQuery()
         ->condition('vid', $vid)
         ->condition('name', $termName)
@@ -120,8 +129,8 @@ class BooksUtilsService {
       if (empty($result)) {
         $term = $this->termStorage->create([
           'vid' => $vid,
-          'name' => $termName,
         ]);
+        $term->set('name', $termName);
         $term->save();
         $target['target_id'][] = $term->id();
       }
