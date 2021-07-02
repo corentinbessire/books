@@ -54,7 +54,6 @@ class GoogleBooksService {
       return FALSE;
     }
     $data = array_pop($data['items']);
-    dump($data);
     $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
 
 
@@ -65,6 +64,7 @@ class GoogleBooksService {
     $book_data['field_excerpt'] = $data['volumeInfo']['description'];
     $book_data['field_isbn'] =  $isbn;
     $book_data['field_release'] =  $release;
+
     return $book_data;
   }
 
