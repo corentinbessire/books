@@ -86,14 +86,21 @@ class AddBookForm extends FormBase {
    * {@inheritdoc}
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
+
     $isbn = $form_state->getValue('isbn');
     $ol_book_data = \Drupal::service('books.open_library')
       ->getBookData($isbn);
     $gb_book_data = \Drupal::service('books.google_books')
       ->getBookData($isbn);
+
+
     $book_data = $this->mergeBookData($ol_book_data, $gb_book_data);
 
     if ($book_data) {
+      $cover = \Drupal::service('books.cover_download')->downloadBookCover($isbn);
+      if ($cover) {
+        $book_data['field_cover'] = $cover;
+      }
       $book = \Drupal::service('books.books_utils')
         ->saveBookData($isbn, $book_data);
 

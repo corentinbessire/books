@@ -53,7 +53,7 @@ class OpenLibraryService {
     }
     if (!isset($data['ISBN:'. $isbn])) {
       $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
-      return FALSE;
+      return [];
     }
 
     $data = $data['ISBN:'. $isbn];

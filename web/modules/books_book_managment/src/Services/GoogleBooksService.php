@@ -51,7 +51,7 @@ class GoogleBooksService {
 
     if ($data['totalItems'] === 0) {
       $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
-      return FALSE;
+      return [];
     }
     $data = array_pop($data['items']);
     $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));

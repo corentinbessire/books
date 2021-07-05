@@ -6,6 +6,7 @@ use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\taxonomy\TermInterface;
 
 /**
  * BooksUtilsService service.
@@ -26,12 +27,6 @@ class BooksUtilsService {
    */
   protected $entityTypeManager;
 
-  /**
-   * The file system service.
-   *
-   * @var \Drupal\Core\File\FileSystemInterface
-   */
-  protected $fileSystem;
 
   /**
    * @var \Drupal\Core\Entity\EntityStorageInterface
@@ -54,18 +49,15 @@ class BooksUtilsService {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
    *   The logger channel factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
-   *   The entity type manager.
-   * @param \Drupal\Core\File\FileSystemInterface $file_system
    *   The file system service.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(LoggerChannelFactoryInterface $logger, EntityTypeManagerInterface $entity_type_manager, FileSystemInterface $file_system) {
+  public function __construct(LoggerChannelFactoryInterface $logger, EntityTypeManagerInterface $entity_type_manager) {
     $this->logger = $logger;
     $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
     $this->nodeStorage = $entity_type_manager->getStorage('node');
-    $this->fileSystem = $file_system;
   }
 
   /**
@@ -78,19 +70,43 @@ class BooksUtilsService {
    */
   public function saveBookData(string $isbn, array $data): EntityInterface {
     $book = $this->getBook($isbn);
-    foreach ($data as $fieldId => $fieldValue) {
-      if ($book->hasField($fieldId)) {
-        if ($this->vids[$fieldId]) {
-          $fieldValue = $this->getTermByName($fieldValue, $this->vids[$fieldId]);
-          $fieldValue = (count($fieldValue) === 1 ) ? reset($fieldValue) : $fieldValue;
-        }
-          $book->set($fieldId, $fieldValue);
-      }
+    if (isset($data['title'])) {
+      $book->setTitle($data['title']);
     }
+    else {
+      $book->setTitle($isbn);
+    }
+    if($data['field_pages']) {
+      $book->set('field_pages', $data['field_pages']);
+    }
+    if($data['field_isbn']) {
+      $book->set('field_isbn', $data['field_isbn']);
+    }
+    if($data['field_release']) {
+      $book->set('field_release', $data['field_release']);
+    }
+    if($data['field_excerpt']) {
+      $book->set('field_excerpt', $data['field_excerpt']);
+    }
+    if ($data['field_cover']) {
+      $book->set('field_cover', $data['field_cover']);
+    }
+
+    if($data['field_publisher']) {
+      $publisher = $this->getTermByName($data['field_publisher'], 'publisher');
+      $book->set('field_publisher', $publisher);
+    }
+    if($data['field_authors']) {
+      $authors = [];
+      foreach ($data['field_authors'] as $author) {
+        $authors[]['target_id'] = $this->getTermByName($author, 'author')->id();
+      }
+      $book->set('field_authors', $authors);
+    }
+
     $book->save();
     return $book;
   }
-
 
   /**
    *  Return existing Node Book with given ISBN or create new entity.
@@ -107,38 +123,33 @@ class BooksUtilsService {
     return $this->nodeStorage->create(['type' => 'book']);
   }
 
+
   /**
-   * Return an array of Term ID for given Names and Vocabularies.
-   * If Terms doesn't exists, will create theme
+   * @param $termName
+   * @param string $vid
    *
-   * @param array|string  $termNames  Array of Term Name to look for or Create
-   * @param string        $vid        Vocabulary ID in wich Terms are looked for in.
-   *
-   * @return array      Array of TID formated to be saved in Field.
+   * @return \Drupal\taxonomy\TermInterface|null
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function getTermByName($termNames, string $vid): array {
-    if (!is_array($termNames)) {
-      $termNames = [$termNames];
+  public function getTermByName($termName, string $vid): ?TermInterface {
+    if (!$termName) {
+      return NULL;
     }
-    foreach ($termNames as $termName) {
-      $result = $this->termStorage->getQuery()
-        ->condition('vid', $vid)
-        ->condition('name', $termName)
-        ->execute();
-      if (empty($result)) {
-        $term = $this->termStorage->create([
-          'vid' => $vid,
-        ]);
-        $term->set('name', $termName);
-        $term->save();
-        $target['target_id'][] = $term->id();
-      }
-      else {
-        $target[]['target_id'] = array_pop($result);
-      }
+    $result = $this->termStorage->getQuery()
+      ->condition('vid', $vid)
+      ->condition('name', $termName)
+      ->execute();
+    if (empty($result)) {
+      $term = $this->termStorage->create([
+        'vid' => $vid,
+      ]);
+      $term->set('name', $termName);
+      $term->save();
     }
-    return $target;
+    else {
+      $term = $this->termStorage->load(reset($result));
+    }
+    return $term;
   }
 
 }
