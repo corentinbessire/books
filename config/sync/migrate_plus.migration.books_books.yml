@@ -1,9 +1,9 @@
-uuid: 83ba68bd-4dd7-4753-aef5-e90f64184d9e
+uuid: 22d2fdd2-2690-4d44-b48f-c924d404106c
 langcode: en
 status: true
 dependencies: {  }
 _core:
-  default_config_hash: xwnERVpQKe2qAHDo50sG7j9FnsGqJKukO9x8eiQNguw
+  default_config_hash: FNVtv_mR31xjnooIxlhfXx6ZFrtNKaWuSeazkbF81jI
 id: books_books
 class: null
 field_plugin_method: null
@@ -16,8 +16,11 @@ source:
   plugin: csv
   path: 'public://import/books.csv'
   ids:
-    - sid
+    - bid
   fields:
+    -
+      name: bid
+      label: bid
     -
       name: author
       label: author

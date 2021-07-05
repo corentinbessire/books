@@ -1,0 +1,22 @@
+uuid: 6101a903-c8c5-4e68-b49e-069ae4dbd65b
+langcode: en
+status: true
+dependencies:
+  theme:
+    - books
+_core:
+  default_config_hash: V7GM1m6Qh500cQE7LWZV8lRuwLqXdjR0S2kSk8pEv6g
+id: books_secondary_local_tasks
+theme: books
+region: highlighted
+weight: -2
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Secondary tabs'
+  provider: core
+  label_display: '0'
+  primary: false
+  secondary: true
+visibility: {  }

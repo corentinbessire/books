@@ -1,0 +1,30 @@
+uuid: 91969b67-76f4-4554-94f3-5397eb0ed062
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_library
+    - field.field.media.book_cover.field_media_image
+    - image.style.medium
+    - media.type.book_cover
+  module:
+    - image
+id: media.book_cover.media_library
+targetEntityType: media
+bundle: book_cover
+mode: media_library
+content:
+  thumbnail:
+    type: image
+    label: hidden
+    settings:
+      image_style: medium
+      image_link: ''
+    weight: 0
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  field_media_image: true
+  name: true
+  uid: true

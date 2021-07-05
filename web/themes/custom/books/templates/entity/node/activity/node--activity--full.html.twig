@@ -1,0 +1,12 @@
+<div class="mb-8 flex justify-between items-center w-full">
+  <div class="bg-gray-400 rounded-lg shadow-xl w-5/12 px-6 py-4">
+    <div class="w-1/4">
+      {{ content.extra_field_book_cover }}
+    </div>
+    <div class="m-4">
+      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+      <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+      {{ content.field_book }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,27 @@
+uuid: db69b7d4-7347-4ddf-9e24-d5949e702d34
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - books
+_core:
+  default_config_hash: _uH7wnTwQN9LR9emIpwucAsiGiqgy6xNxBzEjrhF4SM
+id: books_main_menu
+theme: books
+region: primary_menu
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 2
+  expand_all_items: true
+visibility: {  }

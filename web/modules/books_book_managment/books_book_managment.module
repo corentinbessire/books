@@ -18,3 +18,4 @@ function books_book_managment_entity_bundle_field_info_alter(&$fields, EntityTyp
     }
   }
 }
+

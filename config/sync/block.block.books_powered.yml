@@ -1,0 +1,22 @@
+uuid: 0c446db5-f28c-40a8-ad5b-8b1135b05213
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - books
+_core:
+  default_config_hash: 5kL_iZM_xia3Z8bgsyiZgQphxMGhI8gt2HYo8r5Z7OE
+id: books_powered
+theme: books
+region: sidebar_first
+weight: 0
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  provider: system
+  label_display: '0'
+visibility: {  }

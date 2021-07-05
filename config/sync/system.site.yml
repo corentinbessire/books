@@ -1,11 +1,11 @@
 uuid: 6f51d33e-5f11-40ed-908d-3a105fba2236
-name: 'Drush Site-Install'
+name: 'My Library'
 mail: admin@example.com
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /user/login
+  front: /books
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en
