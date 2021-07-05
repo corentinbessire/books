@@ -12,8 +12,8 @@ _core:
   default_config_hash: _uH7wnTwQN9LR9emIpwucAsiGiqgy6xNxBzEjrhF4SM
 id: books_main_menu
 theme: books
-region: primary_menu
-weight: 0
+region: header
+weight: -4
 provider: null
 plugin: 'system_menu_block:main'
 settings:

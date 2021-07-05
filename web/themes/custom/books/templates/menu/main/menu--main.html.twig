@@ -1,0 +1,29 @@
+
+{% set classes =  [
+  'p-2',
+  'lg:px-4',
+  'md:mx-2',
+  'text-gray-600',
+  'rounded',
+  'hover:bg-gray-200',
+  'hover:text-gray-700',
+  'transition-colors',
+  'duration-300',
+] %}
+{% set active_classes =  [
+  'p-2',
+  'lg:px-4',
+  'md:mx-2',
+  'rounded',
+  'text-white',
+  'bg-indigo-600',
+] %}
+{% if items %}
+  {% for item in items %}
+    {% if item.in_active_trail == true %}
+      {{ link(item.title, item.url, {'class' : active_classes}) }}
+    {% else %}
+      {{ link(item.title, item.url, {'class' : classes}) }}
+    {% endif %}
+  {% endfor %}
+{% endif %}
