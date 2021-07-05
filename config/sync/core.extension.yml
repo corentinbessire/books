@@ -19,9 +19,12 @@ module:
   image: 0
   image_class: 0
   isbn: 0
+  link: 0
   media: 0
   media_image_display_entity_view: 0
   media_library: 0
+  menu_link_content: 0
+  menu_ui: 0
   migrate: 0
   migrate_plus: 0
   migrate_source_csv: 0
