@@ -92,9 +92,15 @@ class AddBookForm extends FormBase {
       ->getBookData($isbn);
     $gb_book_data = \Drupal::service('books.google_books')
       ->getBookData($isbn);
+
+
     $book_data = $this->mergeBookData($ol_book_data, $gb_book_data);
 
     if ($book_data) {
+      $cover = \Drupal::service('books.cover_download')->downloadBookCover($isbn);
+      if ($cover) {
+        $book_data['field_book_cover'] = $cover;
+      }
       $book = \Drupal::service('books.books_utils')
         ->saveBookData($isbn, $book_data);
 
