@@ -46,7 +46,7 @@ class CoverDownloadService {
     if (!$media = $this->getMediaByIsbn($isbn)) {
 
       foreach ($sources as $source) {
-        $image = $this->getBookCover($source);
+        $image = $this->getBookCover($source, $isbn);
         if ($image) {
           break;
         }
@@ -67,10 +67,11 @@ class CoverDownloadService {
     return [
       'https://hachette.imgix.net/books/' . $isbn . '.jpg',
       'https://images.macmillan.com/folio-assets/macmillan_us_frontbookcovers_1000H/' . $isbn . '.jpg',
+      'https://images2.penguinrandomhouse.com/cover/700jpg/' . $isbn,
     ];
   }
 
-  private function getBookCover(string $url): ?EntityInterface {
+  private function getBookCover(string $url, $isbn): ?EntityInterface {
     try {
       $request = $this->httpClient->request('GET', $url);
     } catch (RequestException $e) {
@@ -79,7 +80,8 @@ class CoverDownloadService {
     if (!$request) {
       return NULL;
     }
-    return system_retrieve_file($url, 'public://book-cover/', TRUE, 1);
+
+    return system_retrieve_file($url, 'public://book-cover/' . $isbn . '.jpg', TRUE, 1);
   }
 
   private function createMedia(?EntityInterface $image, string $isbn) {
