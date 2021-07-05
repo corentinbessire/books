@@ -88,6 +88,9 @@ class BooksUtilsService {
     if($data['field_excerpt']) {
       $book->set('field_excerpt', $data['field_excerpt']);
     }
+    if ($data['field_cover']) {
+      $book->set('field_cover', $data['field_cover']);
+    }
 
     if($data['field_publisher']) {
       $publisher = $this->getTermByName($data['field_publisher'], 'publisher');

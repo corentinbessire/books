@@ -43,12 +43,20 @@ class CoverDownloadService {
   public function downloadBookCover(string $isbn) {
     $sources = $this->buildSourceArray($isbn);
 
-    foreach ($sources as $source) {
-      $image = $this->getBookCover($source);
-      if ($image) break;
+    if (!$media = $this->getMediaByIsbn($isbn)) {
+
+      foreach ($sources as $source) {
+        $image = $this->getBookCover($source);
+        if ($image) {
+          break;
+        }
+      }
+
+      if (!$image) {
+        return FALSE;
+      }
+      $media = $this->createMedia($image, $isbn);
     }
-    if (!$image) return FALSE;
-    $media = $this->createMedia($image, $isbn);
     return $media;
   }
 
@@ -68,8 +76,10 @@ class CoverDownloadService {
     } catch (RequestException $e) {
       $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
     }
-    if (!$request) return NULL;
-    return system_retrieve_file($url, 'public://book-cover/',TRUE, 1);
+    if (!$request) {
+      return NULL;
+    }
+    return system_retrieve_file($url, 'public://book-cover/', TRUE, 1);
   }
 
   private function createMedia(?EntityInterface $image, string $isbn) {
@@ -78,6 +88,13 @@ class CoverDownloadService {
     $media->set('field_media_image', $image);
     $media->save();
     return $media;
+  }
+
+  private function getMediaByIsbn(string $isbn) {
+    $result = $this->mediaStorage->getQuery()
+      ->condition('name', '$isbn')
+      ->execute();
+    return (empty($result)) ? FALSE : $this->mediaStorage->load(reset($result));
   }
 
 }

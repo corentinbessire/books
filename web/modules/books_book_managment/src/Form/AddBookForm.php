@@ -99,7 +99,7 @@ class AddBookForm extends FormBase {
     if ($book_data) {
       $cover = \Drupal::service('books.cover_download')->downloadBookCover($isbn);
       if ($cover) {
-        $book_data['field_book_cover'] = $cover;
+        $book_data['field_cover'] = $cover;
       }
       $book = \Drupal::service('books.books_utils')
         ->saveBookData($isbn, $book_data);
