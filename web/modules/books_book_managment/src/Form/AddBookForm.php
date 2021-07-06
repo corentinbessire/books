@@ -22,25 +22,15 @@ class AddBookForm extends FormBase {
    * {@inheritdoc}
    */
   public function buildForm(array $form, FormStateInterface $form_state) {
-
-
-
-    $form['wrapper'] = [
-      '#type' => 'container',
-    ];
-
-    $form['wrapper']['isbn'] = [
+    $form['isbn'] = [
       '#type' => 'textfield',
       '#title' => $this->t('ISBN'),
       '#required' => TRUE,
     ];
 
-    $form['wrapper']['actions'] = [
-      '#type' => 'actions',
-    ];
-    $form['wrapper']['actions']['submit'] = [
+    $form['submit'] = [
       '#type' => 'submit',
-      '#value' => $this->t('Add'),
+      '#value' => $this->t('Add book'),
     ];
 
     return $form;
