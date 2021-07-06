@@ -1,0 +1,105 @@
+<?php
+
+use Drupal\Core\Form\FormStateInterface;
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function books_form_user_login_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $class = [
+    'p-10',
+    'bg-white',
+    'rounded',
+    'flex',
+    'justify-center',
+    'items-center',
+    'flex-col',
+    'shadow-md',
+  ];
+  $form['#attributes']['class'] = array_merge($form['#attributes']['class'], $class);
+
+  $form['name']['#description_display'] = 'invisible';
+  $form['name']['#attributes']['class'] = [
+    'mb-5',
+    'p-3',
+    'w-80',
+    'focus:border-purple-700',
+    'rounded',
+    'border-2',
+    'outline-none',
+  ];
+  $form['name']['#attributes']['placeholder'] = $form['name']['#title'];
+  $form['name']['#title_display'] = 'invisible';
+
+  $form['pass']['#description_display'] = 'invisible';
+  $form['pass']['#attributes']['class'] = [
+    'mb-5',
+    'p-3',
+    'w-80',
+    'focus:border-purple-700',
+    'rounded',
+    'border-2',
+    'outline-none',
+  ];
+  $form['pass']['#attributes']['placeholder'] = $form['pass']['#title'];
+  $form['pass']['#title_display'] = 'invisible';
+
+  $form['actions']['submit']['#attributes']['class'] = [
+    'bg-purple-600',
+    'hover:bg-purple-900',
+    'text-white',
+    'font-bold',
+    'p-2',
+    'rounded',
+    'w-80',
+  ];
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function books_form_add_book_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  $class = [
+    'w-full',
+    'bg-white',
+    'rounded',
+    'flex',
+    'justify-center',
+    'items-center',
+    'flex-col',
+    'shadow-md',
+  ];
+  $form['#attributes']['class'] = array_merge($form['#attributes']['class'], $class);
+
+  $form['wrapper']['#attributes'] = [
+    'class' => [
+      'flex',
+      'flex-wrap',
+      '-mx-3',
+      'mb-6',
+    ],
+  ];
+
+  $form['wrapper']['actions']['submit']['#attributes'] = [
+    'class' => [
+      'shadow',
+      'bg-purple-500',
+      'hover:bg-purple-400',
+      'focus:shadow-outline',
+      'focus:outline-none',
+      'text-white',
+      'font-bold',
+      'py-2',
+      'px-4',
+      'rounded',
+    ],
+  ];
+
+}
+
+function books_theme_suggestions_alter(array &$suggestions, array $variables, $hook) {
+
+  if ($hook == 'form' & !empty($variables['element']['#id'])) {
+    $suggestions[] = 'form__' . str_replace('-', '_', $variables['element']['#id']);
+  }
+}
