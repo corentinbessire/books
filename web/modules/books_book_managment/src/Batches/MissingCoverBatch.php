@@ -5,7 +5,7 @@ namespace Drupal\books_book_managment\Batches;
 
 class MissingCoverBatch {
 
-  public function missingCoverBatchProcess($id, $total, $operation_details, &$context) {
+  public static function missingCoverBatchProcess($id, $total, $operation_details, &$context) {
     $number = count($context['results']);
     $context['results'][] = $id;
     // Optional message displayed under the progressbar.
@@ -34,7 +34,7 @@ class MissingCoverBatch {
     }
   }
 
-  public function missingCoverBatchFinished($success, array $results, array $operations) {
+  public static function missingCoverBatchFinished($success, array $results, array $operations) {
     $messenger = \Drupal::messenger();
     if ($success) {
       $failure = count($results['failure']);
