@@ -1,0 +1,7 @@
+services:
+  books_book_managment.commands:
+    class: \Drupal\books_book_managment\Commands\BooksBookManagmentCommands
+    tags:
+      - { name: drush.command }
+    arguments: [ '@books.books_utils' ]
+

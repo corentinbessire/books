@@ -1,15 +1,19 @@
-{% if page.header %}
-  {{ page.header }}
-{% endif %}
-{% if page.highlighted %}
-  {{ page.highlighted }}
-{% endif %}
-{% if page.breadcrumb %}
-  {{ page.breadcrumb }}
-{% endif %}
-{% if page.content %}
-  {{ page.content }}
-{% endif %}
-{% if page.footer %}
-  {{ page.footer }}
-{% endif %}
+<div class="w-full xl:max-w-screen-xl mx-auto">
+  {% if page.header %}
+    {{ page.header }}
+  {% endif %}
+  {% if page.highlighted %}
+    {{ page.highlighted }}
+  {% endif %}
+  {% if page.breadcrumb %}
+    {{ page.breadcrumb }}
+  {% endif %}
+  {% if page.content %}
+    <main class="main flex flex-col flex-grow transition-all duration-150 ease-in">
+      {{ page.content }}
+    </main>
+  {% endif %}
+  {% if page.footer %}
+    {{ page.footer }}
+  {% endif %}
+</div>

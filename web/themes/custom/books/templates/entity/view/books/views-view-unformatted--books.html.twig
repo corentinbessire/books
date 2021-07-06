@@ -20,7 +20,7 @@
 {% if title %}
   <h3>{{ title }}</h3>
 {% endif %}
-<div class="flex-col rounded mt-4 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-6">
+<div class="flex-col rounded mt-4 grid grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
   {% for row in rows %}
     {{- row.content -}}
   {% endfor %}
