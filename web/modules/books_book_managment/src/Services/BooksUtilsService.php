@@ -152,4 +152,11 @@ class BooksUtilsService {
     return $term;
   }
 
+  public function getBooksMissingCover(): array {
+    $nids = $this->nodeStorage->getQuery()
+      ->condition('type', 'book')
+      ->notExists('field_cover')
+      ->execute();
+    return $nids;
+  }
 }
