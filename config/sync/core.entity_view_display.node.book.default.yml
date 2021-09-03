@@ -37,20 +37,20 @@ content:
     weight: 109
     label: hidden
     settings:
-      view_mode: default
+      view_mode: full
       link: false
     third_party_settings: {  }
     region: content
   field_excerpt:
     weight: 111
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     type: text_default
     region: content
   field_genres:
     weight: 106
-    label: hidden
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -58,14 +58,14 @@ content:
     region: content
   field_isbn:
     weight: 102
-    label: hidden
+    label: inline
     settings: {  }
     third_party_settings: {  }
-    type: isbn_default
+    type: isbn_formatted_formatter
     region: content
   field_pages:
     weight: 108
-    label: hidden
+    label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
@@ -74,7 +74,7 @@ content:
     region: content
   field_publisher:
     weight: 110
-    label: hidden
+    label: inline
     settings:
       link: true
     third_party_settings: {  }
@@ -82,10 +82,10 @@ content:
     region: content
   field_release:
     weight: 107
-    label: hidden
+    label: inline
     settings:
-      format_type: medium
       timezone_override: ''
+      format_type: standard
     third_party_settings: {  }
     type: datetime_default
     region: content
