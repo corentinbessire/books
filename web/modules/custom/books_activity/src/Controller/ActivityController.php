@@ -63,8 +63,7 @@ class ActivityController extends ControllerBase {
   }
 
   public function new(string $isbn) {
-    return ['#markup' => $isbn];
-    /*
+
     if ($this->isbnToolsService->isValidIsbn($isbn)) {
 
       if ($book = $this->booksUtilsService->getBook($isbn)) {
@@ -94,7 +93,7 @@ class ActivityController extends ControllerBase {
       }
       return $this->redirect($url);
     }
-    */
+
   }
 
   /**
