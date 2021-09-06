@@ -13,7 +13,7 @@
     <div class="lg:w2/3 w-full p-4">{{ content.field_excerpt }}</div>
   </div>
   <div id="book-actions" class="py-4">
-    <a href='#' class="w-1/3 flex mx-auto items-center justify-center rounded-md bg-purple-500 text-white" type="submit">Start
+    <a href='{{ url('books_activity.new', {'isbn': node.field_isbn.value}) }}' class="w-1/3 flex mx-auto items-center justify-center rounded-md bg-purple-500 text-white" type="submit">Start
     Reading</A>
   </div>
   <div id="book-technical" class="py-4">

@@ -76,27 +76,27 @@ class BooksUtilsService {
     else {
       $book->setTitle($isbn);
     }
-    if($data['field_pages']) {
+    if ($data['field_pages']) {
       $book->set('field_pages', $data['field_pages']);
     }
-    if($data['field_isbn']) {
+    if ($data['field_isbn']) {
       $book->set('field_isbn', $data['field_isbn']);
     }
-    if($data['field_release']) {
+    if ($data['field_release']) {
       $book->set('field_release', $data['field_release']);
     }
-    if($data['field_excerpt']) {
+    if ($data['field_excerpt']) {
       $book->set('field_excerpt', $data['field_excerpt']);
     }
     if ($data['field_cover']) {
       $book->set('field_cover', $data['field_cover']);
     }
 
-    if($data['field_publisher']) {
+    if ($data['field_publisher']) {
       $publisher = $this->getTermByName($data['field_publisher'], 'publisher');
       $book->set('field_publisher', $publisher);
     }
-    if($data['field_authors']) {
+    if ($data['field_authors']) {
       $authors = [];
       foreach ($data['field_authors'] as $author) {
         $authors[]['target_id'] = $this->getTermByName($author, 'author')->id();
@@ -112,15 +112,23 @@ class BooksUtilsService {
    *  Return existing Node Book with given ISBN or create new entity.
    *
    * @param string $isbn ISBN-13 Value
+   * @param bool $create
    *
-   * @return \Drupal\Core\Entity\EntityInterface
+   * @return \Drupal\Core\Entity\EntityInterface|null
    */
-  public function getBook(string $isbn): EntityInterface {
+  public function getBook(string $isbn, bool $create = TRUE): ?EntityInterface {
     $books = $this->nodeStorage->loadByProperties(['field_isbn' => $isbn]);
     if (!empty($books)) {
       return end($books);
     }
-    return $this->nodeStorage->create(['type' => 'book']);
+    else {
+      if ($create) {
+        return $this->nodeStorage->create(['type' => 'book']);
+      }
+      else {
+        return NULL;
+      }
+    }
   }
 
 
@@ -159,4 +167,5 @@ class BooksUtilsService {
       ->execute();
     return $nids;
   }
+
 }
