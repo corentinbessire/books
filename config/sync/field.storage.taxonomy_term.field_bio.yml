@@ -1,0 +1,19 @@
+uuid: bddcd47a-c9a3-4589-b770-b4ecd0fb0a6d
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - text
+id: taxonomy_term.field_bio
+field_name: field_bio
+entity_type: taxonomy_term
+type: text_long
+settings: {  }
+module: text
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

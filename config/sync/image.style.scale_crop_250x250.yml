@@ -1,0 +1,15 @@
+uuid: b5501b8f-5c43-4e56-a6d0-3bdc53ee8770
+langcode: en
+status: true
+dependencies: {  }
+name: scale_crop_250x250
+label: 'Scale&crop - 250x250'
+effects:
+  08c6e19b-26d1-4578-9ed1-7d80a23cf9d4:
+    uuid: 08c6e19b-26d1-4578-9ed1-7d80a23cf9d4
+    id: image_scale_and_crop
+    weight: 1
+    data:
+      width: 250
+      height: 250
+      anchor: center-center

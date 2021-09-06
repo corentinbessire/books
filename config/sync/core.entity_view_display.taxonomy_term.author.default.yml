@@ -1,0 +1,39 @@
+uuid: 7363f081-3d25-4cd8-9dbb-8f3aa00f2030
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.author.field_bio
+    - field.field.taxonomy_term.author.field_image
+    - taxonomy.vocabulary.author
+  module:
+    - text
+id: taxonomy_term.author.default
+targetEntityType: taxonomy_term
+bundle: author
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_bio:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+  field_image:
+    type: entity_reference_entity_view
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: avatar
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

@@ -1,0 +1,21 @@
+uuid: 6e05125b-f80e-4cb2-b177-2faf839811cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_bio
+    - taxonomy.vocabulary.author
+  module:
+    - text
+id: taxonomy_term.author.field_bio
+field_name: field_bio
+entity_type: taxonomy_term
+bundle: author
+label: Biography
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

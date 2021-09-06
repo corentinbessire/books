@@ -1,0 +1,13 @@
+  {% if header %}
+    <header>
+      {{ header }}
+    </header>
+  {% endif %}
+<div class="main-content flex flex-col flex-grow p-4">
+  {% if rows -%}
+    {{ rows }}
+  {% elseif empty -%}
+    {{ empty }}
+  {% endif %}
+  {{ pager }}
+</div>
