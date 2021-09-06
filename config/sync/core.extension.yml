@@ -1,4 +1,5 @@
 module:
+  require_login: -1000
   admin_toolbar: 0
   block: 0
   books_activity: 0
