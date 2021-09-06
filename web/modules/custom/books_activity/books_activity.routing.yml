@@ -3,8 +3,8 @@ books_activity.new:
   defaults:
     _title: 'Start book'
     _controller: '\Drupal\books_activity\Controller\ActivityController::new'
-  requirements:
-    _permission: 'create activity content'
+#  requirements:
+#    _permission: 'create activity content'
 books_activity.finish:
   path: 'activity/{activity}/finish'
   defaults:
