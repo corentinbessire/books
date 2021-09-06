@@ -14,4 +14,6 @@ permissions:
   - 'create book content'
   - 'edit any activity content'
   - 'edit any book content'
+  - 'edit own activity content'
+  - 'edit own book content'
   - 'view media'
