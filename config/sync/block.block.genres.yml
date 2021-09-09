@@ -1,0 +1,28 @@
+uuid: dfc0c9a6-3eb8-4e1d-8f6a-555eea8e62fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.genres
+  module:
+    - facets
+    - system
+  theme:
+    - books
+id: genres
+theme: books
+region: filters
+weight: 0
+provider: null
+plugin: 'facet_block:genres'
+settings:
+  id: 'facet_block:genres'
+  label: Genres
+  provider: facets
+  label_display: '0'
+  block_id: genres
+visibility:
+  request_path:
+    id: request_path
+    pages: /facetted-search
+    negate: false

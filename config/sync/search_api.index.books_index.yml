@@ -1,0 +1,198 @@
+uuid: 8961cb08-fe4f-49a9-84e1-11778690c9b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_authors
+    - field.storage.node.field_genres
+    - field.storage.node.field_isbn
+    - field.storage.node.field_pages
+    - field.storage.node.field_publisher
+    - field.storage.node.field_release
+    - field.storage.node.field_serie
+    - search_api.server.book
+  module:
+    - taxonomy
+    - node
+    - search_api
+id: books_index
+name: 'Books Index'
+description: ''
+read_only: false
+field_settings:
+  authors:
+    label: 'Authors » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_authors:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_authors
+      module:
+        - taxonomy
+  genre:
+    label: 'Genres » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_genres:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_genres
+      module:
+        - taxonomy
+  isbn:
+    label: ISBN
+    datasource_id: 'entity:node'
+    property_path: field_isbn
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_isbn
+  pages:
+    label: Pages
+    datasource_id: 'entity:node'
+    property_path: field_pages
+    type: integer
+    dependencies:
+      config:
+        - field.storage.node.field_pages
+  publisher:
+    label: 'Publisher » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_publisher:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_publisher
+      module:
+        - taxonomy
+  release_date:
+    label: Release
+    datasource_id: 'entity:node'
+    property_path: field_release
+    type: date
+    dependencies:
+      config:
+        - field.storage.node.field_release
+  serie:
+    label: 'Serie » Taxonomy term » Name'
+    datasource_id: 'entity:node'
+    property_path: 'field_serie:entity:name'
+    type: string
+    dependencies:
+      config:
+        - field.storage.node.field_serie
+      module:
+        - taxonomy
+  title:
+    label: Title
+    datasource_id: 'entity:node'
+    property_path: title
+    type: text
+    boost: !!float 3
+    dependencies:
+      module:
+        - node
+datasource_settings:
+  'entity:node':
+    bundles:
+      default: false
+      selected:
+        - book
+    languages:
+      default: true
+      selected: {  }
+processor_settings:
+  add_url: {  }
+  aggregated_field: {  }
+  ignorecase:
+    all_fields: false
+    fields:
+      - title
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+  language_with_fallback: {  }
+  rendered_item: {  }
+  stemmer:
+    all_fields: false
+    fields:
+      - title
+    exceptions:
+      mexican: mexic
+      texan: texa
+    weights:
+      preprocess_index: 0
+      preprocess_query: 0
+  stopwords:
+    all_fields: false
+    fields:
+      - title
+    stopwords:
+      - a
+      - an
+      - and
+      - are
+      - as
+      - at
+      - be
+      - but
+      - by
+      - for
+      - if
+      - in
+      - into
+      - is
+      - it
+      - 'no'
+      - not
+      - of
+      - 'on'
+      - or
+      - s
+      - such
+      - t
+      - that
+      - the
+      - their
+      - then
+      - there
+      - these
+      - they
+      - this
+      - to
+      - was
+      - will
+      - with
+    weights:
+      preprocess_index: -5
+      preprocess_query: -2
+  tokenizer:
+    all_fields: false
+    fields:
+      - title
+    ignored: ._-
+    spaces: ''
+    overlap_cjk: 1
+    minimum_word_size: '3'
+    weights:
+      preprocess_index: -6
+      preprocess_query: -6
+  transliteration:
+    all_fields: false
+    fields:
+      - genre
+      - isbn
+      - publisher
+      - serie
+      - title
+    weights:
+      preprocess_index: -20
+      preprocess_query: -20
+tracker_settings:
+  default:
+    indexing_order: fifo
+options:
+  index_directly: true
+  cron_limit: 50
+server: book

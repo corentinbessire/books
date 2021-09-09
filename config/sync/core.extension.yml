@@ -1,5 +1,6 @@
 module:
   admin_toolbar: 0
+  alpinejs: 0
   automated_cron: 0
   block: 0
   books_activity: 0
@@ -12,6 +13,7 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   extra_field: 0
+  facets: 0
   field: 0
   field_ui: 0
   file: 0
@@ -34,6 +36,8 @@ module:
   path: 0
   path_alias: 0
   rabbit_hole: 0
+  search_api: 0
+  search_api_db: 0
   system: 0
   taxonomy: 0
   text: 0

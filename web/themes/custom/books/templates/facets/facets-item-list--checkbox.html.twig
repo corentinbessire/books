@@ -1,0 +1,63 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a facets item list.
+ *
+ * Available variables:
+ * - items: A list of items. Each item contains:
+ *   - attributes: HTML attributes to be applied to each list item.
+ *   - value: The content of the list element.
+ * - title: The title of the list.
+ * - list_type: The tag for list element ("ul" or "ol").
+ * - wrapper_attributes: HTML attributes to be applied to the list wrapper.
+ * - attributes: HTML attributes to be applied to the list.
+ * - empty: A message to display when there are no items. Allowed value is a
+ *   string or render array.
+ * - context: A list of contextual data associated with the list. May contain:
+ *   - list_style: The ID of the widget plugin this facet uses.
+ * - facet: The facet for this result item.
+ *   - id: the machine name for the facet.
+ *   - label: The facet label.
+ *
+ * @see facets_preprocess_facets_item_list()
+ *
+ * @ingroup themeable
+ */
+#}
+{# COLLAPSABLE
+<div class="relative border-b border-gray-200" x-data="{selected:null}">
+  {% if items or empty %}
+    <button type="button" class="w-full px-8 py-6 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
+    <div class="flex items-center justify-between">
+      {% if title %}<span> {{ title }}</span>{% endif %}
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
+      </svg>
+    </div>
+  </button>
+  {%- if items -%}
+    <{{ list_type }}{{ attributes.addClass(['grid', 'grid-cols-4',  'gap-4', 'relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700']) }} x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
+    {%- for item in items -%}
+      <li{{ item.attributes }}>{{ item.value }}</li>
+    {%- endfor -%}
+  {%- else -%}
+    {{- empty -}}
+  {%- endif -%}
+  {%- endif %}
+</div>
+ #}
+{% if items or empty %}
+  <div class="my-4">
+    {% if title %}<h3 class="font-bold">{{ title }}</h3>{% endif %}
+    {%- if items -%}
+      <{{ list_type }}{{ attributes.addClass(['grid', 'grid-cols-4',  'gap-4']) }}>
+      {%- for item in items -%}
+        <li{{ item.attributes }}>{{ item.value }}</li>
+      {%- endfor -%}
+      </{{ list_type }}>
+    {%- else -%}
+      {{- empty -}}
+    {%- endif -%}
+  </div>
+{%- endif %}
+

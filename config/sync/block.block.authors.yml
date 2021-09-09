@@ -1,0 +1,28 @@
+uuid: cae54c29-2a6b-4405-95bf-ba032e52a4f2
+langcode: en
+status: true
+dependencies:
+  config:
+    - facets.facet.authors
+  module:
+    - facets
+    - system
+  theme:
+    - books
+id: authors
+theme: books
+region: filters
+weight: -3
+provider: null
+plugin: 'facet_block:authors'
+settings:
+  id: 'facet_block:authors'
+  label: Authors
+  provider: facets
+  label_display: '0'
+  block_id: authors
+visibility:
+  request_path:
+    id: request_path
+    pages: /facetted-search
+    negate: false

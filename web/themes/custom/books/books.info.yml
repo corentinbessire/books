@@ -1,16 +1,21 @@
 name: Books
 type: theme
 base theme: false
-description: Books theme based on TailwindCSS
+description: Books theme based on TailwindCSS and AlpineJS
 package: Books
 core: 8.x
 core_version_requirement: ^8 || ^9
 libraries:
   - books/global
+  - alpinejs/alpine
+
+dependencies:
+  - alpinejs
 
 regions:
   header: Header
   highlighted: Highlighted
   breadcrumb: Breadcrumb
+  filters: Filters
   content: Content
   footer: Footer

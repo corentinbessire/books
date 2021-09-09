@@ -1,0 +1,14 @@
+uuid: fda0ca5e-a170-43e2-97d5-6e80ec1a8017
+langcode: en
+status: true
+dependencies:
+  module:
+    - search_api_db
+id: book
+name: Books
+description: ''
+backend: search_api_db
+backend_config:
+  database: 'default:default'
+  min_chars: 1
+  matching: words

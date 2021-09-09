@@ -8,6 +8,9 @@
   {% if page.breadcrumb %}
     {{ page.breadcrumb }}
   {% endif %}
+  {% if page.filters %}
+    {{ page.filters }}
+  {% endif %}
   {% if page.content %}
     <main class="main flex flex-col flex-grow transition-all duration-150 ease-in">
       {{ page.content }}
