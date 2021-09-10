@@ -8,7 +8,7 @@
         </svg>
       </div>
     </button>
-    <div {{ attributes.addClass(['relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700']) }}
+    <div {{ attributes.addClass(['relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700' , 'bg-gray-100', 'px-4']) }}
       x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
       {{ content }}
     </div>

@@ -1,0 +1,22 @@
+{#
+/**
+ * @file
+ * Default theme implementation for a 'form' element.
+ *
+ * Available variables
+ * - attributes: A list of HTML attributes for the wrapper element.
+ * - children: The child elements of the form.
+ *
+ * @see template_preprocess_form()
+ *
+ * @ingroup themeable
+ */
+#}
+
+<form {{ attributes.addClass(['bg-white', 'shadow', 'p-4', 'flex', 'mt-4']) }}>
+  {{ children }}
+
+  {# <input class="w-full rounded p-2" type="text" placeholder="Search">
+  <input data-drupal-selector="edit-submit-facetted-search-2" type="submit" id="edit-submit-facetted-search--2" value="Apply" class="bg-purple-700 hover:bg-purple-300 rounded text-white p-2 pl-4 pr-4 font-semibold text-xs button js-form-submit form-submit">
+  #}
+</form>
