@@ -197,7 +197,7 @@ display:
           expose:
             label: ''
           plugin_id: search_api
-      title: facetted-search
+      title: Books
       header: {  }
       footer: {  }
       empty: {  }
@@ -220,7 +220,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: facetted-search
+      path: books
       cache:
         type: none
       defaults:
