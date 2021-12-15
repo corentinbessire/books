@@ -13,16 +13,13 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        php-versions: ['7.3', '7.4', '8.0']
+        php-versions: ['8.0', '8.1']
         drupal-release: ['stable']
         composer-channel: ['stable']
         include:
           - php-versions: '8.0'
             drupal-release: dev
             composer-channel: stable
-          - php-versions: '8.0'
-            drupal-release: stable
-            composer-channel: snapshot
     steps:
       - name: Dump matrix context
         env:
