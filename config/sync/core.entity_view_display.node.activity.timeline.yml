@@ -18,47 +18,47 @@ bundle: activity
 mode: timeline
 content:
   extra_field_book_cover:
+    settings: {  }
+    third_party_settings: {  }
     weight: 1
     region: content
-    settings: {  }
-    third_party_settings: {  }
   field_book:
-    weight: 2
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 2
     region: content
   field_end_date:
-    weight: 5
+    type: datetime_default
     label: hidden
     settings:
       timezone_override: ''
       format_type: standard
     third_party_settings: {  }
-    type: datetime_default
+    weight: 5
     region: content
   field_start_date:
-    weight: 4
+    type: datetime_default
     label: hidden
     settings:
       timezone_override: ''
       format_type: standard
     third_party_settings: {  }
-    type: datetime_default
+    weight: 4
     region: content
   field_status:
-    weight: 3
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 3
     region: content
   links:
-    weight: 0
-    region: content
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden: {  }

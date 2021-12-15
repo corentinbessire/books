@@ -24,43 +24,43 @@ mode: teaser
 content:
   field_authors:
     type: entity_reference_label
-    weight: 1
-    region: content
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
+    weight: 1
+    region: content
   field_cover:
     type: entity_reference_entity_view
-    weight: 2
-    region: content
     label: hidden
     settings:
       view_mode: card
       link: false
     third_party_settings: {  }
+    weight: 2
+    region: content
   field_serie:
     type: entity_reference_label
-    weight: 3
-    region: content
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
+    weight: 3
+    region: content
   field_serie_number:
     type: number_integer
-    weight: 4
-    region: content
     label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-  links:
-    weight: 0
+    weight: 4
     region: content
+  links:
     settings: {  }
     third_party_settings: {  }
+    weight: 0
+    region: content
 hidden:
   field_excerpt: true
   field_genres: true

@@ -16,15 +16,15 @@ bundle: image
 mode: avatar
 content:
   field_media_image:
+    type: image
     label: hidden
-    weight: 0
     settings:
-      image_style: scale_crop_250x250
       image_link: ''
+      image_style: scale_crop_250x250
     third_party_settings:
       image_class:
         class: 'shadow rounded-full max-w-full h-auto align-middle border-none'
-    type: image
+    weight: 0
     region: content
 hidden:
   created: true
