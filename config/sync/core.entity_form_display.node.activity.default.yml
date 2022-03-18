@@ -23,33 +23,33 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_book:
-    type: entity_reference_autocomplete
     weight: 6
-    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
   field_end_date:
-    type: datetime_default
     weight: 27
-    region: content
     settings: {  }
     third_party_settings: {  }
-  field_start_date:
     type: datetime_default
+    region: content
+  field_start_date:
     weight: 26
-    region: content
     settings: {  }
     third_party_settings: {  }
+    type: datetime_default
+    region: content
   field_status:
-    type: options_buttons
     weight: 7
-    region: content
     settings: {  }
     third_party_settings: {  }
+    type: options_buttons
+    region: content
   path:
     type: path
     weight: 4
@@ -58,34 +58,34 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    weight: 2
-    region: content
     settings:
       display_label: true
+    weight: 2
+    region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    weight: 5
-    region: content
     settings:
       display_label: true
+    weight: 5
+    region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    weight: 3
-    region: content
     settings:
       display_label: true
+    weight: 3
+    region: content
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete
     weight: 0
-    region: content
     settings:
       match_operator: CONTAINS
-      match_limit: 10
       size: 60
       placeholder: ''
+      match_limit: 10
+    region: content
     third_party_settings: {  }
 hidden:
   title: true

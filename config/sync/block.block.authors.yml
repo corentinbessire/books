@@ -18,11 +18,11 @@ plugin: 'facet_block:authors'
 settings:
   id: 'facet_block:authors'
   label: Authors
-  label_display: '0'
   provider: facets
+  label_display: '0'
   block_id: authors
 visibility:
   request_path:
     id: request_path
-    negate: false
     pages: /books
+    negate: false

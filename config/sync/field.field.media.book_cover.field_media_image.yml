@@ -18,8 +18,6 @@ translatable: true
 default_value: {  }
 default_value_callback: ''
 settings:
-  handler: 'default:file'
-  handler_settings: {  }
   file_directory: book-cover
   file_extensions: 'png gif jpg jpeg webp'
   max_filesize: ''
@@ -35,4 +33,6 @@ settings:
     title: ''
     width: null
     height: null
+  handler: 'default:file'
+  handler_settings: {  }
 field_type: image

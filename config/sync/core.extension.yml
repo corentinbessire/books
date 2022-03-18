@@ -1,5 +1,3 @@
-_core:
-  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
   admin_toolbar: 0
   alpinejs: 0
@@ -57,5 +55,6 @@ theme:
   stable: 0
   claro: 0
   books: 0
-  gin: 0
 profile: minimal
+_core:
+  default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

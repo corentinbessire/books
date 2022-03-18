@@ -18,11 +18,11 @@ plugin: 'views_exposed_filter_block:facetted_search-page_1'
 settings:
   id: 'views_exposed_filter_block:facetted_search-page_1'
   label: ''
-  label_display: '0'
   provider: views
+  label_display: '0'
   views_label: ''
 visibility:
   request_path:
     id: request_path
-    negate: false
     pages: /books
+    negate: false

@@ -18,10 +18,10 @@ content:
     type: image
     label: hidden
     settings:
-      image_link: ''
       image_style: medium
-    third_party_settings: {  }
+      image_link: ''
     weight: 0
+    third_party_settings: {  }
     region: content
 hidden:
   created: true
