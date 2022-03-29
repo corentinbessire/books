@@ -1,0 +1,48 @@
+schema {
+  query: Query
+}
+
+type Query {
+  healthCheck: Boolean
+  route(path: String!): NodeInterface
+}
+
+interface NodeInterface {
+  id: Int!
+  title: String!
+  created: String
+  updated: String
+  published: Boolean
+  language: String
+}
+
+interface TermInterface {
+  id: Int!
+  name: String!
+}
+
+interface MediaInterface {
+  id: Int!
+}
+
+type Node implements NodeInterface{
+  id: Int!
+  title: String!
+  type: String
+  created: String
+  updated: String
+  published: Boolean
+  language: String
+}
+
+type Term implements TermInterface{
+  id: Int!
+  name: String!
+  vocabulary: String
+  language: String
+}
+
+type Media implements MediaInterface{
+  id: Int!
+  type: String
+}
