@@ -1,7 +1,7 @@
 services:
   books.google_books:
     class: Drupal\books_book_managment\Services\GoogleBooksService
-    arguments: ['@http_client', '@logger.factory']
+    arguments: ['@http_client', '@logger.factory', '@settings']
   books.open_library:
     class: Drupal\books_book_managment\Services\OpenLibraryService
     arguments: ['@http_client', '@logger.factory']

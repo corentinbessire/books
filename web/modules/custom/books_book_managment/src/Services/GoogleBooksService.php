@@ -5,6 +5,7 @@ namespace Drupal\books_book_managment\Services;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
+use Drupal\Core\Site\Settings;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
@@ -25,6 +26,7 @@ class GoogleBooksService {
    * @var \Drupal\Core\Logger\LoggerChannel|\Drupal\Core\Logger\LoggerChannelInterface
    */
   private $logger;
+  private Settings $settings;
 
   /**
    * Constructs an GoogleBooksService object.
@@ -32,16 +34,18 @@ class GoogleBooksService {
    * @param \GuzzleHttp\ClientInterface $http_client
    *   The HTTP client.
    */
-  public function __construct(ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory) {
+  public function __construct(ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory, Settings $settings) {
     $this->httpClient = $http_client;
     $this->logger = $loggerChannelFactory->get('GoogleBooksService');
+    $this->settings = $settings;
   }
 
   /**
    * Method description.
    */
   public function getBookData($isbn) {
-    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=AIzaSyD9AKjGv-hjic3m3LQgeUvOT5V-bKxKGyM';
+    $googleApiKey = $this->settings->get('google_api_key');
+    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=' . $googleApiKey;
     try {
       $request = $this->httpClient->request('GET', $uri);
       $data = json_decode($request->getBody()->read(99999), TRUE);
