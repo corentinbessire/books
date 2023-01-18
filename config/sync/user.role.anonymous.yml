@@ -1,7 +1,10 @@
 uuid: 0a7eddb4-8882-4ce9-8336-d6e160acfc80
 langcode: en
 status: true
-dependencies: {  }
+dependencies:
+  module:
+    - media
+    - system
 _core:
   default_config_hash: j5zLMOdJBqC0bMvSdth5UebkprJB8g_2FXHqhfpJzow
 id: anonymous

@@ -7,6 +7,7 @@ module:
   block: 0
   books_activity: 0
   books_book_managment: 0
+  books_graphql: 0
   books_import: 0
   breakpoint: 0
   coffee: 0
@@ -21,6 +22,8 @@ module:
   field_ui: 0
   file: 0
   filter: 0
+  flag: 0
+  graphql: 0
   image: 0
   image_class: 0
   isbn: 0
@@ -48,6 +51,7 @@ module:
   token: 0
   toolbar: 0
   twig_vardumper: 0
+  typed_data: 0
   update: 0
   user: 0
   views_ui: 0

@@ -1,0 +1,16 @@
+uuid: 38bef9ef-a26e-47e2-99a4-3f92ff99b94f
+langcode: en
+status: true
+dependencies: {  }
+name: books
+label: Books
+endpoint: /graphql
+debug_flag: 15
+schema: books_schema
+caching: false
+batching: true
+disable_introspection: false
+query_depth: null
+query_complexity: null
+schema_configuration: {  }
+persisted_queries_settings: {  }
