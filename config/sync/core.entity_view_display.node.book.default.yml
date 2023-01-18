@@ -25,90 +25,91 @@ bundle: book
 mode: default
 content:
   field_authors:
-    weight: 103
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 103
     region: content
   field_cover:
     type: entity_reference_entity_view
-    weight: 109
     label: hidden
     settings:
       view_mode: full
       link: false
     third_party_settings: {  }
+    weight: 109
     region: content
   field_excerpt:
-    weight: 111
+    type: text_default
     label: hidden
     settings: {  }
     third_party_settings: {  }
-    type: text_default
+    weight: 111
     region: content
   field_genres:
-    weight: 106
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 106
     region: content
   field_isbn:
-    weight: 102
+    type: isbn_formatted_formatter
     label: inline
     settings: {  }
     third_party_settings: {  }
-    type: isbn_formatted_formatter
+    weight: 102
     region: content
   field_pages:
-    weight: 108
+    type: number_integer
     label: inline
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 108
     region: content
   field_publisher:
-    weight: 110
+    type: entity_reference_label
     label: inline
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 110
     region: content
   field_release:
-    weight: 107
+    type: datetime_default
     label: inline
     settings:
       timezone_override: ''
       format_type: standard
     third_party_settings: {  }
-    type: datetime_default
+    weight: 107
     region: content
   field_serie:
-    weight: 104
+    type: entity_reference_label
     label: hidden
     settings:
       link: true
     third_party_settings: {  }
-    type: entity_reference_label
+    weight: 104
     region: content
   field_serie_number:
-    weight: 105
+    type: number_integer
     label: hidden
     settings:
       thousand_separator: ''
       prefix_suffix: true
     third_party_settings: {  }
-    type: number_integer
+    weight: 105
     region: content
   links:
-    weight: 100
-    region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+    weight: 100
+    region: content
+hidden:
+  search_api_excerpt: true

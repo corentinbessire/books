@@ -18,11 +18,11 @@ plugin: 'facet_block:genres'
 settings:
   id: 'facet_block:genres'
   label: Genres
-  provider: facets
   label_display: '0'
+  provider: facets
   block_id: genres
 visibility:
   request_path:
     id: request_path
-    pages: /books
     negate: false
+    pages: /books

@@ -113,11 +113,6 @@
         "composer-exit-on-patch-failure": true,
         "patchLevel": {
             "drupal/core": "-p2"
-        },
-        "patches": {
-            "drupal/core": {
-                "Fix distinct clause for View with Relations": "https://www.drupal.org/files/issues/2021-04-16/2993688-69.patch"
-            }
         }
     }
 }

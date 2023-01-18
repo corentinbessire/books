@@ -32,86 +32,86 @@ content:
     settings: {  }
     third_party_settings: {  }
   field_authors:
+    type: entity_reference_autocomplete_tags
     weight: 123
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
-    region: content
   field_cover:
+    type: media_library_widget
     weight: 129
+    region: content
     settings:
       media_types: {  }
     third_party_settings: {  }
-    type: media_library_widget
-    region: content
   field_excerpt:
+    type: text_textarea
     weight: 131
+    region: content
     settings:
       rows: 5
       placeholder: ''
     third_party_settings: {  }
-    type: text_textarea
-    region: content
   field_genres:
+    type: entity_reference_autocomplete_tags
     weight: 126
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
-    region: content
   field_isbn:
-    weight: 122
-    settings: {  }
-    third_party_settings: {  }
     type: isbn_widget
+    weight: 122
     region: content
-  field_pages:
-    weight: 128
-    settings:
-      placeholder: ''
-    third_party_settings: {  }
-    type: number
-    region: content
-  field_publisher:
-    weight: 130
-    settings:
-      match_operator: CONTAINS
-      match_limit: 10
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
-    region: content
-  field_release:
-    weight: 127
     settings: {  }
     third_party_settings: {  }
-    type: datetime_default
+  field_pages:
+    type: number
+    weight: 128
     region: content
-  field_serie:
-    weight: 124
+    settings:
+      placeholder: ''
+    third_party_settings: {  }
+  field_publisher:
+    type: entity_reference_autocomplete_tags
+    weight: 130
+    region: content
     settings:
       match_operator: CONTAINS
       match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }
-    type: entity_reference_autocomplete_tags
+  field_release:
+    type: datetime_default
+    weight: 127
     region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_serie:
+    type: entity_reference_autocomplete_tags
+    weight: 124
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_serie_number:
+    type: number
     weight: 125
+    region: content
     settings:
       placeholder: ''
     third_party_settings: {  }
-    type: number
-    region: content
   path:
     type: path
     weight: 30
@@ -120,24 +120,24 @@ content:
     third_party_settings: {  }
   promote:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 15
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   status:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 120
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
-    settings:
-      display_label: true
     weight: 16
     region: content
+    settings:
+      display_label: true
     third_party_settings: {  }
   title:
     type: string_textfield
@@ -150,11 +150,11 @@ content:
   uid:
     type: entity_reference_autocomplete
     weight: 5
+    region: content
     settings:
       match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
-      match_limit: 10
-    region: content
     third_party_settings: {  }
 hidden: {  }
