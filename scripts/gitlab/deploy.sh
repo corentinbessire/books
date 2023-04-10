@@ -4,12 +4,12 @@
 # To set the ssh_host, use "export SSH_HOST=user@host" before launching this script.
 if [ -z "$SSH_HOST" ]
 then
-  SSH_HOST="smile@pci-vd.forge.intranet"
+  SSH_HOST="t148u_gealion@t148u.ftp.infomaniak.com"
 fi
 
 if [ -z "$PROJECT_REMOTE_DIR" ]
 then
-  PROJECT_REMOTE_DIR="/var/www/pci-vd"
+  PROJECT_REMOTE_DIR="~/sites/books.gealion.ch"
 fi
 
 PROJECT_RELEASES_DIR="$PROJECT_REMOTE_DIR/releases"
@@ -31,8 +31,9 @@ cd $RELEASE_DIR && rm $ARCHIVE_NAME 2>&1;"
 echo "Preparing new release in folder $RELEASE_DIR:"
 $SSH "rm -rf $RELEASE_DIR/web/sites;
 ln -nsf $PROJECT_REMOTE_DIR/shared/private_files $RELEASE_DIR/private_files;
-ln -nsf $PROJECT_REMOTE_DIR/shared/web/sites $RELEASE_DIR/web/sites;
+ln -nsf $PROJECT_REMOTE_DIR/shared/sites $RELEASE_DIR/web/sites;
 cp $PROJECT_REMOTE_DIR/current/web/.htaccess $RELEASE_DIR/web/;
 "
 echo "Changing symbolic link for new release and launching Drupal updates:"
 $SSH "ln -nsf $RELEASE_DIR/ $PROJECT_REMOTE_DIR/current"
+

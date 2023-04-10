@@ -4,7 +4,7 @@ set -e
 
 if [ -z "$PROJECT_REMOTE_DIR" ]
 then
-  PROJECT_REMOTE_DIR="/var/www/pci-vd"
+  PROJECT_REMOTE_DIR="~/sites/books.gealion.ch"
 fi
 
 DRUSH="${PROJECT_REMOTE_DIR}/current/vendor/bin/drush"
