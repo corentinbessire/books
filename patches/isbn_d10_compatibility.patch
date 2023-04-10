@@ -1,0 +1,18 @@
+Index: web/modules/contrib/isbn/isbn.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/contrib/isbn/isbn.info.yml b/modules/contrib/isbn/isbn.info.yml
+--- a/modules/contrib/isbn/isbn.info.yml
++++ b/modules/contrib/isbn/isbn.info.yml	(date 1681116246259)
+@@ -1,8 +1,7 @@
+ name: ISBN
+ type: module
+ description: 'Add ISBN field to Drupal.'
+-core: 8.x
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^8 || ^9 || ^10
+
+ # Information added by Drupal.org packaging script on 2020-10-01
+ version: '8.x-1.3'

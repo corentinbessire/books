@@ -8,4 +8,10 @@ services:
 proxy:
   appserver:
     - books.local
-
+tooling:
+  phpstan:
+    service: appserver
+    cmd: /app/vendor/bin/phpstan
+  phpcs:
+    service: appserver
+    cmd: /app/vendor/bin/phpcs

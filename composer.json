@@ -46,7 +46,13 @@
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
+        "drupal/coder": "^8.3",
         "drupal/core-dev": "^9.3",
+        "mglaman/phpstan-drupal": "^1.1",
+        "phpcompatibility/php-compatibility": "^9.3",
+        "phpstan/phpstan": "^1.10",
+        "phpstan/phpstan-deprecation-rules": "^1.1",
+        "squizlabs/php_codesniffer": "^3.7",
         "zaporylie/composer-drupal-optimizations": "^1.2"
     },
     "conflict": {
@@ -73,6 +79,7 @@
             "load.environment.php"
         ]
     },
+
     "scripts": {
         "pre-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
@@ -81,10 +88,14 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/drupal/coder/coder_sniffer\n"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
+            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/drupal/coder/coder_sniffer\n"
         ]
     },
     "extra": {
@@ -116,6 +127,11 @@
         "composer-exit-on-patch-failure": true,
         "patchLevel": {
             "drupal/core": "-p2"
+        },
+        "patches": {
+            "drupal/isbn": {
+                "Drupal 10 compatibility": "patches/isbn_d10_compatibility.patch"
+            }
         }
     }
 }
