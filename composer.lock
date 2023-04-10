@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3c1e6b89186111d650d698e7e14a5d9e",
+    "content-hash": "383ec72f0e35db09785c1b4a2d85eb3b",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -3317,6 +3317,55 @@
                 "source": "https://github.com/Masterminds/html5-php/tree/2.7.6"
             },
             "time": "2022-08-18T16:18:26+00:00"
+        },
+        {
+            "name": "nicebooks/isbn",
+            "version": "0.3.46",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nicebooks-com/isbn.git",
+                "reference": "143743b6cb8d12c1f7c0e0ab4b7386256a0a8c70"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nicebooks-com/isbn/zipball/143743b6cb8d12c1f7c0e0ab4b7386256a0a8c70",
+                "reference": "143743b6cb8d12c1f7c0e0ab4b7386256a0a8c70",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4 || ^8.0"
+            },
+            "require-dev": {
+                "brick/varexporter": "~0.3.0",
+                "ext-dom": "*",
+                "php-coveralls/php-coveralls": "^2.5.2",
+                "phpunit/phpunit": "^9.0",
+                "vimeo/psalm": "^4.8"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Nicebooks\\Isbn\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "ISBN tools",
+            "keywords": [
+                "ISBN",
+                "ISBN-10",
+                "ISBN-13",
+                "Nicebooks",
+                "book",
+                "books"
+            ],
+            "support": {
+                "issues": "https://github.com/nicebooks-com/isbn/issues",
+                "source": "https://github.com/nicebooks-com/isbn/tree/0.3.46"
+            },
+            "time": "2023-04-07T16:36:15+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -11960,5 +12009,5 @@
         "ext-json": "*"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.2.0"
+    "plugin-api-version": "2.3.0"
 }
