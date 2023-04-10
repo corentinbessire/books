@@ -32,7 +32,6 @@
         "drupal/graphql": "^4.3",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0",
-        "drupal/require_login": "^2.4",
         "drupal/search_api_db": "^1.20",
         "drush/drush": "^11.5",
         "vlucas/phpdotenv": "^5.1",
