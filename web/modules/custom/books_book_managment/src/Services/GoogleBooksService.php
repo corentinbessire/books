@@ -59,8 +59,6 @@ class GoogleBooksService {
     }
     $data = array_pop($data['items']);
     $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
-
-
     $book_data['title'] =  $data['volumeInfo']['title'];
     $book_data['field_pages'] =  $data['volumeInfo']['pageCount'];
     $book_data['field_authors'] = $data['volumeInfo']['authors'];

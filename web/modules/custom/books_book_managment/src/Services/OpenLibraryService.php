@@ -55,8 +55,8 @@ class OpenLibraryService {
       $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
       return [];
     }
-
     $data = $data['ISBN:'. $isbn];
+
     $book_data['title'] =  $data['title'];
     $book_data['field_pages'] =  $data['number_of_pages'];
     foreach ($data['authors'] as $author) {

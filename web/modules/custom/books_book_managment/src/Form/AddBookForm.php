@@ -43,10 +43,10 @@ class AddBookForm extends FormBase {
     /**
      * @var IsbnToolsService $isbnValidator
      */
-    $isbnValidator = \Drupal::service('isbn.isbn_service');
-    if (!$isbnValidator->isValidIsbn($form_state->getValue('isbn'))) {
-      $form_state->setError($form['wrapper']['isbn'], 'This is not a valid ISBN number.');
-    }
+   //$isbnValidator = \Drupal::service('isbn.isbn_service');
+    //if (!$isbnValidator->isValidIsbn($form_state->getValue('isbn'))) {
+      //$form_state->setError($form['wrapper']['isbn'], 'This is not a valid ISBN number.');
+    //}
   }
 
   /**
@@ -57,12 +57,16 @@ class AddBookForm extends FormBase {
     $isbn = $form_state->getValue('isbn');
     $ol_book_data = \Drupal::service('books.open_library')
       ->getBookData($isbn);
+    dump($ol_book_data);
+
     $gb_book_data = \Drupal::service('books.google_books')
       ->getBookData($isbn);
+    dump($gb_book_data);
 
 
-    $book_data = $this->mergeBookData($ol_book_data, $gb_book_data);
-
+    $book_data = $this->mergeBookData($gb_book_data, $ol_book_data);
+    dump($book_data);
+    die();
     if ($book_data) {
       $cover = \Drupal::service('books.cover_download')->downloadBookCover($isbn);
       if ($cover) {
