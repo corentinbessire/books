@@ -48,6 +48,7 @@
     "require-dev": {
         "drupal/coder": "^8.3",
         "drupal/core-dev": "^9.3",
+        "drupal/upgrade_status": "^4.0",
         "mglaman/phpstan-drupal": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.10",
@@ -131,6 +132,12 @@
         "patches": {
             "drupal/isbn": {
                 "Drupal 10 compatibility": "patches/isbn_d10_compatibility.patch"
+            },
+            "drupal/media_image_display_entity_view": {
+                "Drupal 10 compatibility": "patches/media_image_display_entity_view_d10_compatibility.patch"
+            },
+            "drupal/alpinejs": {
+                "Drupal 10 compatibility": "patches/alpinejs_d10_compatibility.patch"
             }
         }
     }

@@ -1,0 +1,17 @@
+Index: web/modules/contrib/media_image_display_entity_view/media_image_display_entity_view.info.yml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/modules/contrib/media_image_display_entity_view/media_image_display_entity_view.info.yml b/modules/contrib/media_image_display_entity_view/media_image_display_entity_view.info.yml
+--- a/modules/contrib/media_image_display_entity_view/media_image_display_entity_view.info.yml
++++ b/modules/contrib/media_image_display_entity_view/media_image_display_entity_view.info.yml	(date 1681117689595)
+@@ -2,7 +2,7 @@
+ type: module
+ description: Allow to select display mode when render a media reference
+ package: AB
+-core_version_requirement: ^8 || ^9
++core_version_requirement: ^8 || ^9 || ^10
+
+ dependencies:
+   - drupal:media

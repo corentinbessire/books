@@ -95,6 +95,7 @@ class CoverDownloadService {
   private function getMediaByIsbn(string $isbn) {
     $result = $this->mediaStorage->getQuery()
       ->condition('name', '$isbn')
+      ->accessCheck()
       ->execute();
     return (empty($result)) ? FALSE : $this->mediaStorage->load(reset($result));
   }

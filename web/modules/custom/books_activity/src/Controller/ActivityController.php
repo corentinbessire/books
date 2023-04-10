@@ -147,6 +147,7 @@ class ActivityController extends ControllerBase {
     $results = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
       ->condition('name', "%$name%", 'LIKE')
       ->condition('vid', 'sta')
+      ->accessCheck()
       ->execute();
     return reset($results);
   }

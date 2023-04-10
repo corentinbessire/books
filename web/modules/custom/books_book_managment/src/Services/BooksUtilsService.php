@@ -139,13 +139,14 @@ class BooksUtilsService {
    * @return \Drupal\taxonomy\TermInterface|null
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function getTermByName($termName, string $vid): ?TermInterface {
+  public function getTermByName($termName, string $vid): ?EntityInterface {
     if (!$termName) {
       return NULL;
     }
     $result = $this->termStorage->getQuery()
       ->condition('vid', $vid)
       ->condition('name', $termName)
+      ->accessCheck()
       ->execute();
     if (empty($result)) {
       $term = $this->termStorage->create([
@@ -164,6 +165,7 @@ class BooksUtilsService {
     $nids = $this->nodeStorage->getQuery()
       ->condition('type', 'book')
       ->notExists('field_cover')
+      ->accessCheck()
       ->execute();
     return $nids;
   }
