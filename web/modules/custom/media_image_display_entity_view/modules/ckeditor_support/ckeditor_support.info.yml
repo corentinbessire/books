@@ -1,0 +1,14 @@
+name: Ckeditor support for media Image Display Entity View
+type: module
+description: Allow to select display mode when render a media reference in Ckeditor
+package: AB
+core_version_requirement: ^8 || ^9
+
+dependencies:
+  - entity_embed:entity_embed
+  - ab:media_image_display_entity_view
+
+# Information added by Drupal.org packaging script on 2021-04-12
+version: '1.0.1'
+project: 'media_image_display_entity_view'
+datestamp: 1618228610
