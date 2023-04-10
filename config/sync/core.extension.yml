@@ -8,7 +8,6 @@ module:
   books_activity: 0
   books_book_managment: 0
   books_graphql: 0
-  books_import: 0
   breakpoint: 0
   coffee: 0
   ctools: 0
@@ -23,6 +22,7 @@ module:
   file: 0
   filter: 0
   flag: 0
+  gin_toolbar: 0
   graphql: 0
   image: 0
   image_class: 0
@@ -33,10 +33,6 @@ module:
   media_library: 0
   menu_link_content: 0
   menu_ui: 0
-  migrate: 0
-  migrate_plus: 0
-  migrate_source_csv: 0
-  migrate_tools: 0
   mysql: 0
   node: 0
   page_cache: 0
@@ -62,4 +58,5 @@ theme:
   stable: 0
   claro: 0
   books: 0
+  gin: 0
 profile: minimal
