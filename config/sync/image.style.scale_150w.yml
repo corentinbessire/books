@@ -1,0 +1,15 @@
+uuid: 44257034-ae18-4f0b-8e3b-13f5d85c8722
+langcode: en
+status: true
+dependencies: {  }
+name: scale_150w
+label: 'Scale - 150w'
+effects:
+  0bf974e5-27e5-447a-a6c8-b4d8f9263ebe:
+    uuid: 0bf974e5-27e5-447a-a6c8-b4d8f9263ebe
+    id: image_scale
+    weight: 1
+    data:
+      width: 150
+      height: null
+      upscale: true

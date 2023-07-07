@@ -1,0 +1,10 @@
+uuid: 3bbdde39-c9ff-47bf-be0f-abfc93fd86fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.activity
+label: Activity
+targetEntityType: media
+cache: true

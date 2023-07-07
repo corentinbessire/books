@@ -1,11 +1,12 @@
-<div class="mb-8 flex justify-between items-center w-full right-timeline">
-  <div class="border-2 border-red-200 rounded-lg shadow-xl px-6 py-4 flex  w-full">
-    <div class="w-3/4 m-4">
-      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
-      <p class="mb-3 text-gray-500 text-sm">{{ content.field_start_date }} - {{ content.field_end_date }}</p>
-    </div>
+<div class="mb-8 flex justify-between items-center w-full">
+  <div class="flex border-2 border-red-200 rounded-lg shadow-xl w-5/12 px-6 py-4">
     <div class="w-1/4">
       {{ content.extra_field_book_cover }}
+    </div>
+    <div class="w-3/4 m-4">
+      <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+      <p class="mb-3 text-gray-800">{{ content.field_start_date }} - {{ content.field_end_date }}</p>
+      {{ content.field_book }}
     </div>
   </div>
 </div>

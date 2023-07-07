@@ -63,7 +63,7 @@ class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginI
   public function view(ContentEntityInterface $entity) {
     $book = $entity->get('field_book')->entity;
     $cover = $book->get('field_cover')->entity;
-    return $this->mediaViewBuilder->view($cover);
+    return $this->mediaViewBuilder->view($cover, 'activity');
   }
 
 }
