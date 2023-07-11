@@ -31,6 +31,8 @@
         "drupal/gin": "^3.0@RC",
         "drupal/gin_toolbar": "^1.0@RC",
         "drupal/graphql": "^4.3",
+        "drupal/image_class": "^2.0",
+        "drupal/isbn": "^1.4",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0",
         "drupal/search_api_db": "^1.20",
