@@ -1,0 +1,19 @@
+#!/bin/bash
+
+## Description: Synchronize local instance with Remote environment.
+## Usage: project:sync [environment]
+## Example: "ddev project:sync @project.prod"
+
+cd /var/www/html/web
+
+echo "Dropping local database"
+drush -y sql:drop
+
+echo "Importing database from $@"
+drush -y sql:sync $@ @self
+
+echo "Importing files from $@"
+drush -y rsync $@:%files @self:%files
+
+echo "Reseting Admin Password"
+drush upwd admin admin
