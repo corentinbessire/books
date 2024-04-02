@@ -1,0 +1,139 @@
+include:
+  - '/.gitlab-ci/variables.yml'
+
+variables:
+  extends: .default_variables
+
+stages:
+  - build
+  - qa
+  - deploy
+
+
+################################################################################
+# BUILD jobs.
+################################################################################
+composer:
+  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  stage: build
+  script: |
+    set -e
+    composer validate --no-check-all --ansi
+    composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+  allow_failure: false
+  tags:
+    - docker-nonswiss-ok
+  only:
+    - merge_requests
+    - development
+    - stage
+    - main
+    - tags
+  artifacts:
+    expire_in: '1h'
+    paths:
+      - vendor
+      - web/core
+      - web/modules/contrib
+      - web/profiles/contrib
+      - web/themes/contrib
+      - web/libraries
+      - drush/Commands
+
+yarn:
+  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build-node18:${CI_PHP_VERSION}
+  stage: build
+  script:
+    - set -e
+    - cd web/themes/custom/moudon
+    - npm install --global yarn
+    - yarn install
+    - yarn build
+  allow_failure: false
+  tags:
+    - docker-nonswiss-ok
+  only:
+    - development
+    - stage
+    - main
+    - tags
+  artifacts:
+    expire_in: '1h'
+    paths:
+      - web/themes/custom
+      - web/libraries
+
+
+################################################################################
+# QA jobs.
+################################################################################
+
+phpcs:
+  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  stage: qa
+  script:
+    - set -e
+    - vendor/bin/phpcs -p --colors --standard=${CI_QA_PHPCS_STANDARD} --extensions=${CI_QA_SUFFIX} ${CI_DIRS_QA_PHPCS} --ignore='web/core,**/node_modules/**'
+  tags:
+    - docker-nonswiss-ok
+  only:
+    - merge_requests
+    - development
+    - main
+  allow_failure: true
+
+phpstan:
+  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  stage: qa
+  allow_failure: true
+  tags:
+    - docker-nonswiss-ok
+  only:
+    - merge_requests
+    - development
+    - main
+  script:
+    # Avoid phpstan failing.
+    - cd ${CI_DOC_ROOT}
+    - ${CI_DOC_ROOT}/vendor/bin/phpstan analyze ${CI_DIRS_QA_PHPSTAN}
+      --no-progress
+      --configuration ${CI_QA_CONFIG_PHPSTAN}
+      --error-format table
+
+################################################################################
+# Deploy job.
+################################################################################
+
+.deployment_script: &deployment_script
+  stage: deploy
+  image: docker.gitlab.liip.ch/docker/rsync/rsync:latest
+  tags:
+    - docker-nonswiss-ok
+  before_script:
+    - set -e
+    - mkdir -p build/dist
+    - tar --exclude=".[^/]*" -czf build/dist/$(date +"%Y%m%d%H%M").tar.gz  *
+    - eval $(ssh-agent -s)
+    - chmod 400 "$SSH_PRIVATE_KEY"
+    - ssh-add "$SSH_PRIVATE_KEY"
+    - chmod 400 "$SSH_PRIVATE_KEY_IM"
+    - ssh-add "$SSH_PRIVATE_KEY_IM"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+  script:
+    - ./scripts/gitlab/deploy.sh
+
+
+#deploy:PROD:
+#  <<: *deployment_script
+#  variables:
+#    SSH_HOST: ${PROD_SSH_HOST}
+#    PROJECT_REMOTE_DIR: ${PROD_PROJECT_REMOTE_DIR}
+#  environment:
+#    name: prod
+#    url: https://prod.liip
+#  when: manual
+#  only:
+#    - tags

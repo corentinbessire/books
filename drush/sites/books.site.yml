@@ -1,0 +1,11 @@
+prod:
+  host:
+  options: { }
+  paths:
+    drush-script:
+    files:
+  root:
+  ssh:
+    options: ''
+  uri: ''
+  user:
