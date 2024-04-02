@@ -778,6 +778,9 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 
 $settings["config_sync_directory"] = '../config/sync/';
 
- if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
-   include $app_root . '/' . $site_path . '/settings.local.php';
- }
+
+// Automatically generated include for settings managed by ddev.
+$ddev_settings = dirname(__FILE__) . '/settings.ddev.php';
+if (getenv('IS_DDEV_PROJECT') == 'true' && is_readable($ddev_settings)) {
+  require $ddev_settings;
+}

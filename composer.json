@@ -16,34 +16,34 @@
         }
     ],
     "require": {
-        "php": "^8.0",
+        "php": "^8.1",
         "ext-json": "*",
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.0",
         "drupal/coffee": "^1.2",
-        "drupal/core": "^10.0",
-        "drupal/core-composer-scaffold": "^10.0",
-        "drupal/core-recommended": "^10.0",
+        "drupal/core": "^10.2",
+        "drupal/core-composer-scaffold": "^10.2",
+        "drupal/core-recommended": "^10.2",
         "drupal/extra_field": "^2.1",
         "drupal/facets": "^2.0",
         "drupal/flag": "^4.0@beta",
         "drupal/gin": "^3.0@RC",
         "drupal/gin_toolbar": "^1.0@RC",
-        "drupal/graphql": "^4.3",
+        "drupal/graphql": "^4.7",
         "drupal/image_class": "^2.0",
         "drupal/isbn": "^1.4",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0",
         "drupal/search_api_db": "^1.20",
-        "drush/drush": "^11.5",
+        "drush/drush": "^12.0",
         "nicebooks/isbn": "^0.3.46",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
-        "drupal/core-dev": "^10.0",
+        "drupal/core-dev": "^10.2",
         "drupal/upgrade_status": "^4.0",
         "mglaman/phpstan-drupal": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
@@ -66,7 +66,8 @@
             "cweagans/composer-patches": true,
             "drupal/core-composer-scaffold": true,
             "zaporylie/composer-drupal-optimizations": true,
-            "phpstan/extension-installer": true
+            "phpstan/extension-installer": true,
+            "php-http/discovery": true
         }
     },
     "autoload": {
@@ -86,14 +87,10 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/drupal/coder/coder_sniffer\n"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ],
         "post-update-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/phpcompatibility/php-compatibility",
-            "\"vendor/bin/phpcs\" --config-set installed_paths vendor/drupal/coder/coder_sniffer\n"
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles"
         ]
     },
     "extra": {
