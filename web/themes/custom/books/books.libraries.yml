@@ -2,7 +2,7 @@ global:
   version: 1.0
   css:
     base:
-      build/main.css: {}
+      build/styles.css: {}
   js:
     build/main.js: {}
     js/menu.js: {}
