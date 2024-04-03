@@ -4,6 +4,7 @@ global:
     base:
       build/main.css: {}
   js:
+    build/main.js: {}
     js/menu.js: {}
   dependencies:
     - core/drupal
