@@ -6,5 +6,6 @@ dependencies:
     - node
 id: node.abandoned
 label: Abandoned
+description: ''
 targetEntityType: node
 cache: true

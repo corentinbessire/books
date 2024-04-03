@@ -33,6 +33,7 @@
         "drupal/graphql": "^4.7",
         "drupal/image_class": "^2.0",
         "drupal/isbn": "^1.4",
+        "drupal/media_image_display_entity_view": "^1.0",
         "drupal/pathauto": "^1.8",
         "drupal/rabbit_hole": "^1.0",
         "drupal/search_api_db": "^1.20",
