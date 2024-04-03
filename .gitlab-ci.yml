@@ -136,4 +136,5 @@ deploy:PROD:
     url: https://prod.liip
   when: manual
   only:
+    - main
     - tags
