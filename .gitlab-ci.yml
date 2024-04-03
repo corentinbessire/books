@@ -45,7 +45,7 @@ yarn:
   stage: build
   script:
     - set -e
-    - cd web/themes/custom/moudon
+    - cd web/themes/custom/books
     - npm install --global yarn
     - yarn install
     - yarn build
