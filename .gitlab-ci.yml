@@ -116,8 +116,6 @@ phpstan:
     - eval $(ssh-agent -s)
     - chmod 400 "$SSH_PRIVATE_KEY"
     - ssh-add "$SSH_PRIVATE_KEY"
-    - chmod 400 "$SSH_PRIVATE_KEY_IM"
-    - ssh-add "$SSH_PRIVATE_KEY_IM"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
     - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
