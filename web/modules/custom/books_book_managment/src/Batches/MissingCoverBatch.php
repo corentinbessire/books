@@ -2,9 +2,14 @@
 
 namespace Drupal\books_book_managment\Batches;
 
-
+/**
+ *
+ */
 class MissingCoverBatch {
 
+  /**
+   *
+   */
   public static function missingCoverBatchProcess($id, $total, $operation_details, &$context) {
     $number = count($context['results']);
     $context['results'][] = $id;
@@ -34,12 +39,15 @@ class MissingCoverBatch {
     }
   }
 
+  /**
+   *
+   */
   public static function missingCoverBatchFinished($success, array $results, array $operations) {
     $messenger = \Drupal::messenger();
     if ($success) {
       $failure = count($results['failure']);
       $success = count($results['success']);
-      $total =  $failure + $success;
+      $total = $failure + $success;
       $messenger->addMessage(t('@count results processed.', ['@count' => count($total)]));
       $messenger->addMessage(t('@count covers found.', ['@count' => count($success)]));
       $messenger->addMessage(t('@count covers not found.', ['@count' => count($failure)]));

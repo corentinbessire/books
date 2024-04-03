@@ -19,20 +19,20 @@ use Drush\Commands\DrushCommands;
 class BooksBookManagmentCommands extends DrushCommands {
 
   /**
-   * @var BooksUtilsService
+   * @var \Drupal\books_book_managment\Services\BooksUtilsService
    */
   private $booksUtilsService;
-
 
   /**
    * BooksBookManagmentCommands constructor.
    *
-   * @param BooksUtilsService $booksUtilsService
+   * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
    */
   public function __construct(BooksUtilsService $booksUtilsService) {
     parent::__construct();
     $this->booksUtilsService = $booksUtilsService;
   }
+
   /**
    * Command description here.
    *

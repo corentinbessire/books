@@ -4,7 +4,6 @@ namespace Drupal\books_book_managment\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\isbn\IsbnToolsService;
 
 /**
  * Provides a Books - Book Managment form.
@@ -41,12 +40,12 @@ class AddBookForm extends FormBase {
    */
   public function validateForm(array &$form, FormStateInterface $form_state) {
     /**
-     * @var IsbnToolsService $isbnValidator
+     * @var \Drupal\isbn\IsbnToolsService $isbnValidator
      */
-   //$isbnValidator = \Drupal::service('isbn.isbn_service');
-    //if (!$isbnValidator->isValidIsbn($form_state->getValue('isbn'))) {
-      //$form_state->setError($form['wrapper']['isbn'], 'This is not a valid ISBN number.');
-    //}
+    $isbnValidator = \Drupal::service('isbn.isbn_service');
+    if (!$isbnValidator->isValidIsbn($form_state->getValue('isbn'))) {
+      $form_state->setError($form['wrapper']['isbn'], 'This is not a valid ISBN number.');
+    }
   }
 
   /**
@@ -57,16 +56,12 @@ class AddBookForm extends FormBase {
     $isbn = $form_state->getValue('isbn');
     $ol_book_data = \Drupal::service('books.open_library')
       ->getBookData($isbn);
-    dump($ol_book_data);
 
     $gb_book_data = \Drupal::service('books.google_books')
       ->getBookData($isbn);
-    dump($gb_book_data);
-
 
     $book_data = $this->mergeBookData($gb_book_data, $ol_book_data);
-    dump($book_data);
-    die();
+
     if ($book_data) {
       $cover = \Drupal::service('books.cover_download')->downloadBookCover($isbn);
       if ($cover) {
@@ -82,7 +77,9 @@ class AddBookForm extends FormBase {
 
   }
 
-
+  /**
+   *
+   */
   protected function mergeBookData(array $array1, array $array2): array {
     $keys = array_unique(array_merge(array_keys($array1), array_keys($array2)));
     $books_data = [];

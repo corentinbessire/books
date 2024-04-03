@@ -4,9 +4,7 @@ namespace Drupal\books_book_managment\Services;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
-use Drupal\taxonomy\TermInterface;
 
 /**
  * BooksUtilsService service.
@@ -61,10 +59,12 @@ class BooksUtilsService {
   }
 
   /**
-   * Save Given Data into Book node entity
+   * Save Given Data into Book node entity.
    *
-   * @param string $isbn ISBN-13 of the book to save data in
-   * @param array $data array of fieldId and FieldValue to save
+   * @param string $isbn
+   *   ISBN-13 of the book to save data in.
+   * @param array $data
+   *   array of fieldId and FieldValue to save.
    *
    * @return \Drupal\Core\Entity\EntityInterface
    */
@@ -109,9 +109,10 @@ class BooksUtilsService {
   }
 
   /**
-   *  Return existing Node Book with given ISBN or create new entity.
+   * Return existing Node Book with given ISBN or create new entity.
    *
-   * @param string $isbn ISBN-13 Value
+   * @param string $isbn
+   *   ISBN-13 Value.
    * @param bool $create
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
@@ -130,7 +131,6 @@ class BooksUtilsService {
       }
     }
   }
-
 
   /**
    * @param $termName
@@ -161,6 +161,9 @@ class BooksUtilsService {
     return $term;
   }
 
+  /**
+   *
+   */
   public function getBooksMissingCover(): array {
     $nids = $this->nodeStorage->getQuery()
       ->condition('type', 'book')

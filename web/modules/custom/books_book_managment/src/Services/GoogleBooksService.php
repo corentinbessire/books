@@ -2,13 +2,10 @@
 
 namespace Drupal\books_book_managment\Services;
 
-use Drupal\Core\Entity\EntityTypeManagerInterface;
-use Drupal\Core\File\FileSystemInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 use Drupal\Core\Site\Settings;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
-
 
 /**
  * GoogleBooksService service.
@@ -49,7 +46,8 @@ class GoogleBooksService {
     try {
       $request = $this->httpClient->request('GET', $uri);
       $data = json_decode($request->getBody()->read(99999), TRUE);
-    } catch (RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
     }
 
@@ -59,13 +57,13 @@ class GoogleBooksService {
     }
     $data = array_pop($data['items']);
     $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
-    $book_data['title'] =  $data['volumeInfo']['title'];
-    $book_data['field_pages'] =  $data['volumeInfo']['pageCount'];
+    $book_data['title'] = $data['volumeInfo']['title'];
+    $book_data['field_pages'] = $data['volumeInfo']['pageCount'];
     $book_data['field_authors'] = $data['volumeInfo']['authors'];
     $book_data['field_publisher'] = $data['volumeInfo']['publisher'];
     $book_data['field_excerpt'] = $data['volumeInfo']['description'];
-    $book_data['field_isbn'] =  $isbn;
-    $book_data['field_release'] =  $release;
+    $book_data['field_isbn'] = $isbn;
+    $book_data['field_release'] = $release;
 
     return $book_data;
   }

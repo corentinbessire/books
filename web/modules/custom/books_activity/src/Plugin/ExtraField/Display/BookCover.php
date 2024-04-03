@@ -2,7 +2,6 @@
 
 namespace Drupal\books_activity\Plugin\ExtraField\Display;
 
-use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -21,13 +20,12 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface{
+class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
 
   /**
    * @var \Drupal\Core\Entity\EntityViewBuilderInterface
    */
   private $mediaViewBuilder;
-
 
   /**
    * Constructs a ExtraFieldDisplayFormattedBase object.

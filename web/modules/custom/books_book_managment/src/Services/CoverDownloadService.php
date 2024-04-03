@@ -28,7 +28,6 @@ class CoverDownloadService {
    */
   private $mediaStorage;
 
-
   /**
    * CoverDownloadService constructor.
    *
@@ -40,6 +39,9 @@ class CoverDownloadService {
     $this->mediaStorage = $entityTypeManager->getStorage('media');
   }
 
+  /**
+   *
+   */
   public function downloadBookCover(string $isbn) {
     $sources = $this->buildSourceArray($isbn);
 
@@ -71,10 +73,14 @@ class CoverDownloadService {
     ];
   }
 
+  /**
+   *
+   */
   private function getBookCover(string $url, $isbn): ?EntityInterface {
     try {
       $request = $this->httpClient->request('GET', $url);
-    } catch (RequestException $e) {
+    }
+    catch (RequestException $e) {
       $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
     }
     if (!$request) {
@@ -84,6 +90,9 @@ class CoverDownloadService {
     return system_retrieve_file($url, 'public://book-cover/' . $isbn . '.jpg', TRUE, 1);
   }
 
+  /**
+   *
+   */
   private function createMedia(?EntityInterface $image, string $isbn) {
     $media = $this->mediaStorage->create(['bundle' => 'book_cover']);
     $media->set('name', $isbn);
@@ -92,6 +101,9 @@ class CoverDownloadService {
     return $media;
   }
 
+  /**
+   *
+   */
   private function getMediaByIsbn(string $isbn) {
     $result = $this->mediaStorage->getQuery()
       ->condition('name', '$isbn')

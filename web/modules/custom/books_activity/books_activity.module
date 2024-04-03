@@ -9,15 +9,13 @@
  * @see https://www.drupal.org/node/2217931
  */
 
-use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
 use Drupal\Core\Entity\EntityInterface;
-use Drupal\node\Entity\Node;
-
 
 /**
  * Set the title of the Book as Activity Title.
- * @param Node $node
- *   The Activity being created
+ *
+ * @param \Drupal\node\Entity\Node $node
+ *   The Activity being created.
  */
 function books_activity_node_presave($node) {
   if ($node->bundle() === 'activity') {
@@ -29,6 +27,7 @@ function books_activity_node_presave($node) {
 /**
  * Implements hook_entity_view_alter().
  */
+
 /**
  * Implements hook_entity_view_mode_alter().
  */

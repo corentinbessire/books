@@ -9,7 +9,6 @@ use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\isbn\IsbnToolsService;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Url;
 
 /**
  * Returns responses for Books - Activity routes.
@@ -40,9 +39,9 @@ class ActivityController extends ControllerBase {
    */
   public function __construct(
     EntityTypeManagerInterface $entityTypeManager,
-    MessengerInterface         $messengerInterface,
-    BooksUtilsService          $booksUtilsService,
-    IsbnToolsService           $isbnToolsService
+    MessengerInterface $messengerInterface,
+    BooksUtilsService $booksUtilsService,
+    IsbnToolsService $isbnToolsService
   ) {
     $this->entityTypeManager = $entityTypeManager;
     $this->messengerInterface = $messengerInterface;
@@ -62,6 +61,9 @@ class ActivityController extends ControllerBase {
     );
   }
 
+  /**
+   *
+   */
   public function new(string $isbn) {
 
     if ($this->isbnToolsService->isValidIsbn($isbn)) {
@@ -113,7 +115,7 @@ class ActivityController extends ControllerBase {
   }
 
   /**
-   * Update the given Activity to the Given Status and set EndDate to Now
+   * Update the given Activity to the Given Status and set EndDate to Now.
    *
    * @param \Drupal\node\NodeInterface $activity
    * @param string $status
@@ -135,11 +137,12 @@ class ActivityController extends ControllerBase {
   }
 
   /**
-   * Get the 'Status' Term Id by Name
+   * Get the 'Status' Term Id by Name.
    *
    * @param string $name
    *
    * @return int|null
+   *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
