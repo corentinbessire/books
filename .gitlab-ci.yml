@@ -40,28 +40,28 @@ composer:
       - web/libraries
       - drush/Commands
 
-#yarn:
-#  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build-node18:${CI_PHP_VERSION}
-#  stage: build
-#  script:
-#    - set -e
-#    - cd web/themes/custom/moudon
-#    - npm install --global yarn
-#    - yarn install
-#    - yarn build
-#  allow_failure: false
-#  tags:
-#    - docker-nonswiss-ok
-#  only:
-#    - development
-#    - stage
-#    - main
-#    - tags
-#  artifacts:
-#    expire_in: '1h'
-#    paths:
-#      - web/themes/custom
-#      - web/libraries
+yarn:
+  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build-node18:${CI_PHP_VERSION}
+  stage: build
+  script:
+    - set -e
+    - cd web/themes/custom/moudon
+    - npm install --global yarn
+    - yarn install
+    - yarn build
+  allow_failure: false
+  tags:
+    - docker-nonswiss-ok
+  only:
+    - development
+    - stage
+    - main
+    - tags
+  artifacts:
+    expire_in: '1h'
+    paths:
+      - web/themes/custom
+      - web/libraries
 
 
 ################################################################################

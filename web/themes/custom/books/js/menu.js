@@ -1,7 +1,7 @@
-let toggleBtn = document.querySelector("#navbar-toggle");
-let collapse = document.querySelector("#navbar-collapse");
+const toggleBtn = document.querySelector('#navbar-toggle');
+const collapse = document.querySelector('#navbar-collapse');
 
 toggleBtn.onclick = () => {
-  collapse.classList.toggle("hidden");
-  collapse.classList.toggle("flex");
+  collapse.classList.toggle('hidden');
+  collapse.classList.toggle('flex');
 };
