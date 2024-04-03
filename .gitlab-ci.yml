@@ -126,14 +126,14 @@ phpstan:
     - ./scripts/gitlab/deploy.sh
 
 
-#deploy:PROD:
-#  <<: *deployment_script
-#  variables:
-#    SSH_HOST: ${PROD_SSH_HOST}
-#    PROJECT_REMOTE_DIR: ${PROD_PROJECT_REMOTE_DIR}
-#  environment:
-#    name: prod
-#    url: https://prod.liip
-#  when: manual
-#  only:
-#    - tags
+deploy:PROD:
+  <<: *deployment_script
+  variables:
+    SSH_HOST: ${PROD_SSH_HOST}
+    PROJECT_REMOTE_DIR: ${PROD_PROJECT_REMOTE_DIR}
+  environment:
+    name: prod
+    url: https://prod.liip
+  when: manual
+  only:
+    - tags

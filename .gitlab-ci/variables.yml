@@ -32,7 +32,7 @@
   # CD VARIABLES
   ################################################################################
   PROD_SSH_HOST: "ho7ser_system@ho7ser.ftp.infomaniak.com"
-  PROD_PROJECT_REMOTE_DIR: "/home/clients/4f28a448d02a2707d2c962939cd91c23/sites/www.moudon.ch"
+  PROD_PROJECT_REMOTE_DIR: "/home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current"
   PROD_URL: "https://www.moudon.ch/"
 
 
