@@ -1,0 +1,23 @@
+uuid: 0a053538-9464-41fb-9bea-d2766bab2727
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.genre
+id: taxonomy_term.genre.default
+targetEntityType: taxonomy_term
+bundle: genre
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true
+  status: true

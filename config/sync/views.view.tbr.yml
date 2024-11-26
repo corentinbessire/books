@@ -1,14 +1,15 @@
-uuid: f00374d4-45f7-4650-aa16-7f8d71a9b04c
+uuid: 6ce513f7-221c-4a8d-bad6-c67c4eb684e3
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.teaser
     - node.type.book
   module:
     - node
     - user
-id: export
-label: export
+id: tbr
+label: TBR
 module: views
 description: ''
 tag: ''
@@ -21,7 +22,7 @@ display:
     display_plugin: default
     position: 0
     display_options:
-      title: export
+      title: TBR
       fields:
         title:
           id: title
@@ -33,7 +34,7 @@ display:
           entity_type: node
           entity_field: title
           plugin_id: field
-          label: Title
+          label: ''
           exclude: false
           alter:
             alter_text: false
@@ -137,8 +138,6 @@ display:
           group: 1
           expose:
             operator: ''
-            operator_limit_selection: false
-            operator_list: {  }
         type:
           id: type
           table: node_field_data
@@ -148,13 +147,12 @@ display:
           plugin_id: bundle
           value:
             book: book
-          expose:
-            operator_limit_selection: false
-            operator_list: {  }
       style:
-        type: table
+        type: default
       row:
-        type: fields
+        type: 'entity:node'
+        options:
+          view_mode: teaser
       query:
         type: views_query
         options:
@@ -183,7 +181,7 @@ display:
     position: 1
     display_options:
       display_extenders: {  }
-      path: export
+      path: tbr
     cache_metadata:
       max-age: -1
       contexts:

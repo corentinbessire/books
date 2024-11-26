@@ -3,9 +3,11 @@ langcode: en
 status: true
 dependencies:
   config:
+    - filter.format.simple_html
     - node.type.activity
     - node.type.book
   module:
+    - filter
     - media
     - node
     - system
@@ -23,4 +25,5 @@ permissions:
   - 'edit any book content'
   - 'edit own activity content'
   - 'edit own book content'
+  - 'use text format simple_html'
   - 'view media'

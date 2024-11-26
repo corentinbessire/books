@@ -1,0 +1,23 @@
+uuid: 20f90b6a-430a-4779-9f0d-d136508a2d38
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.publisher
+id: taxonomy_term.publisher.default
+targetEntityType: taxonomy_term
+bundle: publisher
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true
+  status: true

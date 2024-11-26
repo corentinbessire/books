@@ -215,6 +215,7 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.books_index'
+        - 'search_api_list:books_index'
   page_1:
     id: page_1
     display_title: Page
@@ -237,3 +238,38 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:search_api.index.books_index'
+        - 'search_api_list:books_index'
+  page_2:
+    id: page_2
+    display_title: 'Page 2'
+    display_plugin: page
+    position: 2
+    display_options:
+      sorts:
+        created:
+          id: created
+          table: search_api_index_books_index
+          field: created
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: search_api
+          order: DESC
+          expose:
+            label: ''
+            field_identifier: ''
+          exposed: false
+      defaults:
+        sorts: false
+      display_extenders: {  }
+      path: books/new
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
+        - url
+        - 'user.node_grants:view'
+      tags:
+        - 'config:search_api.index.books_index'
+        - 'search_api_list:books_index'

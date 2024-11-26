@@ -8,12 +8,14 @@ module:
   books_activity: 0
   books_book_managment: 0
   breakpoint: 0
+  ckeditor5: 0
   coffee: 0
   ctools: 0
   datetime: 0
   datetime_range: 0
   dblog: 0
   dynamic_page_cache: 0
+  editor: 0
   extra_field: 0
   facets: 0
   field: 0
@@ -41,6 +43,7 @@ module:
   search_api_db: 0
   system: 0
   taxonomy: 0
+  taxonomy_replace: 0
   text: 0
   token: 0
   toolbar: 0

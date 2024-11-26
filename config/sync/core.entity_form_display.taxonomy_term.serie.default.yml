@@ -1,0 +1,32 @@
+uuid: e8d99fa0-95a0-41ac-ac52-ba10b57276fb
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.serie
+  module:
+    - text
+id: taxonomy_term.serie.default
+targetEntityType: taxonomy_term
+bundle: serie
+mode: default
+content:
+  description:
+    type: text_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
+  status: true

@@ -8,6 +8,9 @@ dependencies:
     - field.storage.node.field_cover
     - field.storage.node.field_genres
     - field.storage.node.field_isbn
+    - field.storage.node.field_pages
+    - field.storage.node.field_publisher
+    - field.storage.node.field_release
     - field.storage.node.field_serie
     - field.storage.node.field_serie_number
     - image.style.media_library
@@ -15,6 +18,7 @@ dependencies:
     - taxonomy.vocabulary.author
     - taxonomy.vocabulary.serie
   module:
+    - datetime
     - isbn
     - media
     - node
@@ -272,69 +276,6 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_genres:
-          id: field_genres
-          table: node__field_genres
-          field: field_genres
-          relationship: none
-          group_type: group
-          admin_label: ''
-          plugin_id: field
-          label: Genres
-          exclude: false
-          alter:
-            alter_text: false
-            text: ''
-            make_link: false
-            path: ''
-            absolute: false
-            external: false
-            replace_spaces: false
-            path_case: none
-            trim_whitespace: false
-            alt: ''
-            rel: ''
-            link_class: ''
-            prefix: ''
-            suffix: ''
-            target: ''
-            nl2br: false
-            max_length: 0
-            word_boundary: true
-            ellipsis: true
-            more_link: false
-            more_link_text: ''
-            more_link_path: ''
-            strip_tags: false
-            trim: false
-            preserve_tags: ''
-            html: false
-          element_type: ''
-          element_class: ''
-          element_label_type: ''
-          element_label_class: ''
-          element_label_colon: true
-          element_wrapper_type: ''
-          element_wrapper_class: ''
-          element_default_classes: true
-          empty: ''
-          hide_empty: false
-          empty_zero: false
-          hide_alter_empty: true
-          click_sort_column: target_id
-          type: entity_reference_label
-          settings:
-            link: false
-          group_column: target_id
-          group_columns: {  }
-          group_rows: true
-          delta_limit: 0
-          delta_offset: 0
-          delta_reversed: false
-          delta_first_last: false
-          multi_type: separator
-          separator: ', '
-          field_api_classes: false
         field_serie:
           id: field_serie
           table: node__field_serie
@@ -452,6 +393,260 @@ display:
           settings:
             thousand_separator: ''
             prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_genres_1:
+          id: field_genres_1
+          table: node__field_genres
+          field: field_genres
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Genres
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_pages:
+          id: field_pages
+          table: node__field_pages
+          field: field_pages
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Pages
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: number_integer
+          settings:
+            thousand_separator: ''
+            prefix_suffix: true
+          group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_publisher:
+          id: field_publisher
+          table: node__field_publisher
+          field: field_publisher
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Publisher
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_release:
+          id: field_release
+          table: node__field_release
+          field: field_release
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Release
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: value
+          type: datetime_default
+          settings:
+            timezone_override: ''
+            format_type: medium
           group_column: value
           group_columns: {  }
           group_rows: true
@@ -755,8 +950,13 @@ display:
             title: title
             field_authors: field_authors
             field_isbn: field_isbn
+            field_genres: field_genres
             field_serie: field_serie
             field_serie_number: field_serie_number
+            field_genres_1: field_genres_1
+            field_pages: field_pages
+            field_publisher: field_publisher
+            field_release: field_release
             operations: operations
           default: '-1'
           info:
@@ -786,6 +986,11 @@ display:
               separator: ''
               empty_column: false
               responsive: ''
+            field_genres:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
             field_serie:
               sortable: true
               default_sort_order: asc
@@ -794,6 +999,32 @@ display:
               empty_column: false
               responsive: ''
             field_serie_number:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_genres_1:
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_pages:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_publisher:
+              sortable: true
+              default_sort_order: asc
+              align: ''
+              separator: ''
+              empty_column: false
+              responsive: ''
+            field_release:
               sortable: true
               default_sort_order: asc
               align: ''
@@ -834,7 +1065,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -842,6 +1072,9 @@ display:
         - 'config:field.storage.node.field_cover'
         - 'config:field.storage.node.field_genres'
         - 'config:field.storage.node.field_isbn'
+        - 'config:field.storage.node.field_pages'
+        - 'config:field.storage.node.field_publisher'
+        - 'config:field.storage.node.field_release'
         - 'config:field.storage.node.field_serie'
         - 'config:field.storage.node.field_serie_number'
   page_1:
@@ -994,7 +1227,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1002,6 +1234,9 @@ display:
         - 'config:field.storage.node.field_cover'
         - 'config:field.storage.node.field_genres'
         - 'config:field.storage.node.field_isbn'
+        - 'config:field.storage.node.field_pages'
+        - 'config:field.storage.node.field_publisher'
+        - 'config:field.storage.node.field_release'
         - 'config:field.storage.node.field_serie'
         - 'config:field.storage.node.field_serie_number'
   page_2:
@@ -1028,7 +1263,6 @@ display:
         - 'languages:language_interface'
         - url
         - url.query_args
-        - user
         - 'user.node_grants:view'
         - user.permissions
       tags:
@@ -1036,5 +1270,8 @@ display:
         - 'config:field.storage.node.field_cover'
         - 'config:field.storage.node.field_genres'
         - 'config:field.storage.node.field_isbn'
+        - 'config:field.storage.node.field_pages'
+        - 'config:field.storage.node.field_publisher'
+        - 'config:field.storage.node.field_release'
         - 'config:field.storage.node.field_serie'
         - 'config:field.storage.node.field_serie_number'

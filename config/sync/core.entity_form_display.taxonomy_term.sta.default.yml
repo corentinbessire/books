@@ -1,0 +1,23 @@
+uuid: 41baf746-b096-4d0a-80e9-c82f1141885a
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.sta
+id: taxonomy_term.sta.default
+targetEntityType: taxonomy_term
+bundle: sta
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  path: true
+  status: true

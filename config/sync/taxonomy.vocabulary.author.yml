@@ -4,5 +4,6 @@ status: true
 dependencies: {  }
 name: Author
 vid: author
-description: ''
+description: null
 weight: 0
+new_revision: false

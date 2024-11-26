@@ -4,6 +4,7 @@ status: true
 dependencies:
   config:
     - field.storage.taxonomy_term.field_bio
+    - filter.format.simple_html
     - taxonomy.vocabulary.author
   module:
     - text
@@ -17,5 +18,7 @@ required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''
-settings: {  }
+settings:
+  allowed_formats:
+    - simple_html
 field_type: text_long

@@ -13,7 +13,7 @@ entity_type: node
 bundle: activity
 label: 'Start Date'
 description: ''
-required: true
+required: false
 translatable: false
 default_value:
   -
