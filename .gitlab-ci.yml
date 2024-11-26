@@ -32,6 +32,7 @@ composer:
     expire_in: '1h'
     paths:
       - vendor
+      - web
       - web/core
       - web/modules/contrib
       - web/profiles/contrib
