@@ -1,7 +1,8 @@
 name: books
 type: drupal10
 docroot: web
-php_version: "8.1"
+php_version: "8.3"
+nodejs_version: "22"
 webserver_type: apache-fpm
 xdebug_enabled: false
 additional_hostnames: []
@@ -9,7 +10,8 @@ additional_fqdns:
   - books.gealion.local
 database:
     type: mariadb
-    version: "10.4"
+    version: "10.11"
+webimage_extra_packages: [build-essential, libasound2, libgbm-dev, libgtk-3-0, libgtk2.0-0, libnotify-dev, libnss3, libxss1, libxtst6, xauth, xvfb]
 use_dns_when_possible: true
 composer_version: "2"
 web_environment: []

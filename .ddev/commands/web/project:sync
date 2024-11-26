@@ -13,7 +13,7 @@ echo "Importing database from $@"
 drush -y sql:sync $@ @self
 
 echo "Importing files from $@"
-drush -y rsync $@:%files @self:%files
+drush rsync $@:%files @self:%files
 
 echo "Reseting Admin Password"
 drush upwd admin admin

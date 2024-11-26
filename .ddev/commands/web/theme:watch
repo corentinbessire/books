@@ -1,0 +1,20 @@
+#!/bin/bash
+
+## Description: Start the Dev Server of the Theme
+## Usage: theme:watch <theme-name>
+## Example: "ddev theme:watch tadstack"
+
+if [ -z "$1" ]; then
+    echo "Error: Theme name is required"
+    echo "Usage: ddev theme:watch <theme-name>"
+    exit 1
+fi
+
+theme_name=$1
+shift
+
+if [ ! -d "/var/www/html/web/themes/custom/$theme_name" ]; then
+    echo "Error: Theme '$theme_name' not found in web/themes/custom/"
+    exit 1
+fi
+cd "/var/www/html/web/themes/custom/$theme_name" && npm watch

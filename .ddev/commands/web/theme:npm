@@ -1,0 +1,20 @@
+#!/bin/bash
+## Description: Run npm commands in a specific theme directory
+## Usage: theme:npm <theme-name> <npm-command> [args]
+## Example: "ddev theme:npm tadstack install" or "ddev theme:npm tadstack run build"
+
+if [ -z "$1" ]; then
+    echo "Error: Theme name is required"
+    echo "Usage: ddev theme:npm <theme-name> [args]"
+    exit 1
+fi
+
+theme_name=$1
+shift
+
+if [ ! -d "/var/www/html/web/themes/custom/$theme_name" ]; then
+    echo "Error: Theme '$theme_name' not found in web/themes/custom/"
+    exit 1
+fi
+cd /var/www/html/web/themes/custom/$theme_name || exit
+exec npm "$@"

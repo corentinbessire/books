@@ -8,10 +8,11 @@
   # GENERAL VARIABLES
   ################################################################################
 
-  CI_PHP_VERSION: "8.1"
-  CI_DRUPAL_VERSION: "10.2"
+  CI_PHP_VERSION: "8.3"
+  CI_NODE_VERSION: "22"
+  CI_DRUPAL_VERSION: "10.3"
   CI_DRUPAL_WEB_ROOT: web
-  CI_DOC_ROOT: "/builds/corentin.bessire/books"
+  CI_DOC_ROOT: "/builds/gealion1/books"
   CI_WEB_ROOT: "${CI_DOC_ROOT}/${CI_DRUPAL_WEB_ROOT}"
 
   ################################################################################
@@ -31,8 +32,8 @@
   ################################################################################
   # CD VARIABLES
   ################################################################################
-  PROD_SSH_HOST: "ho7ser_system@ho7ser.ftp.infomaniak.com"
+  PROD_SSH_HOST: ""
   PROD_PROJECT_REMOTE_DIR: "/home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current"
-  PROD_URL: "https://www.moudon.ch/"
+  PROD_URL: "https://books.gealion.ch/"
 
 

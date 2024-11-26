@@ -8,24 +8,23 @@ stages:
   - build
   - qa
   - deploy
-
+  - rollback
 
 ################################################################################
 # BUILD jobs.
 ################################################################################
 composer:
-  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  image: docker.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
   stage: build
   script: |
     set -e
     composer validate --no-check-all --ansi
-    composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader
+    composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --ignore-platform-reqs
   allow_failure: false
-  tags:
-    - docker-nonswiss-ok
+
   only:
     - merge_requests
-    - development
+    - develop
     - stage
     - main
     - tags
@@ -40,19 +39,17 @@ composer:
       - web/libraries
       - drush/Commands
 
-yarn:
-  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build-node18:${CI_PHP_VERSION}
+npm:
+  image: docker.gitlab.com/gealion1/docker-images/node:${CI_NODE_VERSION}
   stage: build
   script:
     - set -e
-    - cd web/themes/custom/books
-    - npm install --global yarn
-    - yarn install
-    - yarn build
+    - cd ${CI_THEME_ROOT}
+    - npm install
+    - npm run build
   allow_failure: false
-  tags:
-    - docker-nonswiss-ok
   only:
+    - merge_requests
     - development
     - stage
     - main
@@ -60,38 +57,32 @@ yarn:
   artifacts:
     expire_in: '1h'
     paths:
-      - web/themes/custom
-      - web/libraries
-
+      - ${CI_THEME_ROOT}
 
 ################################################################################
 # QA jobs.
 ################################################################################
 
 phpcs:
-  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  image: docker.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
   stage: qa
   script:
     - set -e
-    - vendor/bin/phpcs -p --colors --standard=${CI_QA_PHPCS_STANDARD} --extensions=${CI_QA_SUFFIX} ${CI_DIRS_QA_PHPCS} --ignore='web/core,**/node_modules/**'
-  tags:
-    - docker-nonswiss-ok
+    - vendor/bin/phpcs -p --colors --standard=${CI_QA_PHPCS_STANDARD} --extensions=${CI_QA_SUFFIX} ${CI_DIRS_QA_PHPCS}
   only:
     - merge_requests
-    - development
     - main
-  allow_failure: true
+    - stage
+  allow_failure: false
 
 phpstan:
-  image: docker.gitlab.liip.ch/bazinga/docker-base-images/build:${CI_PHP_VERSION}
+  image: docker.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
   stage: qa
-  allow_failure: true
-  tags:
-    - docker-nonswiss-ok
+  allow_failure: false
   only:
     - merge_requests
-    - development
     - main
+    - stage
   script:
     # Avoid phpstan failing.
     - cd ${CI_DOC_ROOT}
@@ -99,6 +90,7 @@ phpstan:
       --no-progress
       --configuration ${CI_QA_CONFIG_PHPSTAN}
       --error-format table
+      --memory-limit 4G
 
 ################################################################################
 # Deploy job.
@@ -106,33 +98,142 @@ phpstan:
 
 .deployment_script: &deployment_script
   stage: deploy
-  image: docker.gitlab.liip.ch/docker/rsync/rsync:latest
-  tags:
-    - docker-nonswiss-ok
+  image: docker.gitlab.com/gealion1/docker-images/rsync
   before_script:
     - set -e
     - mkdir -p build/dist
     - tar --exclude=".[^/]*" -czf build/dist/$(date +"%Y%m%d%H%M").tar.gz  *
     - eval $(ssh-agent -s)
-    - chmod 400 "$SSH_PRIVATE_KEY"
-    - ssh-add "$SSH_PRIVATE_KEY"
+    - chmod 400 "${SSH_PRIVATE_KEY}"
+    - ssh-add "${SSH_PRIVATE_KEY}"
     - mkdir -p ~/.ssh
     - chmod 700 ~/.ssh
-    - cp "$SSH_KNOWN_HOSTS" ~/.ssh/known_hosts
+    - cp "${SSH_KNOWN_HOSTS}" ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
+    - chmod +x scripts/gitlab/notify-slack.sh
+    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Deployment" "started" ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
   script:
     - ./scripts/gitlab/deploy.sh
+  after_script:
+    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Deployment" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
 
+deploy:DEV:
+  <<: *deployment_script
+  variables:
+    SSH_HOST: ${DEV_SSH_HOST}
+    SSH_PORT: ${DEV_SSH_PORT}
+    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
+    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
+  environment:
+    name: development
+    url: ${DEV_URL}
+  when: manual
+  only:
+    - merge_requests
+    - development
+    - stage
+    - main
+
+deploy:STAGE:
+  <<: *deployment_script
+  variables:
+    SSH_HOST: ${STAGE_SSH_HOST}
+    SSH_PORT: ${STAGE_SSH_PORT}
+    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
+    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
+  environment:
+    name: stage
+    url: ${STAGE_URL}
+  when: manual
+  only:
+    - stage
+    - main
 
 deploy:PROD:
   <<: *deployment_script
   variables:
     SSH_HOST: ${PROD_SSH_HOST}
+    SSH_PORT: ${PROD_SSH_PORT}
+    SSH_OPTIONS: ${PROD_SSH_OPTIONS}
     PROJECT_REMOTE_DIR: ${PROD_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${PROD_PROJECT_REMOTE_WEBROOT}
   environment:
     name: prod
-    url: https://prod.liip
+    url: ${PROD_URL}
   when: manual
   only:
+    - tags
+
+################################################################################
+# Rollback job.
+################################################################################
+
+.rollback_script: &rollback_script
+  stage: rollback
+  image: docker.gitlab.com/gealion1/docker-images/rsync
+  when: manual
+  before_script:
+    - eval $(ssh-agent -s)
+    - chmod 400 "${SSH_PRIVATE_KEY}"
+    - ssh-add "${SSH_PRIVATE_KEY}"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - cp "${SSH_KNOWN_HOSTS}" ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
+    - chmod +x scripts/gitlab/notify-slack.sh
+    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Rollback" "started" ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
+  script:
+    - ./scripts/gitlab/rollback.sh ${PROJECT_REMOTE_DIR} ${PROJECT_REMOTE_WEBROOT}
+  after_script:
+    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Rollback" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
+
+rollback:DEV:
+  <<: *rollback_script
+  variables:
+    SSH_HOST: ${DEV_SSH_HOST}
+    SSH_PORT: ${DEV_SSH_PORT}
+    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
+    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
+  environment:
+    name: development
+    url: ${DEV_URL}
+  needs: ["deploy:DEV"]
+  only:
+    - merge_requests
+    - development
+    - stage
     - main
+
+rollback:STAGE:
+  <<: *rollback_script
+  variables:
+    SSH_HOST: ${STAGE_SSH_HOST}
+    SSH_PORT: ${STAGE_SSH_PORT}
+    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
+    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
+  environment:
+    name: stage
+    url: ${STAGE_URL}
+  needs: ["deploy:STAGE"]
+  only:
+    - stage
+    - main
+
+rollback:PROD:
+  <<: *rollback_script
+  variables:
+    SSH_HOST: ${PROD_SSH_HOST}
+    SSH_PORT: ${PROD_SSH_PORT}
+    SSH_OPTIONS: ${PROD_SSH_OPTIONS}
+    PROJECT_REMOTE_DIR: ${PROD_PROJECT_REMOTE_DIR}
+    PROJECT_REMOTE_WEBROOT: ${PROD_PROJECT_REMOTE_WEBROOT}
+  environment:
+    name: prod
+    url: ${PROD_URL}
+  needs: ["deploy:PROD"]
+  only:
     - tags

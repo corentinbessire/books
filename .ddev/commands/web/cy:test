@@ -1,0 +1,8 @@
+#!/bin/bash
+
+## Description: Run Cypress Tests
+## Usage: cy:test .
+## Example: "ddev cy:test"
+
+cd tests || exit
+npm start
