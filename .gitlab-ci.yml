@@ -110,12 +110,8 @@ phpstan:
     - chmod 700 ~/.ssh
     - cp "${SSH_KNOWN_HOSTS}" ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - chmod +x scripts/gitlab/notify-slack.sh
-    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Deployment" "started" ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
   script:
     - ./scripts/gitlab/deploy.sh
-  after_script:
-    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Deployment" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
 
 #deploy:DEV:
 #  <<: *deployment_script
@@ -182,12 +178,9 @@ deploy:PROD:
     - chmod 700 ~/.ssh
     - cp "${SSH_KNOWN_HOSTS}" ~/.ssh/known_hosts
     - chmod 644 ~/.ssh/known_hosts
-    - chmod +x scripts/gitlab/notify-slack.sh
-    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Rollback" "started" ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
   script:
     - ./scripts/gitlab/rollback.sh ${PROJECT_REMOTE_DIR} ${PROJECT_REMOTE_WEBROOT}
-  after_script:
-    - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Rollback" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
+
 
 #rollback:DEV:
 #  <<: *rollback_script
