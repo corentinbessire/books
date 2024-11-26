@@ -68,7 +68,7 @@ phpcs:
   stage: qa
   script:
     - set -e
-    - vendor/bin/phpcs -p --colors --standard=${CI_QA_PHPCS_STANDARD} --extensions=${CI_QA_SUFFIX} ${CI_DIRS_QA_PHPCS}
+    - vendor/bin/phpcs -p --colors --standard=${CI_QA_PHPCS_STANDARD} --extensions=${CI_QA_SUFFIX} ${CI_DIRS_QA_PHPCS} --ignore='web/core,**/node_modules/**'
   only:
     - merge_requests
     - main
