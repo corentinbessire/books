@@ -21,7 +21,7 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.0",
-        "drupal/coffee": "^1.2",
+        "drupal/coffee": "^2.0",
         "drupal/core": "^10.2",
         "drupal/core-composer-scaffold": "^10.2",
         "drupal/core-recommended": "^10.2",
@@ -69,18 +69,10 @@
             "drupal/core-composer-scaffold": true,
             "zaporylie/composer-drupal-optimizations": true,
             "phpstan/extension-installer": true,
-            "php-http/discovery": true
+            "php-http/discovery": true,
+            "tbachert/spi": true
         }
     },
-    "autoload": {
-        "classmap": [
-            "scripts/composer/ScriptHandler.php"
-        ],
-        "files": [
-            "load.environment.php"
-        ]
-    },
-
     "scripts": {
         "pre-install-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
