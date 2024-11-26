@@ -21,7 +21,6 @@ composer:
     composer validate --no-check-all --ansi
     composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --ignore-platform-reqs
   allow_failure: false
-
   only:
     - merge_requests
     - develop
@@ -31,14 +30,7 @@ composer:
   artifacts:
     expire_in: '1h'
     paths:
-      - vendor
-      - web
-      - web/core
-      - web/modules/contrib
-      - web/profiles/contrib
-      - web/themes/contrib
-      - web/libraries
-      - drush/Commands
+      - /
 
 npm:
   image: registry.gitlab.com/gealion1/docker-images/node:${CI_NODE_VERSION}
