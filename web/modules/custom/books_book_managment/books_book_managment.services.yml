@@ -22,4 +22,4 @@ services:
       - '@http_client'
       - '@logger.factory'
       - '@entity_type.manager'
-      - '@file_repository'
+      - '@file.repository'
