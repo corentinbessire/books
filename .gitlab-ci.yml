@@ -29,8 +29,9 @@ composer:
     - tags
   artifacts:
     expire_in: '1h'
+    untracked: true    # This includes all files not tracked by Git
     paths:
-      - /
+      - ./
 
 npm:
   image: registry.gitlab.com/gealion1/docker-images/node:${CI_NODE_VERSION}
@@ -49,6 +50,7 @@ npm:
     - tags
   artifacts:
     expire_in: '1h'
+    untracked: true    # This includes all files not tracked by Git
     paths:
       - ${CI_THEME_ROOT}
 
