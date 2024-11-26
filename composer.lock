@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "11b16d56fb14187adc68479c0d97672c",
+    "content-hash": "6bdad7592cdbbe8e5626f9b6fc0947a4",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2590,6 +2590,58 @@
             "homepage": "https://www.drupal.org/project/search_api",
             "support": {
                 "source": "https://git.drupalcode.org/project/search_api"
+            }
+        },
+        {
+            "name": "drupal/taxonomy_replace",
+            "version": "2.0.0-alpha1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/taxonomy_replace.git",
+                "reference": "2.0.0-alpha1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/taxonomy_replace-2.0.0-alpha1.zip",
+                "reference": "2.0.0-alpha1",
+                "shasum": "14ad316566a6520fce1512b0918a0f141bb00eac"
+            },
+            "require": {
+                "drupal/core": "^8 || ^9 || ^10"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "2.0.0-alpha1",
+                    "datestamp": "1702488064",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Alpha releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "aaronpinero",
+                    "homepage": "https://www.drupal.org/user/1162898"
+                },
+                {
+                    "name": "Honza Pobořil",
+                    "homepage": "https://www.drupal.org/user/123612"
+                },
+                {
+                    "name": "malcomio",
+                    "homepage": "https://www.drupal.org/user/418511"
+                }
+            ],
+            "description": "Allows replace node terms to defined when Drupal attach them to node.",
+            "homepage": "https://www.drupal.org/project/taxonomy_replace",
+            "support": {
+                "source": "https://git.drupalcode.org/project/taxonomy_replace"
             }
         },
         {
@@ -13529,6 +13581,7 @@
         "drupal/gin": 5,
         "drupal/gin_toolbar": 5,
         "drupal/rabbit_hole": 15,
+        "drupal/taxonomy_replace": 15,
         "drupal/webp": 5
     },
     "prefer-stable": true,

@@ -4,8 +4,6 @@ prod:
   paths:
     drush-script: /home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current/vendor/bin/drush
     files: /home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current/web/sites/default/files
-  root: /home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current
-  ssh:
-    options: {}
+  root: /home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current/web
   uri: 'https://books.gealion.ch/'
   user: t148u_gealion
