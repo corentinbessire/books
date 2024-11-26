@@ -33,8 +33,8 @@
   ################################################################################
   # CD VARIABLES
   ################################################################################
-  PROD_SSH_HOST: ""
+  PROD_SSH_HOST: "t148u_gealion@t148u.ftp.infomaniak.com"
+  PORT_SSH_PORT: 22
+  PROD_SSH_OPTIONS: ""
   PROD_PROJECT_REMOTE_DIR: "/home/clients/cb666d16fae465a663f9d2d948dd3b6e/sites/books.gealion.ch/current"
-  PROD_URL: "https://books.gealion.ch/"
-
-
+  PROD_PROJECT_REMOTE_WEBROOT: "current"

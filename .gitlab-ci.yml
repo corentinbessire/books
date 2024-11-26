@@ -117,39 +117,39 @@ phpstan:
   after_script:
     - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Deployment" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
 
-deploy:DEV:
-  <<: *deployment_script
-  variables:
-    SSH_HOST: ${DEV_SSH_HOST}
-    SSH_PORT: ${DEV_SSH_PORT}
-    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
-    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
-    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
-  environment:
-    name: development
-    url: ${DEV_URL}
-  when: manual
-  only:
-    - merge_requests
-    - development
-    - stage
-    - main
+#deploy:DEV:
+#  <<: *deployment_script
+#  variables:
+#    SSH_HOST: ${DEV_SSH_HOST}
+#    SSH_PORT: ${DEV_SSH_PORT}
+#    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
+#    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
+#    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
+#  environment:
+#    name: development
+#    url: ${DEV_URL}
+#  when: manual
+#  only:
+#    - merge_requests
+#    - development
+#    - stage
+#    - main
 
-deploy:STAGE:
-  <<: *deployment_script
-  variables:
-    SSH_HOST: ${STAGE_SSH_HOST}
-    SSH_PORT: ${STAGE_SSH_PORT}
-    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
-    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
-    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
-  environment:
-    name: stage
-    url: ${STAGE_URL}
-  when: manual
-  only:
-    - stage
-    - main
+#deploy:STAGE:
+#  <<: *deployment_script
+#  variables:
+#    SSH_HOST: ${STAGE_SSH_HOST}
+#    SSH_PORT: ${STAGE_SSH_PORT}
+#    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
+#    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
+#    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
+#  environment:
+#    name: stage
+#    url: ${STAGE_URL}
+#  when: manual
+#  only:
+#    - stage
+#    - main
 
 deploy:PROD:
   <<: *deployment_script
@@ -189,39 +189,39 @@ deploy:PROD:
   after_script:
     - ./scripts/gitlab/notify-slack.sh ${SLACK_WEBHOOK_URL} "Rollback" $CI_JOB_STATUS ${CI_PROJECT_TITLE} ${CI_ENVIRONMENT_NAME} ${CI_PIPELINE_URL} ${GITLAB_USER_NAME}
 
-rollback:DEV:
-  <<: *rollback_script
-  variables:
-    SSH_HOST: ${DEV_SSH_HOST}
-    SSH_PORT: ${DEV_SSH_PORT}
-    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
-    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
-    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
-  environment:
-    name: development
-    url: ${DEV_URL}
-  needs: ["deploy:DEV"]
-  only:
-    - merge_requests
-    - development
-    - stage
-    - main
-
-rollback:STAGE:
-  <<: *rollback_script
-  variables:
-    SSH_HOST: ${STAGE_SSH_HOST}
-    SSH_PORT: ${STAGE_SSH_PORT}
-    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
-    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
-    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
-  environment:
-    name: stage
-    url: ${STAGE_URL}
-  needs: ["deploy:STAGE"]
-  only:
-    - stage
-    - main
+#rollback:DEV:
+#  <<: *rollback_script
+#  variables:
+#    SSH_HOST: ${DEV_SSH_HOST}
+#    SSH_PORT: ${DEV_SSH_PORT}
+#    SSH_OPTIONS: ${DEV_SSH_OPTIONS}
+#    PROJECT_REMOTE_DIR: ${DEV_PROJECT_REMOTE_DIR}
+#    PROJECT_REMOTE_WEBROOT: ${DEV_PROJECT_REMOTE_WEBROOT}
+#  environment:
+#    name: development
+#    url: ${DEV_URL}
+#  needs: ["deploy:DEV"]
+#  only:
+#    - merge_requests
+#    - development
+#    - stage
+#    - main
+#
+#rollback:STAGE:
+#  <<: *rollback_script
+#  variables:
+#    SSH_HOST: ${STAGE_SSH_HOST}
+#    SSH_PORT: ${STAGE_SSH_PORT}
+#    SSH_OPTIONS: ${STAGE_SSH_OPTIONS}
+#    PROJECT_REMOTE_DIR: ${STAGE_PROJECT_REMOTE_DIR}
+#    PROJECT_REMOTE_WEBROOT: ${STAGE_PROJECT_REMOTE_WEBROOT}
+#  environment:
+#    name: stage
+#    url: ${STAGE_URL}
+#  needs: ["deploy:STAGE"]
+#  only:
+#    - stage
+#    - main
 
 rollback:PROD:
   <<: *rollback_script
