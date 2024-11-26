@@ -8,63 +8,63 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * GoogleBooksService service.
+ * Custom Service to handle Google Books API.
  */
 class GoogleBooksService {
 
   /**
-   * The HTTP client.
+   * Constructor of the GoogleBooksService Service.
    *
-   * @var \GuzzleHttp\ClientInterface
+   * @param \GuzzleHttp\ClientInterface $httpClient
+   *   Guzzle Cleint Service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
+   *   Drupal Lofgger Channel Factory Service.
+   * @param \Drupal\Core\Site\Settings $settings
+   *   Drupsl Setting Service.
    */
-  protected $httpClient;
+  public function __construct(
+    protected ClientInterface $httpClient,
+    private readonly LoggerChannelFactoryInterface $loggerChannelFactory,
+    private readonly Settings $settings,
+  ) {}
 
   /**
-   * @var \Drupal\Core\Logger\LoggerChannel|\Drupal\Core\Logger\LoggerChannelInterface
-   */
-  private $logger;
-  private Settings $settings;
-
-  /**
-   * Constructs an GoogleBooksService object.
+   * Get Data of a book on Google Book API.
    *
-   * @param \GuzzleHttp\ClientInterface $http_client
-   *   The HTTP client.
+   * @param string|int $isbn
+   *   ISBN of the book to get data of.
+   *
+   * @return array
+   *   Data of the Book.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function __construct(ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory, Settings $settings) {
-    $this->httpClient = $http_client;
-    $this->logger = $loggerChannelFactory->get('GoogleBooksService');
-    $this->settings = $settings;
-  }
-
-  /**
-   * Method description.
-   */
-  public function getBookData($isbn) {
+  public function getBookData(string|int $isbn) {
     $googleApiKey = $this->settings->get('google_api_key');
     $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=' . $googleApiKey;
+    $book_data = [];
     try {
       $request = $this->httpClient->request('GET', $uri);
       $data = json_decode($request->getBody()->read(99999), TRUE);
+      if ($data['totalItems'] === 0) {
+        $this->loggerChannelFactory->get('GoogleBooksService')
+          ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+        return [];
+      }
+      $data = array_pop($data['items']);
+      $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
+      $book_data['title'] = $data['volumeInfo']['title'];
+      $book_data['field_pages'] = $data['volumeInfo']['pageCount'];
+      $book_data['field_authors'] = $data['volumeInfo']['authors'];
+      $book_data['field_publisher'] = $data['volumeInfo']['publisher'];
+      $book_data['field_excerpt'] = $data['volumeInfo']['description'];
+      $book_data['field_isbn'] = $isbn;
+      $book_data['field_release'] = $release;
     }
     catch (RequestException $e) {
-      $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
+      $this->loggerChannelFactory->get('GoogleBooksService')
+        ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
-
-    if ($data['totalItems'] === 0) {
-      $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
-      return [];
-    }
-    $data = array_pop($data['items']);
-    $release = date('Y-m-d', strtotime($data['volumeInfo']['publishedDate']));
-    $book_data['title'] = $data['volumeInfo']['title'];
-    $book_data['field_pages'] = $data['volumeInfo']['pageCount'];
-    $book_data['field_authors'] = $data['volumeInfo']['authors'];
-    $book_data['field_publisher'] = $data['volumeInfo']['publisher'];
-    $book_data['field_excerpt'] = $data['volumeInfo']['description'];
-    $book_data['field_isbn'] = $isbn;
-    $book_data['field_release'] = $release;
-
     return $book_data;
   }
 

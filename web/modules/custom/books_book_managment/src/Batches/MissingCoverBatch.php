@@ -3,14 +3,23 @@
 namespace Drupal\books_book_managment\Batches;
 
 /**
- *
+ * Batch to populate missing Covers.
  */
 class MissingCoverBatch {
 
   /**
+   * Batch Item Processor callback.
    *
+   * @param int $id
+   *   Nid of the book to process.
+   * @param int $total
+   *   Total of Bokks processed.
+   * @param array $operation_details
+   *   Operation Details arry.
+   * @param array $context
+   *   Context array.
    */
-  public static function missingCoverBatchProcess($id, $total, $operation_details, &$context) {
+  public static function missingCoverBatchProcess(int $id, int $total, array $operation_details, array &$context) {
     $number = count($context['results']);
     $context['results'][] = $id;
     // Optional message displayed under the progressbar.
@@ -35,14 +44,20 @@ class MissingCoverBatch {
     }
     else {
       $context['results']['failure'][] = t('Cover for @nid not found', ['@nid' => $id]);
-
     }
   }
 
   /**
+   * Finish Batch callback.
    *
+   * @param bool $success
+   *   Is the Batch successful.
+   * @param array $results
+   *   Total count of processed items.
+   * @param array $operations
+   *   Log of operations.   *.
    */
-  public static function missingCoverBatchFinished($success, array $results, array $operations) {
+  public static function missingCoverBatchFinished(bool $success, array $results, array $operations) {
     $messenger = \Drupal::messenger();
     if ($success) {
       $failure = count($results['failure']);

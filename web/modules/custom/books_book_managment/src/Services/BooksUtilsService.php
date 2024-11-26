@@ -7,56 +7,22 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * BooksUtilsService service.
+ * Custom Service to handle variuous Book related actions.
  */
 class BooksUtilsService {
 
   /**
-   * The logger channel factory.
-   *
-   * @var \Drupal\Core\Logger\LoggerChannelFactoryInterface
-   */
-  protected $logger;
-
-  /**
-   * The entity type manager.
-   *
-   * @var \Drupal\Core\Entity\EntityTypeManagerInterface
-   */
-  protected $entityTypeManager;
-
-
-  /**
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  private $termStorage;
-
-  /**
-   * @var \Drupal\Core\Entity\EntityStorageInterface
-   */
-  private $nodeStorage;
-
-  private $vids = [
-    'field_authors' => 'authors',
-    'field_publisher' => 'publishers',
-  ];
-
-  /**
    * Constructs a BooksUtilsService object.
    *
-   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $logger
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
    *   The logger channel factory.
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
+   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The file system service.
-   *
-   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
-   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
-  public function __construct(LoggerChannelFactoryInterface $logger, EntityTypeManagerInterface $entity_type_manager) {
-    $this->logger = $logger;
-    $this->termStorage = $entity_type_manager->getStorage('taxonomy_term');
-    $this->nodeStorage = $entity_type_manager->getStorage('node');
-  }
+  public function __construct(
+    protected LoggerChannelFactoryInterface $loggerChannelFactory,
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {}
 
   /**
    * Save Given Data into Book node entity.
@@ -67,6 +33,11 @@ class BooksUtilsService {
    *   array of fieldId and FieldValue to save.
    *
    * @return \Drupal\Core\Entity\EntityInterface
+   *   Book node entity.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
    */
   public function saveBookData(string $isbn, array $data): EntityInterface {
     $book = $this->getBook($isbn);
@@ -114,17 +85,24 @@ class BooksUtilsService {
    * @param string $isbn
    *   ISBN-13 Value.
    * @param bool $create
+   *   Create the Book Node if not existing.
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
+   *   Book node Entity.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function getBook(string $isbn, bool $create = TRUE): ?EntityInterface {
-    $books = $this->nodeStorage->loadByProperties(['field_isbn' => $isbn]);
+    $books = $this->entityTypeManager->getStorage('node')
+      ->loadByProperties(['field_isbn' => $isbn]);
     if (!empty($books)) {
       return end($books);
     }
     else {
       if ($create) {
-        return $this->nodeStorage->create(['type' => 'book']);
+        return $this->entityTypeManager->getStorage('node')
+          ->create(['type' => 'book']);
       }
       else {
         return NULL;
@@ -133,39 +111,54 @@ class BooksUtilsService {
   }
 
   /**
-   * @param $termName
+   * Upsert Term given Name and VID.
+   *
+   * @param string $termName
+   *   The Term Name to Upsert.
    * @param string $vid
+   *   The Vocabulary id of the Term to Upsert.
    *
    * @return \Drupal\taxonomy\TermInterface|null
+   *   The Upserted Entity term.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
-  public function getTermByName($termName, string $vid): ?EntityInterface {
+  public function getTermByName(string $termName, string $vid): ?EntityInterface {
     if (!$termName) {
       return NULL;
     }
-    $result = $this->termStorage->getQuery()
+    $result = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
       ->condition('vid', $vid)
       ->condition('name', $termName)
       ->accessCheck()
       ->execute();
     if (empty($result)) {
-      $term = $this->termStorage->create([
+      $term = $this->entityTypeManager->getStorage('taxonomy_term')->create([
         'vid' => $vid,
       ]);
       $term->set('name', $termName);
       $term->save();
     }
     else {
-      $term = $this->termStorage->load(reset($result));
+      $term = $this->entityTypeManager->getStorage('taxonomy_term')
+        ->load(reset($result));
     }
     return $term;
   }
 
   /**
+   * Get ann array of NIDS of Boonks noed without Cover.
    *
+   * @return array
+   *   Array of Nids.
+   *
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
    */
   public function getBooksMissingCover(): array {
-    $nids = $this->nodeStorage->getQuery()
+    $nids = $this->entityTypeManager->getStorage('node')->getQuery()
       ->condition('type', 'book')
       ->notExists('field_cover')
       ->accessCheck()

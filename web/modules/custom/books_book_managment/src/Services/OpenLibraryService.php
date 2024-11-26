@@ -7,37 +7,35 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * OpenLibraryService service.
+ * Custom Service to handle OpenLibrary API.
  */
 class OpenLibraryService {
 
   /**
-   * The HTTP client.
-   *
-   * @var \GuzzleHttp\ClientInterface
-   */
-  protected $httpClient;
-
-  /**
-   * @var \Drupal\Core\Logger\LoggerChannel|\Drupal\Core\Logger\LoggerChannelInterface
-   */
-  private $logger;
-
-  /**
    * Constructs an GoogleBooksService object.
    *
-   * @param \GuzzleHttp\ClientInterface $http_client
-   *   The HTTP client.
+   * @param \GuzzleHttp\ClientInterface $httpClient
+   *   Guzzle Client Service.
+   * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
+   *   Drupal Logger Channel Factory Service.
    */
-  public function __construct(ClientInterface $http_client, LoggerChannelFactoryInterface $loggerChannelFactory) {
-    $this->httpClient = $http_client;
-    $this->logger = $loggerChannelFactory->get('OpenLibraryService');
-  }
+  public function __construct(
+    protected ClientInterface $httpClient,
+    protected LoggerChannelFactoryInterface $loggerChannelFactory,
+  ) {}
 
   /**
-   * Method description.
+   * Get Data of a book on Open Library API.
+   *
+   * @param string|int $isbn
+   *   ISBN of the book to get data of.
+   *
+   * @return array
+   *   Data of the Book.
+   *
+   * @throws \GuzzleHttp\Exception\GuzzleException
    */
-  public function getBookData($isbn) {
+  public function getBookData(string|int $isbn) {
     $uri = 'https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:' . $isbn;
     $request = $this->httpClient->request('GET', $uri);
 
@@ -47,10 +45,12 @@ class OpenLibraryService {
       $data = json_decode($request->getBody()->read(4096), TRUE);
     }
     catch (RequestException $e) {
-      $this->logger->alert($e->getCode() . ' : ' . $e->getMessage());
+      $this->loggerChannelFactory->get('OpenLibraryService')
+        ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
     if (!isset($data['ISBN:' . $isbn])) {
-      $this->logger->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+      $this->loggerChannelFactory->get('OpenLibraryService')
+        ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
       return [];
     }
     $data = $data['ISBN:' . $isbn];

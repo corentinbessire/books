@@ -2,10 +2,10 @@
 
 namespace Drupal\books_graphql\Plugin\GraphQL\DataProducer;
 
-use Drupal\books_graphql\Wrappers\QueryConnection;
 use Drupal\Core\Cache\RefinableCacheableDependencyInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\books_graphql\Wrappers\QueryConnection;
 use Drupal\graphql\Plugin\GraphQL\DataProducer\DataProducerPluginBase;
 use GraphQL\Error\UserError;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -77,9 +77,9 @@ class QueryTerms extends DataProducerPluginBase implements ContainerFactoryPlugi
    */
   public function __construct(
     array $configuration,
-          $pluginId,
-          $pluginDefinition,
-    EntityTypeManagerInterface $entityTypeManager
+    $pluginId,
+    $pluginDefinition,
+    EntityTypeManagerInterface $entityTypeManager,
   ) {
     parent::__construct($configuration, $pluginId, $pluginDefinition);
     $this->entityTypeManager = $entityTypeManager;

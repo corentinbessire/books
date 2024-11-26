@@ -1,13 +1,25 @@
 services:
   books.google_books:
     class: Drupal\books_book_managment\Services\GoogleBooksService
-    arguments: ['@http_client', '@logger.factory', '@settings']
+    arguments:
+      - '@http_client'
+      - '@logger.factory'
+      - '@settings'
   books.open_library:
     class: Drupal\books_book_managment\Services\OpenLibraryService
-    arguments: ['@http_client', '@logger.factory']
+    arguments:
+        - '@http_client'
+        - '@logger.factory'
   books.books_utils:
     class: Drupal\books_book_managment\Services\BooksUtilsService
-    arguments: ['@logger.factory', '@entity_type.manager', '@file_system']
+    arguments:
+      - '@logger.factory'
+      - '@entity_type.manager'
+      - '@file_system'
   books.cover_download:
     class: Drupal\books_book_managment\Services\CoverDownloadService
-    arguments: ['@http_client', '@logger.factory', '@entity_type.manager']
+    arguments:
+      - '@http_client'
+      - '@logger.factory'
+      - '@entity_type.manager'
+      - '@file_repository'

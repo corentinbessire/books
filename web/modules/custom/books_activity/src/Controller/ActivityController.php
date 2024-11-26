@@ -2,13 +2,13 @@
 
 namespace Drupal\books_activity\Controller;
 
-use Drupal\books_book_managment\Services\BooksUtilsService;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\books_book_managment\Services\BooksUtilsService;
 use Drupal\isbn\IsbnToolsService;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Returns responses for Books - Activity routes.
@@ -16,37 +16,23 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 class ActivityController extends ControllerBase {
 
   /**
-   * @var \Drupal\Core\Messenger\MessengerInterface
-   */
-  protected $messengerInterface;
-
-  /**
-   * @var \Drupal\books_book_managment\Services\BooksUtilsService
-   */
-  protected $booksUtilsService;
-
-  /**
-   * @var \Drupal\isbn\IsbnToolsService
-   */
-  private $isbnToolsService;
-
-  /**
    * The controller constructor.
    *
-   * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    * @param \Drupal\Core\Messenger\MessengerInterface $messengerInterface
+   *   Drupal Messagenger Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
+   *   Custom Books Utilitary service.
+   * @param \Drupal\isbn\IsbnToolsService $isbnToolsService
+   *   ISBN Tools service.
+   * @param \Symfony\Component\HttpFoundation\Request $request
+   *   The Current Request.
    */
   public function __construct(
-    EntityTypeManagerInterface $entityTypeManager,
-    MessengerInterface $messengerInterface,
-    BooksUtilsService $booksUtilsService,
-    IsbnToolsService $isbnToolsService
+    protected MessengerInterface $messengerInterface,
+    protected BooksUtilsService $booksUtilsService,
+    private IsbnToolsService $isbnToolsService,
+    protected Request $request,
   ) {
-    $this->entityTypeManager = $entityTypeManager;
-    $this->messengerInterface = $messengerInterface;
-    $this->booksUtilsService = $booksUtilsService;
-    $this->isbnToolsService = $isbnToolsService;
   }
 
   /**
@@ -54,7 +40,6 @@ class ActivityController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity_type.manager'),
       $container->get('messenger'),
       $container->get('books.books_utils'),
       $container->get('isbn.isbn_service'),
@@ -62,12 +47,10 @@ class ActivityController extends ControllerBase {
   }
 
   /**
-   *
+   * {@inheritDoc}
    */
   public function new(string $isbn) {
-
     if ($this->isbnToolsService->isValidIsbn($isbn)) {
-
       if ($book = $this->booksUtilsService->getBook($isbn)) {
         $values = [
           'type' => 'activity',
@@ -90,16 +73,15 @@ class ActivityController extends ControllerBase {
     else {
       $this->messengerInterface
         ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-      if (!$url = \Drupal::request()->headers->get('referer')) {
+      if (!$url = $this->request->headers->get('referer')) {
         $url = '<front>';
       }
       return $this->redirect($url);
     }
-
   }
 
   /**
-   * Builds the response.
+   * {@inheritDoc}
    */
   public function finish(NodeInterface $activity) {
     $this->updateActivity($activity, 'Finished');
@@ -107,7 +89,7 @@ class ActivityController extends ControllerBase {
   }
 
   /**
-   * Builds the response.
+   * {@inheritDoc}
    */
   public function abandon(NodeInterface $activity) {
     $this->updateActivity($activity, 'Abandoned');
@@ -118,7 +100,9 @@ class ActivityController extends ControllerBase {
    * Update the given Activity to the Given Status and set EndDate to Now.
    *
    * @param \Drupal\node\NodeInterface $activity
+   *   Activity node to update.
    * @param string $status
+   *   Status to apply.
    *
    * @throws \Drupal\Core\Entity\EntityStorageException
    */
@@ -140,8 +124,10 @@ class ActivityController extends ControllerBase {
    * Get the 'Status' Term Id by Name.
    *
    * @param string $name
+   *   Name of the Status.
    *
    * @return int|null
+   *   Id of the Status Term.
    *
    * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
    * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException

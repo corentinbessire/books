@@ -2,6 +2,7 @@
 
 namespace Drupal\books_book_managment\Commands;
 
+use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\books_book_managment\Services\BooksUtilsService;
 use Drush\Commands\DrushCommands;
 
@@ -18,19 +19,18 @@ use Drush\Commands\DrushCommands;
  */
 class BooksBookManagmentCommands extends DrushCommands {
 
-  /**
-   * @var \Drupal\books_book_managment\Services\BooksUtilsService
-   */
-  private $booksUtilsService;
+  use StringTranslationTrait;
 
   /**
    * BooksBookManagmentCommands constructor.
    *
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
+   *   Utils for Book managment service.
    */
-  public function __construct(BooksUtilsService $booksUtilsService) {
+  public function __construct(
+    private BooksUtilsService $booksUtilsService,
+  ) {
     parent::__construct();
-    $this->booksUtilsService = $booksUtilsService;
   }
 
   /**
@@ -56,7 +56,7 @@ class BooksBookManagmentCommands extends DrushCommands {
           [
             $nid,
             $books_count,
-            t('Getting cover for @nid', ['@nid' => $nid]),
+            $this->t('Getting cover for @nid', ['@nid' => $nid]),
           ],
         ];
         $batchId++;
@@ -67,14 +67,13 @@ class BooksBookManagmentCommands extends DrushCommands {
       $this->logger->warning('No Books without Cover');
     }
     $batch = [
-      'title' => t('Getting Covers for @num book(s)', ['@num' => $numOperations]),
+      'title' => $this->t('Getting Covers for @num book(s)', ['@num' => $numOperations]),
       'operations' => $operations,
       'finished' => '\Drupal\books_book_managment\Batches\MissingCoverBatch::missingCoverBatchFinished',
     ];
     batch_set($batch);
     drush_backend_batch_process();
     $this->logger->info('Archive batch operations end.');
-
   }
 
 }

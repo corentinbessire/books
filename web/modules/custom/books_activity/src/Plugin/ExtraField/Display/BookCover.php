@@ -14,18 +14,13 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @ExtraFieldDisplay(
  *   id = "book_cover",
  *   label = @Translation("Book Cover"),
- *   description = @Translation("Display the cover of the book linked with the activity."),
- *   bundles = {
+ *   description = @Translation("Display the cover of the book linked with the
+ *   activity."), bundles = {
  *     "node.activity",
  *   }
  * )
  */
 class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
-
-  /**
-   * @var \Drupal\Core\Entity\EntityViewBuilderInterface
-   */
-  private $mediaViewBuilder;
 
   /**
    * Constructs a ExtraFieldDisplayFormattedBase object.
@@ -39,10 +34,13 @@ class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginI
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   The request stack.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, EntityTypeManagerInterface $entityTypeManager) {
+  public function __construct(
+    array $configuration,
+    $plugin_id,
+    $plugin_definition,
+    protected EntityTypeManagerInterface $entityTypeManager,
+  ) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-
-    $this->mediaViewBuilder = $entityTypeManager->getViewBuilder('media');
   }
 
   /**
@@ -61,7 +59,8 @@ class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginI
   public function view(ContentEntityInterface $entity) {
     $book = $entity->get('field_book')->entity;
     $cover = $book->get('field_cover')->entity;
-    return $this->mediaViewBuilder->view($cover, 'activity');
+    return $this->entityTypeManager->getViewBuilder('media')
+      ->view($cover, 'activity');
   }
 
 }
