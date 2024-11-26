@@ -80,8 +80,8 @@ $SSH "
   rm -rf $RELEASE_DIR/web/sites/default/settings.local.php
   rm -rf $RELEASE_DIR/web/.htaccess
   ln -nsf $PROJECT_REMOTE_DIR/shared/private_files $RELEASE_DIR/private_files
-  ln -nsf $PROJECT_REMOTE_DIR/shared/web/sites/default/files $RELEASE_DIR/web/sites/default/files
-  ln -nsf $PROJECT_REMOTE_DIR/shared/web/sites/default/settings.local.php $RELEASE_DIR/web/sites/default/settings.local.php
+  ln -nsf $PROJECT_REMOTE_DIR/shared/files $RELEASE_DIR/web/sites/default/files
+  ln -nsf $PROJECT_REMOTE_DIR/shared/settings.local.php $RELEASE_DIR/web/sites/default/settings.local.php
   ln -nsf $PROJECT_REMOTE_DIR/shared/.htaccess $RELEASE_DIR/web/.htaccess
 " || {
   echo "Error: Failed to prepare release"
