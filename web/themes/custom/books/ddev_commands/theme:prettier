@@ -1,0 +1,20 @@
+#!/bin/bash
+
+## Description: Apply prettier to the theme.
+## Usage: theme:prettier <theme-name>
+## Example: "ddev theme:prettier tadstack"
+
+if [ -z "$1" ]; then
+    echo "Error: Theme name is required"
+    echo "Usage: ddev theme:prettier <theme-name>"
+    exit 1
+fi
+
+theme_name=$1
+shift
+
+if [ ! -d "/var/www/html/web/themes/custom/$theme_name" ]; then
+    echo "Error: Theme '$theme_name' not found in web/themes/custom/"
+    exit 1
+fi
+cd "/var/www/html/web/themes/custom/$theme_name" && npm rebuild

@@ -1,17 +1,25 @@
-name: Books
+name: books
 type: theme
-base theme: false
-description: Books theme based on TailwindCSS and AlpineJS
-package: Books
-core: 8.x
-core_version_requirement: ^8 || ^9 || ^10
+'base theme': false
+version: 1.0.0
 libraries:
-  - books/global
-  - alpinejs/alpine
-
-dependencies:
-  - alpinejs
-
+  - books/base
+  - books/messages
+  - core/normalize
+libraries-extend:
+  user/drupal.user:
+    - books/user
+  core/drupal.dropbutton:
+    - books/dropbutton
+  core/drupal.dialog:
+    - books/dialog
+  file/drupal.file:
+    - books/file
+  core/drupal.progress:
+    - books/progress
+description: ''
+core_version_requirement: ^10
+generator: 'starterkit_theme:10.3.5'
 regions:
   header: Header
   highlighted: Highlighted

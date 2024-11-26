@@ -1,0 +1,21 @@
+#!/bin/bash
+
+## Description: NODE Command in theme folder
+## Usage:  theme:node <theme-name> <node-command> [args]
+## Example: "ddev theme:node tadstack install
+
+if [ -z "$1" ]; then
+    echo "Error: Theme name is required"
+    echo "Usage: ddev theme:node <theme-name> <node-command> [args]"
+    exit 1
+fi
+
+theme_name=$1
+shift
+
+if [ ! -d "/var/www/html/web/themes/custom/$theme_name" ]; then
+    echo "Error: Theme '$theme_name' not found in web/themes/custom/"
+    exit 1
+fi
+cd /var/www/html/web/themes/custom/$theme_name || exit
+exec node "$@"
