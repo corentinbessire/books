@@ -9,8 +9,6 @@
  * @see https://www.drupal.org/node/2217931
  */
 
-use Drupal\Core\Entity\EntityInterface;
-
 /**
  * Set the title of the Book as Activity Title.
  *
