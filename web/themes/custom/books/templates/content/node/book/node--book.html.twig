@@ -1,17 +1,33 @@
-<article class="p-4" >
-  <div id="book-title"  class="py-4 text-align-center lg:text-left">
-    <h1 class="font-bold text-xl text-align-center lg:text-left">{{ label }}</h1>
-    <p>by {{ content.field_authors }}</p>
-    {% if content.field_serie | render %}
-      <p class="text-sm text-gray-600">{{ content.field_serie }} (#{{ content.field_serie_number }})</p>
-    {% endif %}
-  </div>
+<article class="p-4">
+  <section class="flex flex-co flex-col-reverse md:flex-row gap-4">
+    <div class="flex w-full md:w-40 justify-center">
+      {{ content.field_cover }}
+    </div>
+    <div id="book-title" class="py-4 text-align-center md:text-left flex flex-col gap-4">
+      {% if content.field_serie | render %}
+        <div>
+          <span
+            class="text-sm bg-gray-600 rounded-full p-1 px-2 text-gray-300">Book {{ content.field_serie_number }} of {{ content.field_serie }}</span>
+        </div>
+      {% endif %}
+      <div>
+        <h1 class="font-serif font-bold text-3xl lg:text-5xl text-align-center lg:text-left">{{ label }}</h1>
+      </div>
+      <div>
+        <p>by {{ content.field_authors }}</p>
+      </div>
+    </div>
+
+  </section>
+
+
   <div id="book-main" class="lg:flex">
-    <div class="lg:w-1/3 w-full relative">
-    {{ content.field_cover }}
+
   </div>
-    <div class="lg:w2/3 w-full p-4">{{ content.field_excerpt }}</div>
-  </div>
+
+
+  <div class="lg:w2/3 w-full p-4">{{ content.field_excerpt }}</div>
+
   <div id="book-technical" class="py-4">
     <ul class="border-gray-400 border-2 rounded-md p-2">
       <li>{{ content.field_isbn }}</li>
