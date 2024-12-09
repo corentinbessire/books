@@ -28,9 +28,9 @@
   <div class="my-4">
     {% if title %}<h3 class="font-bold">{{ title }}</h3>{% endif %}
     {%- if items -%}
-      <{{ list_type }}{{ attributes.addClass(['grid','grid-cols-2', 'lg:grid-cols-4',  'gap-4', 'bg-white', 'p-4', 'rounded', 'shadow']) }}>
+      <{{ list_type }}{{ attributes.addClass(['grid','grid-cols-2', 'lg:grid-cols-4',  'gap-4', 'p-4', 'rounded', 'shadow']) }}>
       {%- for item in items -%}
-        <li{{ item.attributes }}>{{ item.value }}</li>
+        <li{{ item.attributes.addClass('flex flex-row gap-2') }}>{{ item.value }}</li>
       {%- endfor -%}
       </{{ list_type }}>
     {%- else -%}
