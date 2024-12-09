@@ -3,9 +3,10 @@
 namespace Drupal\books_activity\Plugin\ExtraField\Display;
 
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\extra_field\Plugin\ExtraFieldDisplayBase;
+use Drupal\extra_field_plus\Plugin\ExtraFieldPlusDisplayBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -20,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *   }
  * )
  */
-class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginInterface {
+class BookCover extends ExtraFieldPlusDisplayBase implements ContainerFactoryPluginInterface {
 
   /**
    * Constructs a ExtraFieldDisplayFormattedBase object.
@@ -57,10 +58,72 @@ class BookCover extends ExtraFieldDisplayBase implements ContainerFactoryPluginI
    * {@inheritdoc}
    */
   public function view(ContentEntityInterface $entity) {
-    $book = $entity->get('field_book')->entity;
-    $cover = $book->get('field_cover')->entity;
+    $settings = $this->getEntityExtraFieldSettings();
+
+    $book = $this->getFirstReference($entity, 'field_book');
+    $cover = $this->getFirstReference($book, 'field_cover');
     return $this->entityTypeManager->getViewBuilder('media')
-      ->view($cover, 'activity');
+      ->view($cover, $settings['image_style']);
+  }
+
+  /**
+   * Get the First entity of Entity Reference Field.
+   *
+   * @param \Drupal\Core\Entity\EntityInterface $entity
+   *   The Parent Entity.
+   * @param string $fieldName
+   *   The machine name of the field to extract entity from.
+   *
+   * @return \Drupal\Core\Entity\EntityInterface
+   *   The First entity referenced inf given field.
+   *
+   */
+  protected function getFirstReference(EntityInterface $entity, string $fieldName): EntityInterface {
+    $referencedEntities = $entity->get($fieldName)->referencedEntities();
+    return reset($referencedEntities);
+  }
+
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static function extraFieldSettingsForm(): array {
+    $form = parent::extraFieldSettingsForm();
+
+    $form['image_style'] = [
+      '#type' => 'select',
+      '#title' => t('Wrapper'),
+      '#options' => [
+        'activity' => 'activity',
+        'reading' => 'reading',
+      ],
+    ];
+
+    return $form;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static function defaultExtraFieldSettings(): array {
+    $values = parent::defaultExtraFieldSettings();
+
+    $values += [
+      'image_style' => 'activity',
+    ];
+
+    return $values;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  protected static function settingsSummary(string $field_id, string $entity_type_id, string $bundle, string $view_mode = 'default'): array {
+    return [
+      t('Image Style: @image_style', [
+        '@image_style' => self::getExtraFieldSetting($field_id, 'image_style', $entity_type_id, $bundle, $view_mode) ,
+      ])
+    ];
   }
 
 }

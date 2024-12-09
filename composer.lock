@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c80b40234e5c63455a7b8879d2b0c611",
+    "content-hash": "a3904c4c3b6e1db4a0347424c0439874",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1793,6 +1793,69 @@
             "homepage": "https://www.drupal.org/project/extra_field",
             "support": {
                 "source": "https://git.drupalcode.org/project/extra_field"
+            }
+        },
+        {
+            "name": "drupal/extra_field_plus",
+            "version": "3.0.0-beta4",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/extra_field_plus.git",
+                "reference": "3.0.0-beta4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/extra_field_plus-3.0.0-beta4.zip",
+                "reference": "3.0.0-beta4",
+                "shasum": "57871211b833b346374455f52ade5151f0cbffd8"
+            },
+            "require": {
+                "drupal/core": "^10.3 || ^11",
+                "drupal/extra_field": "^1.0 || ^2.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "drupal": {
+                    "version": "3.0.0-beta4",
+                    "datestamp": "1724336918",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Beta releases are not covered by Drupal security advisories."
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Andrew Tsiupiakh",
+                    "homepage": "https://www.drupal.org/user/3302731",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Anybody",
+                    "homepage": "https://www.drupal.org/u/anybody",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "grevil",
+                    "homepage": "https://www.drupal.org/user/3668491"
+                }
+            ],
+            "description": "Provides an interface and the extra field base plugins with editable display settings.",
+            "homepage": "https://www.drupal.org/project/extra_field_plus",
+            "keywords": [
+                "Drupal",
+                "Extra field",
+                "Extra field settings provider",
+                "Fields",
+                "Pseudo field"
+            ],
+            "support": {
+                "source": "https://www.drupal.org/project/extra_field_plus",
+                "issues": "https://www.drupal.org/project/issues/extra_field_plus"
             }
         },
         {
@@ -13880,6 +13943,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
+        "drupal/extra_field_plus": 10,
         "drupal/flag": 10,
         "drupal/gin": 5,
         "drupal/gin_toolbar": 5,

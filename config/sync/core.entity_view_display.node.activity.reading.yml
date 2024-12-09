@@ -18,7 +18,9 @@ bundle: activity
 mode: reading
 content:
   extra_field_book_cover:
-    settings: {  }
+    type: extra_field_book_cover
+    settings:
+      image_style: reading
     third_party_settings: {  }
     weight: 1
     region: content
