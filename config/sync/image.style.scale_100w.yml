@@ -1,0 +1,21 @@
+uuid: cc3231e6-63eb-471a-a568-30c4e195fb5c
+langcode: en
+status: true
+dependencies: {  }
+name: scale_100w
+label: 'Scale - 100w'
+effects:
+  9527943e-e43b-46a1-a4b5-94e2561d1dd9:
+    uuid: 9527943e-e43b-46a1-a4b5-94e2561d1dd9
+    id: image_scale
+    weight: 1
+    data:
+      width: 100
+      height: null
+      upscale: true
+  d0532fbb-2fde-4516-b99d-e7000a74af2f:
+    uuid: d0532fbb-2fde-4516-b99d-e7000a74af2f
+    id: image_convert
+    weight: 2
+    data:
+      extension: webp

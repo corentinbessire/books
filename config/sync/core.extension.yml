@@ -2,12 +2,14 @@ _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
 module:
   admin_toolbar: 0
+  alpinejs: 0
   automated_cron: 0
   block: 0
   books_activity: 0
   books_book_managment: 0
   breakpoint: 0
   ckeditor5: 0
+  coffee: 0
   ctools: 0
   datetime: 0
   datetime_range: 0
@@ -33,6 +35,7 @@ module:
   menu_ui: 0
   mysql: 0
   node: 0
+  options: 0
   page_cache: 0
   path: 0
   path_alias: 0

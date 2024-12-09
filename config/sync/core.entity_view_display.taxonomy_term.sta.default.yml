@@ -1,30 +1,24 @@
-uuid: 41baf746-b096-4d0a-80e9-c82f1141885a
+uuid: acace68a-8195-4713-8963-21a8e7977c8f
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.taxonomy_term.sta.field_color
     - taxonomy.vocabulary.sta
+  module:
+    - options
 id: taxonomy_term.sta.default
 targetEntityType: taxonomy_term
 bundle: sta
 mode: default
 content:
   field_color:
-    type: options_select
-    weight: 26
-    region: content
+    type: list_default
+    label: above
     settings: {  }
     third_party_settings: {  }
-  name:
-    type: string_textfield
-    weight: 0
+    weight: 2
     region: content
-    settings:
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
 hidden:
   description: true
-  path: true
-  status: true
+  search_api_excerpt: true

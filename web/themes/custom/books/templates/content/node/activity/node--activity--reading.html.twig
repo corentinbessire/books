@@ -1,13 +1,13 @@
-<div class="flex flex-row justify-between items-center w-full p-4 border-b-2 bg-gray-400">
-    <div >
-      {{ content.extra_field_book_cover }}
-    </div>
-  <div>
-    <h3 class="mb-3 font-bold text-gray-800 text-xl">{{ label }}</h3>
+<div class="flex flex-row justify-between items-center w-full p-4 rounded-xl bg-gray-700 text-white">
+  <div >
+    {{ content.extra_field_book_cover }}
   </div>
-    <div class="m-4">
-      <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
-    </div>
+  <div>
+    <h3 class="mb-3 font-bold text-xl">{{ label }}</h3>
+  </div>
+  <div class="m-4">
+    <p class="mb-3">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+  </div>
   <div>
     {{ content.field_status }}
   </div>

@@ -1,0 +1,25 @@
+uuid: 52510127-2bbd-40af-a283-6091bd5a1a66
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.taxonomy_term.tag
+    - field.field.taxonomy_term.sta.field_color
+    - taxonomy.vocabulary.sta
+  module:
+    - options
+id: taxonomy_term.sta.tag
+targetEntityType: taxonomy_term
+bundle: sta
+mode: tag
+content:
+  field_color:
+    type: list_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+hidden:
+  description: true
+  search_api_excerpt: true

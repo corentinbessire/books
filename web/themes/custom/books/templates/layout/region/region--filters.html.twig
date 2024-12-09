@@ -1,5 +1,5 @@
 {% if content %}
-  <div class="relative border-b border-gray-200" x-data="{selected:null}">
+  <div class="relative border-b border-gray-700" x-data="{selected:null}">
     <button type="button" class="w-full px-8 py-6 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
       <div class="flex flex-row-reverse">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -8,7 +8,7 @@
         </svg>
       </div>
     </button>
-    <div {{ attributes.addClass(['relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700' , 'bg-gray-100', 'px-4']) }}
+    <div {{ attributes.addClass(['relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700' , 'bg-gray-700', 'px-4']) }}
       x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
       {{ content }}
     </div>

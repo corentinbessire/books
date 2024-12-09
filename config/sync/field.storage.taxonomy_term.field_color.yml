@@ -1,0 +1,30 @@
+uuid: 13e524cd-a020-4af3-83ce-a947b2a676a3
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - taxonomy
+id: taxonomy_term.field_color
+field_name: field_color
+entity_type: taxonomy_term
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: success
+      label: Success
+    -
+      value: error
+      label: Error
+    -
+      value: info
+      label: Info
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
