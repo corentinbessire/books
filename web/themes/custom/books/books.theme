@@ -43,13 +43,8 @@ function books_theme_suggestions_taxonomy_term_alter(array &$suggestions, array 
     $view_mode = $variables['elements']['#view_mode'];
     $vocabulary = $term->bundle();
 
-    // Add view mode suggestion
     $suggestions[] = 'taxonomy_term__' . $view_mode;
-
-    // Add vocabulary suggestion
     $suggestions[] = 'taxonomy_term__' . $vocabulary;
-
-    // Add vocabulary + view mode combination
     $suggestions[] = 'taxonomy_term__' . $vocabulary . '__' . $view_mode;
   }
 }
