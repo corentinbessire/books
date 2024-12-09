@@ -1,16 +1,23 @@
 {% if content %}
-  <div class="relative border-b border-gray-700" x-data="{selected:null}">
-    <button type="button" class="w-full px-8 py-6 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
-      <div class="flex flex-row-reverse">
-        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
-        </svg>
+  <div class=" relative border-b border-gray-700" x-data="{selected:null}">
+    <div class="flex flex-row">
+      <div>
+        {{ elements.search }}
       </div>
-    </button>
+
+      <button type="button" class="w-full px-8 py-6 text-left" @click="selected !== 1 ? selected = 1 : selected = null">
+        <div class="flex flex-row-reverse">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/>
+          </svg>
+        </div>
+      </button>
+    </div>
     <div {{ attributes.addClass(['relative', 'overflow-hidden', 'transition-all', 'max-h-0','duration-700' , 'bg-gray-700', 'px-4']) }}
       x-ref="container1" x-bind:style="selected == 1 ? 'max-height: ' + $refs.container1.scrollHeight + 'px' : ''">
-      {{ content }}
+      {{ elements.authors }}
+      {{ elements.genres }}
     </div>
   </div>
 {% endif %}
