@@ -17,4 +17,4 @@ if [ ! -d "/var/www/html/web/themes/custom/$theme_name" ]; then
     echo "Error: Theme '$theme_name' not found in web/themes/custom/"
     exit 1
 fi
-cd "/var/www/html/web/themes/custom/$theme_name" && npm watch:dev
+cd "/var/www/html/web/themes/custom/$theme_name" && npm run watch:dev
