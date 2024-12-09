@@ -241,6 +241,9 @@ display:
     display_plugin: attachment
     position: 3
     display_options:
+      access:
+        type: none
+        options: {  }
       filters:
         status:
           id: status
@@ -326,6 +329,7 @@ display:
           relationship: none
           view_mode: reading
       defaults:
+        access: false
         style: false
         row: false
         filters: false
@@ -339,7 +343,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.roles
       tags: {  }
   page_1:
     id: page_1
@@ -347,6 +350,9 @@ display:
     display_plugin: page
     position: 1
     display_options:
+      access:
+        type: none
+        options: {  }
       filters:
         status:
           id: status
@@ -433,6 +439,7 @@ display:
           relationship: none
           view_mode: default
       defaults:
+        access: false
         style: false
         row: false
         filters: false
@@ -459,7 +466,6 @@ display:
         - 'languages:language_content'
         - 'languages:language_interface'
         - 'user.node_grants:view'
-        - user.roles
       tags: {  }
   page_2:
     id: page_2
