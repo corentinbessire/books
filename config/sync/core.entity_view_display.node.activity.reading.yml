@@ -1,4 +1,4 @@
-uuid: a9ac3605-e488-40e5-a9e8-62ace14015b0
+uuid: cd46766f-f31a-40a8-940e-baf864997b90
 langcode: en
 status: true
 dependencies:
@@ -30,13 +30,21 @@ content:
     third_party_settings: {  }
     weight: 2
     region: content
-  field_start_date:
-    type: datetime_time_ago
+  field_end_date:
+    type: datetime_default
     label: hidden
     settings:
-      future_format: '@interval hence'
-      past_format: '@interval ago'
-      granularity: 2
+      timezone_override: ''
+      format_type: standard
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_start_date:
+    type: datetime_default
+    label: hidden
+    settings:
+      timezone_override: ''
+      format_type: standard
     third_party_settings: {  }
     weight: 4
     region: content
@@ -54,5 +62,4 @@ content:
     weight: 0
     region: content
 hidden:
-  field_end_date: true
   search_api_excerpt: true

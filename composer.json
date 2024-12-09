@@ -92,6 +92,10 @@
         "drupal-scaffold": {
             "locations": {
                 "web-root": "web/"
+            },
+            "file-mapping": {
+                "[web-root]/sites/exemple.settings.local.php": false,
+                "[web-root]/sites/development.services.yml": false
             }
         },
         "installer-paths": {

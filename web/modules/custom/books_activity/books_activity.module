@@ -23,17 +23,3 @@ function books_activity_node_presave($node) {
     $node->set('title', $title);
   }
 }
-
-/**
- * Implements hook_entity_view_alter().
- */
-
-/**
- * Implements hook_entity_view_mode_alter().
- */
-function books_activity_entity_view_mode_alter(&$view_mode, EntityInterface $entity, $context) {
-  if ($entity->bundle() === 'activity' && $view_mode === 'timeline') {
-    $status = $entity->get('field_status')->entity->name->value;
-    $view_mode = strtolower($status);
-  }
-}

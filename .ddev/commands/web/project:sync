@@ -16,4 +16,4 @@ echo "Importing files from $@"
 drush rsync $@:%files @self:%files
 
 echo "Reseting Admin Password"
-drush upwd admin admin
+drush upwd Gealion admin

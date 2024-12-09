@@ -8,7 +8,6 @@ module:
   books_book_managment: 0
   breakpoint: 0
   ckeditor5: 0
-  coffee: 0
   ctools: 0
   datetime: 0
   datetime_range: 0

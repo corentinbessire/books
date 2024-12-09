@@ -1,4 +1,4 @@
-<div class="flex flex-row justify-between items-center w-full p-4 border-b-2 bg-gray-400">
+<div class="flex flex-row justify-between items-center w-full p-4 border-b-2">
     <div >
       {{ content.extra_field_book_cover }}
     </div>
@@ -7,6 +7,7 @@
   </div>
     <div class="m-4">
       <p class="mb-3 text-gray-800">{{ 'Started' |t }} {{ content.field_start_date }}</p>
+      <p class="mb-3 text-gray-800">{{ 'Finished' |t }} {{ content.field_end_date }}</p>
     </div>
   <div>
     {{ content.field_status }}

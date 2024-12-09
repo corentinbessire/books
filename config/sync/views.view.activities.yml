@@ -3,12 +3,15 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.reading
     - core.entity_view_mode.node.timeline
+    - field.storage.node.field_authors
     - field.storage.node.field_book
     - field.storage.node.field_end_date
     - field.storage.node.field_isbn
-    - field.storage.node.field_pages
+    - field.storage.node.field_publisher
     - field.storage.node.field_start_date
+    - field.storage.node.field_status
     - node.type.activity
     - taxonomy.vocabulary.sta
     - user.role.authenticated
@@ -124,43 +127,7 @@ display:
             field_identifier: field_start_date_value
           exposed: false
           granularity: second
-      arguments:
-        uid:
-          id: uid
-          table: node_field_data
-          field: uid
-          relationship: none
-          group_type: group
-          admin_label: ''
-          entity_type: node
-          entity_field: uid
-          plugin_id: entity_target_id
-          default_action: default
-          exception:
-            value: all
-            title_enable: false
-            title: All
-          title_enable: false
-          title: ''
-          default_argument_type: current_user
-          default_argument_options: {  }
-          summary_options:
-            base_path: ''
-            count: true
-            override: false
-            items_per_page: 25
-          summary:
-            sort_order: asc
-            number_of_records: 0
-            format: default_summary
-          specify_validation: false
-          validate:
-            type: none
-            fail: 'not found'
-          validate_options: {  }
-          break_phrase: false
-          not: false
-          target_entity_type_id: user
+      arguments: {  }
       filters:
         status:
           id: status
@@ -241,7 +208,7 @@ display:
         type: 'entity:node'
         options:
           relationship: none
-          view_mode: timeline
+          view_mode: default
       query:
         type: views_query
         options:
@@ -252,7 +219,12 @@ display:
           query_tags: {  }
           disable_automatic_base_fields: false
       relationships: {  }
-      header: {  }
+      header:
+        view:
+          id: view
+          table: views
+          field: view
+          plugin_id: view
       footer: {  }
       display_extenders: {  }
     cache_metadata:
@@ -260,17 +232,225 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
+        - 'user.node_grants:view'
+        - user.roles
+      tags: {  }
+  attachment_1:
+    id: attachment_1
+    display_title: Attachment
+    display_plugin: attachment
+    position: 3
+    display_options:
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            activity: activity
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_status_target_id:
+          id: field_status_target_id
+          table: node__field_status
+          field: field_status_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            118: 118
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: sta
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: reading
+      defaults:
+        style: false
+        row: false
+        filters: false
+        filter_groups: false
+        header: false
+      header: {  }
+      display_extenders: {  }
+    cache_metadata:
+      max-age: -1
+      contexts:
+        - 'languages:language_content'
+        - 'languages:language_interface'
         - 'user.node_grants:view'
         - user.roles
       tags: {  }
   page_1:
     id: page_1
-    display_title: Page
+    display_title: Activities
     display_plugin: page
     position: 1
     display_options:
+      filters:
+        status:
+          id: status
+          table: node_field_data
+          field: status
+          entity_type: node
+          entity_field: status
+          plugin_id: boolean
+          value: '1'
+          group: 1
+          expose:
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+        type:
+          id: type
+          table: node_field_data
+          field: type
+          entity_type: node
+          entity_field: type
+          plugin_id: bundle
+          value:
+            activity: activity
+          expose:
+            operator_limit_selection: false
+            operator_list: {  }
+        field_status_target_id:
+          id: field_status_target_id
+          table: node__field_status
+          field: field_status_target_id
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: taxonomy_index_tid
+          operator: or
+          value:
+            120: 120
+            119: 119
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            operator_limit_selection: false
+            operator_list: {  }
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          reduce_duplicates: false
+          vid: sta
+          type: select
+          hierarchy: false
+          limit: true
+          error_message: true
+      filter_groups:
+        operator: AND
+        groups:
+          1: AND
+      style:
+        type: default
+        options: {  }
+      row:
+        type: 'entity:node'
+        options:
+          relationship: none
+          view_mode: default
+      defaults:
+        style: false
+        row: false
+        filters: false
+        filter_groups: false
+        header: false
+      display_description: ''
+      header:
+        view:
+          id: view
+          table: views
+          field: view
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: view
+          empty: false
+          view_to_insert: 'activities:attachment_1'
+          inherit_arguments: false
       display_extenders: {  }
       path: activities
     cache_metadata:
@@ -278,14 +458,12 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags: {  }
   page_2:
     id: page_2
-    display_title: 'Page 2'
+    display_title: Admin
     display_plugin: page
     position: 2
     display_options:
@@ -299,6 +477,69 @@ display:
           admin_label: ''
           plugin_id: field
           label: Book
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        field_authors:
+          id: field_authors
+          table: node__field_authors
+          field: field_authors
+          relationship: field_book
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Authors
           exclude: false
           alter:
             alter_text: false
@@ -415,15 +656,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_start_date:
-          id: field_start_date
-          table: node__field_start_date
-          field: field_start_date
-          relationship: none
+        field_publisher:
+          id: field_publisher
+          table: node__field_publisher
+          field: field_publisher
+          relationship: field_book
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: 'Start Date'
+          label: Publisher
           exclude: false
           alter:
             alter_text: false
@@ -464,12 +705,11 @@ display:
           hide_empty: false
           empty_zero: false
           hide_alter_empty: true
-          click_sort_column: value
-          type: datetime_default
+          click_sort_column: target_id
+          type: entity_reference_label
           settings:
-            timezone_override: ''
-            format_type: html_date
-          group_column: value
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -543,15 +783,15 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
-        field_pages:
-          id: field_pages
-          table: node__field_pages
-          field: field_pages
-          relationship: field_book
+        field_start_date:
+          id: field_start_date
+          table: node__field_start_date
+          field: field_start_date
+          relationship: none
           group_type: group
           admin_label: ''
           plugin_id: field
-          label: Pages
+          label: 'Start Date'
           exclude: false
           alter:
             alter_text: false
@@ -593,11 +833,226 @@ display:
           empty_zero: false
           hide_alter_empty: true
           click_sort_column: value
-          type: number_integer
+          type: datetime_default
           settings:
-            thousand_separator: ''
-            prefix_suffix: true
+            timezone_override: ''
+            format_type: html_date
           group_column: value
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+        nothing:
+          id: nothing
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: 'My Rating'
+          exclude: false
+          alter:
+            alter_text: true
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+        nothing_1:
+          id: nothing_1
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: 'Average Rating'
+          exclude: false
+          alter:
+            alter_text: true
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+        nothing_2:
+          id: nothing_2
+          table: views
+          field: nothing
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: custom
+          label: Binding
+          exclude: false
+          alter:
+            alter_text: true
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: false
+        nothing_3:
+          id: nothing_3
+          table: views
+          field: nothing
+          plugin_id: custom
+        field_status:
+          id: field_status
+          table: node__field_status
+          field: field_status
+          relationship: none
+          group_type: group
+          admin_label: ''
+          plugin_id: field
+          label: Status
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: true
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_label
+          settings:
+            link: true
+          group_column: target_id
           group_columns: {  }
           group_rows: true
           delta_limit: 0
@@ -640,6 +1095,7 @@ display:
         row: false
         relationships: false
         fields: false
+        header: false
       relationships:
         field_book:
           id: field_book
@@ -650,6 +1106,8 @@ display:
           admin_label: book
           plugin_id: standard
           required: false
+      display_description: ''
+      header: {  }
       display_extenders: {  }
       path: admin/activities
     cache_metadata:
@@ -657,13 +1115,13 @@ display:
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - url
-        - user
         - 'user.node_grants:view'
         - user.roles
       tags:
+        - 'config:field.storage.node.field_authors'
         - 'config:field.storage.node.field_book'
         - 'config:field.storage.node.field_end_date'
         - 'config:field.storage.node.field_isbn'
-        - 'config:field.storage.node.field_pages'
+        - 'config:field.storage.node.field_publisher'
         - 'config:field.storage.node.field_start_date'
+        - 'config:field.storage.node.field_status'
