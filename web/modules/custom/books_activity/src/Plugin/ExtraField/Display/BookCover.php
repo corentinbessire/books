@@ -76,13 +76,11 @@ class BookCover extends ExtraFieldPlusDisplayBase implements ContainerFactoryPlu
    *
    * @return \Drupal\Core\Entity\EntityInterface
    *   The First entity referenced inf given field.
-   *
    */
   protected function getFirstReference(EntityInterface $entity, string $fieldName): EntityInterface {
     $referencedEntities = $entity->get($fieldName)->referencedEntities();
     return reset($referencedEntities);
   }
-
 
   /**
    * {@inheritdoc}
@@ -94,8 +92,8 @@ class BookCover extends ExtraFieldPlusDisplayBase implements ContainerFactoryPlu
       '#type' => 'select',
       '#title' => t('Wrapper'),
       '#options' => [
-        'activity' => 'activity',
-        'reading' => 'reading',
+        'activity' => \Drupal::service('string_translation')->translate('activity'),
+        'reading' => \Drupal::service('string_translation')->translate('reading'),
       ],
     ];
 
@@ -121,8 +119,8 @@ class BookCover extends ExtraFieldPlusDisplayBase implements ContainerFactoryPlu
   protected static function settingsSummary(string $field_id, string $entity_type_id, string $bundle, string $view_mode = 'default'): array {
     return [
       t('Image Style: @image_style', [
-        '@image_style' => self::getExtraFieldSetting($field_id, 'image_style', $entity_type_id, $bundle, $view_mode) ,
-      ])
+        '@image_style' => self::getExtraFieldSetting($field_id, 'image_style', $entity_type_id, $bundle, $view_mode),
+      ]),
     ];
   }
 
