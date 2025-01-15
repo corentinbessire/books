@@ -22,14 +22,6 @@ targetEntityType: node
 bundle: book
 mode: teaser
 content:
-  field_authors:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 1
-    region: content
   field_cover:
     type: entity_reference_entity_view
     label: hidden
@@ -37,29 +29,7 @@ content:
       view_mode: card
       link: false
     third_party_settings: {  }
-    weight: 2
-    region: content
-  field_serie:
-    type: entity_reference_label
-    label: hidden
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 3
-    region: content
-  field_serie_number:
-    type: number_integer
-    label: hidden
-    settings:
-      thousand_separator: ''
-      prefix_suffix: true
-    third_party_settings: {  }
-    weight: 4
-    region: content
-  flag_to_be_read:
-    settings: {  }
-    third_party_settings: {  }
-    weight: 10
+    weight: 1
     region: content
   links:
     settings: {  }
@@ -67,10 +37,14 @@ content:
     weight: 0
     region: content
 hidden:
+  field_authors: true
   field_excerpt: true
   field_genres: true
   field_isbn: true
   field_pages: true
   field_publisher: true
   field_release: true
+  field_serie: true
+  field_serie_number: true
+  flag_to_be_read: true
   search_api_excerpt: true
