@@ -10,7 +10,6 @@
  * @see template_preprocess_select()
  */
 #}
-{% apply spaceless %}
   <select{{ attributes }}>
     {% for option in options %}
       {% if option.type == 'optgroup' %}
@@ -24,4 +23,3 @@
       {% endif %}
     {% endfor %}
   </select>
-{% endapply %}

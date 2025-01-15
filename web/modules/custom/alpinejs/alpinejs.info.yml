@@ -1,9 +1,0 @@
-name: Alpine.js
-type: module
-description: 'Provides Alpine.js library.'
-core_version_requirement: ^8.8 || ^9 || ^10
-
-# Information added by Drupal.org packaging script on 2021-01-12
-version: '1.4.0'
-project: 'alpinejs'
-datestamp: 1610464671

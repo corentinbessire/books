@@ -21,34 +21,31 @@
         "composer/installers": "^1.9",
         "cweagans/composer-patches": "^1.7",
         "drupal/admin_toolbar": "^3.0",
-        "drupal/coffee": "^2.0",
-        "drupal/core": "^10.2",
-        "drupal/core-composer-scaffold": "^10.3",
-        "drupal/core-recommended": "^10.3",
+        "drupal/core": "^11.1",
+        "drupal/core-composer-scaffold": "^11.1",
+        "drupal/core-recommended": "^11.1",
         "drupal/extra_field": "^2.1",
         "drupal/extra_field_plus": "^3.0@beta",
         "drupal/facets": "^2.0",
-        "drupal/flag": "^4.0@beta",
-        "drupal/gin": "^3.0@RC",
-        "drupal/gin_toolbar": "^1.0@RC",
-        "drupal/graphql": "^4.7",
+        "drupal/gin": "^4.0",
+        "drupal/gin_toolbar": "2.0",
         "drupal/image_class": "^2.0",
         "drupal/isbn": "^1.4",
         "drupal/media_image_display_entity_view": "^1.0",
         "drupal/pathauto": "^1.8",
-        "drupal/rabbit_hole": "^2.0@alpha",
+        "drupal/rabbit_hole": "^2.0@beta",
         "drupal/search_api_db": "^1.20",
-        "drupal/taxonomy_replace": "^2.0@alpha",
         "drupal/webp": "^1.0@RC",
         "drush/drush": "^13.0",
+        "mglaman/composer-drupal-lenient": "^1.0",
         "nicebooks/isbn": "^0.3.46",
         "vlucas/phpdotenv": "^5.1",
         "webflo/drupal-finder": "^1.2"
     },
     "require-dev": {
         "drupal/coder": "^8.3",
-        "drupal/core-dev": "^10.3",
-        "drupal/upgrade_status": "^4.0",
+        "drupal/core-dev": "^11.1",
+        "drupal/upgrade_status": "^4.3",
         "mglaman/phpstan-drupal": "^1.1",
         "phpcompatibility/php-compatibility": "^9.3",
         "phpstan/phpstan": "^1.10",
@@ -66,13 +63,14 @@
         "sort-packages": true,
         "allow-plugins": {
             "composer/installers": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true,
             "cweagans/composer-patches": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
             "drupal/core-composer-scaffold": true,
-            "zaporylie/composer-drupal-optimizations": true,
-            "phpstan/extension-installer": true,
+            "mglaman/composer-drupal-lenient": true,
             "php-http/discovery": true,
-            "tbachert/spi": true
+            "phpstan/extension-installer": true,
+            "tbachert/spi": true,
+            "zaporylie/composer-drupal-optimizations": true
         }
     },
     "scripts": {
@@ -122,6 +120,22 @@
         "composer-exit-on-patch-failure": true,
         "patchLevel": {
             "drupal/core": "-p2"
+        },
+        "drupal-lenient": {
+            "allowed-list": [
+                "drupal/extra_field",
+                "drupal/image_class",
+                "drupal/rabbit_hole",
+                "drupal/taxonomy_replace"
+            ]
+        },
+        "patches": {
+            "drupal/extra_field": {
+                "#3455216 - Drupal 11 compatibility": "https://git.drupalcode.org/project/extra_field/-/merge_requests/21.patch"
+            },
+            "drupal/image_class": {
+                "#3430988 - Drupal 11 Compatibility" : "https://git.drupalcode.org/project/image_class/-/merge_requests/2.patch"
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ libraries-extend:
   core/drupal.progress:
     - books/progress
 description: ''
-core_version_requirement: ^10
+core_version_requirement: ^10 || ^11
 generator: 'starterkit_theme:10.3.5'
 regions:
   header: Header
