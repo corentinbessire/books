@@ -28,6 +28,7 @@
         "drupal/extra_field_plus": "^3.0@beta",
         "drupal/facets": "^2.0",
         "drupal/gin": "^4.0",
+        "drupal/gin_login": "^2.1",
         "drupal/gin_toolbar": "2.0",
         "drupal/image_class": "^2.0",
         "drupal/isbn": "^1.4",
