@@ -7,9 +7,9 @@ use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\RequestException;
 
 /**
- * Custom Service to handle OpenLibrary API.
+ * Implementation of Book Data Services for OpenLibrary API.
  */
-class OpenLibraryService {
+class OpenLibraryService implements BookDataServiceInterface {
 
   /**
    * Constructs an GoogleBooksService object.
@@ -25,46 +25,52 @@ class OpenLibraryService {
   ) {}
 
   /**
-   * Get Data of a book on Open Library API.
-   *
-   * @param string|int $isbn
-   *   ISBN of the book to get data of.
-   *
-   * @return array
-   *   Data of the Book.
-   *
-   * @throws \GuzzleHttp\Exception\GuzzleException
+   * {@inheritdoc}
    */
-  public function getBookData(string|int $isbn) {
+  public function getBookData(string|int $isbn): array|null {
     $uri = 'https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:' . $isbn;
-    $request = $this->httpClient->request('GET', $uri);
 
     try {
       $request = $this->httpClient->request('GET', $uri);
-      $request->getBody();
-      $data = json_decode($request->getBody()->read(4096), TRUE);
+      $data = json_decode($request->getBody(), TRUE);
     }
     catch (RequestException $e) {
       $this->loggerChannelFactory->get('OpenLibraryService')
         ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
+
     if (!isset($data['ISBN:' . $isbn])) {
       $this->loggerChannelFactory->get('OpenLibraryService')
         ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
-      return [];
+      return NULL;
     }
-    $data = $data['ISBN:' . $isbn];
+    $bookData = $data['ISBN:' . $isbn];
+    $bookData['isbn'] = $isbn;
+    return $bookData;
+  }
 
-    $book_data['title'] = $data['title'];
-    $book_data['field_pages'] = $data['number_of_pages'];
-    foreach ($data['authors'] as $author) {
-      $book_data['field_authors'][] = $author['name'];
+  /**
+   * {@inheritdoc}
+   */
+  public function formatBookData(array $bookData): array {
+    $formattedBookData['title'] = $bookData['title'];
+    $formattedBookData['field_pages'] = $bookData['number_of_pages'];
+    foreach ($bookData['authors'] as $author) {
+      $formattedBookData['field_authors'][] = $author['name'];
     }
-    $data['publishers'] = reset($data['publishers']);
-    $book_data['field_publisher'] = $data['publishers']['name'];
-    $book_data['field_isbn'] = $isbn;
-    $book_data['field_release'] = date('Y-m-d', strtotime($data['publish_date']));
-    return $book_data;
+    $data['publishers'] = reset($bookData['publishers']);
+    $formattedBookData['field_publisher'] = $bookData['publishers']['name'];
+    $formattedBookData['field_isbn'] = $bookData['isbn'];
+    $formattedBookData['field_release'] = date('Y-m-d', strtotime($bookData['publish_date']));
+    return $formattedBookData;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getFormatedBookData(int|string $isbn): array|null {
+    $bookData = $this->getBookData($isbn);
+    return ($bookData) ? $this->formatBookData($bookData) : $bookData;
   }
 
 }

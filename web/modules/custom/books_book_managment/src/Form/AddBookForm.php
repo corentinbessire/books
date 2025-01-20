@@ -94,13 +94,13 @@ class AddBookForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $isbn = $form_state->getValue('isbn');
-    $ol_book_data = $this->openLibraryService
-      ->getBookData($isbn);
+    $olBookData = $this->openLibraryService
+      ->getFormatedBookData($isbn);
 
-    $gb_book_data = $this->googleBooksService
-      ->getBookData($isbn);
+    $gbBookData = $this->googleBooksService
+      ->getFormatedBookData($isbn);
 
-    $book_data = $this->mergeBookData($gb_book_data, $ol_book_data);
+    $book_data = $this->mergeBookData($gbBookData, $olBookData);
 
     if ($book_data) {
       $cover = $this->coverDownloadService

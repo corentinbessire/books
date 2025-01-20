@@ -13,9 +13,9 @@ class MissingCoverBatch {
    * @param int $id
    *   Nid of the book to process.
    * @param int $total
-   *   Total of Bokks processed.
+   *   Total of Books processed.
    * @param array $operation_details
-   *   Operation Details arry.
+   *   Operation Details array.
    * @param array $context
    *   Context array.
    */
