@@ -85,7 +85,7 @@ class AddBookForm extends FormBase {
      */
     $isbnValidator = $this->isbnToolsService;
     if (!$isbnValidator->isValidIsbn($form_state->getValue('isbn'))) {
-      $form_state->setError($form['wrapper']['isbn'], 'This is not a valid ISBN number.');
+      $form_state->setError($form['isbn'], 'This is not a valid ISBN number.');
     }
   }
 
