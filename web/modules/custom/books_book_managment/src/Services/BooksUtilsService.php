@@ -7,7 +7,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Logger\LoggerChannelFactoryInterface;
 
 /**
- * Custom Service to handle variuous Book related actions.
+ * Custom Service to handle various Book related actions.
  */
 class BooksUtilsService {
 

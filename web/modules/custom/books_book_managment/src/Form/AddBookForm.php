@@ -100,21 +100,21 @@ class AddBookForm extends FormBase {
     $gbBookData = $this->googleBooksService
       ->getFormatedBookData($isbn);
 
-    $book_data = $this->mergeBookData($gbBookData, $olBookData);
+    $bookData = $this->mergeBookData($gbBookData, $olBookData);
 
-    if ($book_data) {
+    if ($bookData) {
       $cover = $this->coverDownloadService
         ->downloadBookCover($isbn);
       if ($cover) {
-        $book_data['field_cover'] = $cover;
+        $bookData['field_cover'] = $cover;
       }
       $book = $this->booksUtilsService
-        ->saveBookData($isbn, $book_data);
+        ->saveBookData($isbn, $bookData);
 
       $this->messenger()->addStatus($this->t('Book has been created'));
       $form_state->setRedirect('entity.node.canonical', ['node' => $book->id()]);
     }
-    $this->messenger()->addStatus($this->t('Not Found'));
+    $this->messenger()->addStatus($this->t('No data found for given ISBN.'));
   }
 
   /**
