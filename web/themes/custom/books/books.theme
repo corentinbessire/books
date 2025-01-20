@@ -48,3 +48,53 @@ function books_theme_suggestions_taxonomy_term_alter(array &$suggestions, array 
     $suggestions[] = 'taxonomy_term__' . $vocabulary . '__' . $view_mode;
   }
 }
+
+/**
+ * Implements hook_theme_suggestions_form_alter().
+ */
+function books_theme_suggestions_form_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#form_id'])) {
+    $form_id = str_replace('-', '_', $variables['element']['#form_id']);
+    $suggestions[] = 'form__' . $form_id;
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form elements.
+ */
+function books_theme_suggestions_form_element_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#type'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#type'];
+  }
+  if (isset($variables['element']['#name'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#name'];
+  }
+  if (isset($variables['element']['#type'], $variables['element']['#name'])) {
+    $suggestions[] = 'form_element__' . $variables['element']['#type'] . '__' . $variables['element']['#name'];
+  }
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for form element labels.
+ */
+function books_theme_suggestions_form_element_label_alter(array &$suggestions, array $variables): void {
+  $id = str_replace('-', '_', $variables['element']['#id']);
+  $suggestions[] = 'form_element_label__' . $id;
+}
+
+/**
+ * Implements hook_theme_suggestions_HOOK_alter() for input elements.
+ */
+function books_theme_suggestions_input_alter(array &$suggestions, array $variables): void {
+  if (isset($variables['element']['#type'])) {
+    $suggestions[] = 'input__' . $variables['element']['#type'];
+  }
+  if (isset($variables['element']['#name'])) {
+    $suggestions[] = 'input__' . $variables['element']['#name'];
+  }
+  if (isset($variables['element']['#type'], $variables['element']['#name'])) {
+    $suggestions[] = 'input__' . $variables['element']['#type'] . '__' . $variables['element']['#name'];
+  }
+  $id = str_replace('-', '_', $variables['element']['#id']);
+  $suggestions[] = 'input__' . $variables['element']['#type'] . '__' . $id;
+}
