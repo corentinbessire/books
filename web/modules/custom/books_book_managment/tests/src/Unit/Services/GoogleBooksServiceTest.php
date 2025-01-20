@@ -8,9 +8,6 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Core\Site\Settings;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request;
 
 /**
  * Unit tests for GoogleBooksService.
@@ -111,8 +108,6 @@ class GoogleBooksServiceTest extends UnitTestCase {
       ],
     ];
 
-    $response = new Response(200, [], json_encode($mockData));
-
     $result = $this->googleBooksService->getBookData($isbn);
 
     $expected = $mockData['items'][0];
@@ -141,18 +136,16 @@ class GoogleBooksServiceTest extends UnitTestCase {
    */
   public function testGetBookDataNoResults(): void {
     $isbn = '9780123456789';
-    $mockData = [
+    $expected = [
       'totalItems' => 0,
       'items' => [],
     ];
-
-    $response = new Response(200, [], json_encode($mockData));
 
     $this->logger->expects($this->once())
       ->method('alert');
 
     $result = $this->googleBooksService->getBookData($isbn);
-    $this->assertNull($result);
+    $this->assertEquals($expected, $result);
   }
 
   /**
@@ -203,29 +196,21 @@ class GoogleBooksServiceTest extends UnitTestCase {
    * @covers ::getFormatedBookData
    */
   public function testGetFormatedBookDataSuccess(): void {
-    $isbn = '9780123456789';
-    $mockData = [
-      'volumeInfo' => [
-        'title' => 'Test Book',
-        'pageCount' => 200,
-        'authors' => ['John Doe'],
-        'publisher' => 'Test Publisher',
-        'description' => 'A test book description',
-        'publishedDate' => '2023-01-01',
-        'industryIdentifiers' => [
-          [
-            'type' => 'ISBN_13',
-            'identifier' => $isbn,
-          ],
-        ],
-      ],
+    $isbn = '9780142437247';
+
+    $expected = [
+      'title' => 'Moby-Dick',
+      'field_pages' => 0,
+      'field_authors' => ['Herman Melville'],
+      'field_publisher' => 'National Geographic Books',
+      'field_isbn' => $isbn,
+      'field_release' => '2002-12-31',
     ];
 
     $result = $this->googleBooksService->getFormatedBookData($isbn);
     $this->assertIsArray($result);
-    $this->assertArrayHasKey('title', $result);
-    $this->assertArrayHasKey('field_isbn', $result);
-    $this->assertArrayHasKey('field_excerpt', $result);
+    $this->assertEquals($expected, $result);
+
   }
 
   /**

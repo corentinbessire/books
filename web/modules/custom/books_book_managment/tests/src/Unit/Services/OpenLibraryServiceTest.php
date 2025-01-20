@@ -8,8 +8,6 @@ use Drupal\Core\Logger\LoggerChannelInterface;
 use Drupal\Tests\UnitTestCase;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Psr7\Request;
 
 /**
  * Unit tests for OpenLibraryService.
@@ -86,7 +84,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
           ['name' => "Herman Melville"],
         ],
         'publishers' => [
-          ['name' => 	"Penguin Books"],
+          ['name' => "Penguin Books"],
         ],
         'publish_date' => "2003",
       ],
@@ -149,7 +147,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
       'title' => 'Test Book',
       'field_pages' => 200,
       'field_authors' => ['John Doe', 'Jane Smith'],
-      'field_publisher' =>'Test Publisher',
+      'field_publisher' => 'Test Publisher',
       'field_isbn' => '9780123456789',
       'field_release' => '2023-01-01',
     ];
@@ -178,7 +176,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
       'isbn' => $isbn,
     ];
 
-    // Mock getBookData() to return test data
+    // Mock getBookData() to return test data.
     $this->openLibraryService = $this->getMockBuilder(OpenLibraryService::class)
       ->onlyMethods(['getBookData'])
       ->setConstructorArgs([$this->httpClient, $this->loggerFactory])
@@ -204,7 +202,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
   public function testGetFormatedBookDataNull(): void {
     $isbn = '9780123456789';
 
-    // Mock getBookData() to return null
+    // Mock getBookData() to return null.
     $this->openLibraryService = $this->getMockBuilder(OpenLibraryService::class)
       ->onlyMethods(['getBookData'])
       ->setConstructorArgs([$this->httpClient, $this->loggerFactory])
