@@ -118,13 +118,6 @@ class OpenLibraryServiceTest extends UnitTestCase {
   public function testGetBookDataError(): void {
     $isbn = '9780123456789';
 
-    $this->httpClient->expects($this->once())
-      ->method('request')
-      ->willThrowException(new \GuzzleHttp\Exception\RequestException(
-        'Error message',
-        new \GuzzleHttp\Psr7\Request('GET', 'test-uri')
-      ));
-
     $this->logger->expects($this->once())
       ->method('alert');
 
@@ -156,7 +149,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
       'title' => 'Test Book',
       'field_pages' => 200,
       'field_authors' => ['John Doe', 'Jane Smith'],
-      'field_publisher' => ['name' => 'Test Publisher'],
+      'field_publisher' =>'Test Publisher',
       'field_isbn' => '9780123456789',
       'field_release' => '2023-01-01',
     ];

@@ -58,7 +58,7 @@ class OpenLibraryService implements BookDataServiceInterface {
     foreach ($bookData['authors'] as $author) {
       $formattedBookData['field_authors'][] = $author['name'];
     }
-    $data['publishers'] = reset($bookData['publishers']);
+    $bookData['publishers'] = reset($bookData['publishers']);
     $formattedBookData['field_publisher'] = $bookData['publishers']['name'];
     $formattedBookData['field_isbn'] = $bookData['isbn'];
     $formattedBookData['field_release'] = date('Y-m-d', strtotime($bookData['publish_date']));
