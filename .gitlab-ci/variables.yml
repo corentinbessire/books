@@ -10,9 +10,9 @@
 
   CI_PHP_VERSION: "8.3"
   CI_NODE_VERSION: "22"
-  CI_DRUPAL_VERSION: "10.3"
+  CI_DRUPAL_VERSION: "11.2"
   CI_DRUPAL_WEB_ROOT: web
-  CI_DOC_ROOT: "/builds/gealion1/books"
+  CI_DOC_ROOT: "/builds/cbessire/books"
   CI_WEB_ROOT: "${CI_DOC_ROOT}/${CI_DRUPAL_WEB_ROOT}"
   CI_THEME_ROOT: "web/themes/custom/books"
 
