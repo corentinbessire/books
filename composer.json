@@ -130,13 +130,6 @@
                 "drupal/taxonomy_replace"
             ]
         },
-        "patches": {
-            "drupal/extra_field": {
-                "#3455216 - Drupal 11 compatibility": "https://git.drupalcode.org/project/extra_field/-/merge_requests/21.patch"
-            },
-            "drupal/image_class": {
-                "#3430988 - Drupal 11 Compatibility" : "https://git.drupalcode.org/project/image_class/-/merge_requests/2.patch"
-            }
-        }
+        "patches": {}
     }
 }

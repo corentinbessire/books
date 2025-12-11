@@ -14,7 +14,7 @@ stages:
 # BUILD jobs.
 ################################################################################
 composer:
-  image: registry.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
+  image: registry.gitlab.com/cbessire/docker-images/php:${CI_PHP_VERSION}
   stage: build
   script: |
     set -e
@@ -34,7 +34,7 @@ composer:
       - ./
 
 npm:
-  image: registry.gitlab.com/gealion1/docker-images/node:${CI_NODE_VERSION}
+  image: registry.gitlab.com/cbessire/docker-images/node:${CI_NODE_VERSION}
   stage: build
   script:
     - set -e
@@ -59,7 +59,7 @@ npm:
 ################################################################################
 
 phpcs:
-  image: registry.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
+  image: registry.gitlab.com/cbessire/docker-images/php:${CI_PHP_VERSION}
   stage: qa
   script:
     - set -e
@@ -71,7 +71,7 @@ phpcs:
   allow_failure: false
 
 phpstan:
-  image: registry.gitlab.com/gealion1/docker-images/php:${CI_PHP_VERSION}
+  image: registry.gitlab.com/cbessire/docker-images/php:${CI_PHP_VERSION}
   stage: qa
   allow_failure: false
   only:
@@ -93,7 +93,7 @@ phpstan:
 
 .deployment_script: &deployment_script
   stage: deploy
-  image: registry.gitlab.com/gealion1/docker-images/rsync
+  image: registry.gitlab.com/cbessire/docker-images/rsync
   before_script:
     - set -e
     - mkdir -p build/dist
@@ -163,7 +163,7 @@ deploy:PROD:
 
 .rollback_script: &rollback_script
   stage: rollback
-  image: registry.gitlab.com/gealion1/docker-images/rsync
+  image: registry.gitlab.com/cbessire/docker-images/rsync
   when: manual
   before_script:
     - eval $(ssh-agent -s)

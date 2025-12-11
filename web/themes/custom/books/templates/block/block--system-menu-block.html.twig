@@ -1,4 +1,4 @@
-<div class="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0" id="navbar-collapse">
+<div class="flex-col md:flex-row md:ml-auto mt-3 md:mt-0 md:flex" id="navbar-collapse" :class="{ 'hidden': !mobileMenuOpen }" x-cloak>
   {{ elements.content }}
 
 </div>
