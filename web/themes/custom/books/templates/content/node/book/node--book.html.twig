@@ -1,40 +1,68 @@
-<article class="p-4">
-  <section class="flex flex-co flex-col-reverse md:flex-row gap-4">
-    <div class="flex w-full md:w-40 justify-center">
-      {{ content.field_cover }}
+<article class="bg-cream border border-stone-300 rounded-lg p-8 shadow-lg animate-fade-in-up">
+  <section class="flex flex-col lg:flex-row gap-8 lg:gap-12">
+    <!-- Book Cover -->
+    <div class="flex-shrink-0 mx-auto lg:mx-0">
+      <div class="book-detail-cover w-48 md:w-56 lg:w-64">
+        {{ content.field_cover }}
+      </div>
     </div>
-    <div id="book-title" class="py-4 text-align-center md:text-left flex flex-col gap-4">
+
+    <!-- Book Info -->
+    <div class="flex-1 space-y-4">
       {% if content.field_serie | render %}
-        <div>
-          <span
-            class="text-sm bg-gray-600 rounded-full p-1 px-2 text-gray-300">Book {{ content.field_serie_number }} of {{ content.field_serie }}</span>
+        <div class="inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-stone-200 border border-stone-300 rounded-full text-sm text-ink-muted" style="font-family: var(--font-accent);">
+          <span>Book {{ content.field_serie_number }} of</span>
+          <span class="text-burgundy font-semibold">{{ content.field_serie }}</span>
         </div>
       {% endif %}
-      <div>
-        <h1 class="font-serif font-bold text-3xl lg:text-5xl text-align-center lg:text-left">{{ label }}</h1>
+
+      <h1 class="text-3xl lg:text-4xl xl:text-5xl" style="font-family: var(--font-display);">
+        {{ label }}
+      </h1>
+
+      <p class="text-lg text-ink-muted" style="font-family: var(--font-body);">
+        by <span class="text-burgundy font-medium">{{ content.field_authors }}</span>
+      </p>
+
+      <!-- Book Metadata -->
+      <div class="bg-stone-200 border border-stone-300 rounded-md p-5 mt-6">
+        {% if content.field_isbn | render %}
+          <div class="flex justify-between py-2 border-b border-dotted border-stone-300 text-[0.9375rem]">
+            <span class="text-ink-muted uppercase text-xs tracking-wider" style="font-family: var(--font-accent);">ISBN</span>
+            <span class="text-ink font-medium">{{ content.field_isbn }}</span>
+          </div>
+        {% endif %}
+        {% if content.field_pages | render %}
+          <div class="flex justify-between py-2 border-b border-dotted border-stone-300 text-[0.9375rem]">
+            <span class="text-ink-muted uppercase text-xs tracking-wider" style="font-family: var(--font-accent);">Pages</span>
+            <span class="text-ink font-medium">{{ content.field_pages }}</span>
+          </div>
+        {% endif %}
+        {% if content.field_publisher | render %}
+          <div class="flex justify-between py-2 border-b border-dotted border-stone-300 text-[0.9375rem]">
+            <span class="text-ink-muted uppercase text-xs tracking-wider" style="font-family: var(--font-accent);">Publisher</span>
+            <span class="text-ink font-medium">{{ content.field_publisher }}</span>
+          </div>
+        {% endif %}
+        {% if content.field_release | render %}
+          <div class="flex justify-between py-2 border-b border-dotted border-stone-300 text-[0.9375rem]">
+            <span class="text-ink-muted uppercase text-xs tracking-wider" style="font-family: var(--font-accent);">Release</span>
+            <span class="text-ink font-medium">{{ content.field_release }}</span>
+          </div>
+        {% endif %}
+        {% if content.field_genres | render %}
+          <div class="flex justify-between py-2 text-[0.9375rem]">
+            <span class="text-ink-muted uppercase text-xs tracking-wider" style="font-family: var(--font-accent);">Genres</span>
+            <span class="text-ink font-medium">{{ content.field_genres }}</span>
+          </div>
+        {% endif %}
       </div>
-      <div>
-        <p>by {{ content.field_authors }}</p>
-      </div>
+
+      {% if content.field_excerpt | render %}
+        <div class="prose prose-lg max-w-none text-stone-700 mt-6 pt-6 border-t border-stone-300">
+          {{ content.field_excerpt }}
+        </div>
+      {% endif %}
     </div>
-
   </section>
-
-
-  <div id="book-main" class="lg:flex">
-
-  </div>
-
-
-  <div class="lg:w2/3 w-full p-4">{{ content.field_excerpt }}</div>
-
-  <div id="book-technical" class="py-4">
-    <ul class="border-gray-400 border-2 rounded-md p-2">
-      <li>{{ content.field_isbn }}</li>
-      <li>{{ content.field_pages }}</li>
-      <li>{{ content.field_publisher }}</li>
-      <li>{{ content.field_release }}</li>
-      <li>{{ content.field_genres }}</li>
-    </ul>
-  </div>
 </article>

@@ -1,22 +1,32 @@
-<div class="w-full xl:max-w-screen-xl mx-auto">
+<div class="min-h-screen flex flex-col">
   {% if page.header %}
     {{ page.header }}
   {% endif %}
-  {% if page.highlighted %}
-    {{ page.highlighted }}
-  {% endif %}
-  {% if page.breadcrumb %}
-    {{ page.breadcrumb }}
-  {% endif %}
-  {% if page.filters %}
-    {{ page.filters }}
-  {% endif %}
-  {% if page.content %}
-    <main class="main flex flex-col flex-grow container transition-all duration-150 ease-in">
-      {{ page.content }}
-    </main>
-  {% endif %}
+
+  <div class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
+    {% if page.highlighted %}
+      {{ page.highlighted }}
+    {% endif %}
+    {% if page.breadcrumb %}
+      <div class="mb-4">
+        {{ page.breadcrumb }}
+      </div>
+    {% endif %}
+    {% if page.filters %}
+      {{ page.filters }}
+    {% endif %}
+    {% if page.content %}
+      <main class="main">
+        {{ page.content }}
+      </main>
+    {% endif %}
+  </div>
+
   {% if page.footer %}
-    {{ page.footer }}
+    <footer class="mt-auto py-8 border-t border-stone-300 bg-cream">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-ink-muted text-sm">
+        {{ page.footer }}
+      </div>
+    </footer>
   {% endif %}
 </div>

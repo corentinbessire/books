@@ -1,41 +1,24 @@
 {#
 /**
  * @file
- * Default theme implementation for a facets item list.
- *
- * Available variables:
- * - items: A list of items. Each item contains:
- *   - attributes: HTML attributes to be applied to each list item.
- *   - value: The content of the list element.
- * - title: The title of the list.
- * - list_type: The tag for list element ("ul" or "ol").
- * - wrapper_attributes: HTML attributes to be applied to the list wrapper.
- * - attributes: HTML attributes to be applied to the list.
- * - empty: A message to display when there are no items. Allowed value is a
- *   string or render array.
- * - context: A list of contextual data associated with the list. May contain:
- *   - list_style: The ID of the widget plugin this facet uses.
- * - facet: The facet for this result item.
- *   - id: the machine name for the facet.
- *   - label: The facet label.
- *
- * @see facets_preprocess_facets_item_list()
- *
- * @ingroup themeable
+ * Facets checkbox list with antiquarian styling.
  */
 #}
 {% if items or empty %}
-  <div class="my-4">
-    {% if title %}<h3 class="font-bold">{{ title }}</h3>{% endif %}
+  <div class="mb-4">
+    {% if title %}
+      <h3 class="text-sm font-semibold text-ink mb-3 uppercase tracking-wider" style="font-family: var(--font-accent);">
+        {{ title }}
+      </h3>
+    {% endif %}
     {%- if items -%}
-      <{{ list_type }}{{ attributes.addClass(['grid','grid-cols-2', 'lg:grid-cols-4',  'gap-4', 'p-4', 'rounded', 'shadow']) }}>
+      <{{ list_type }}{{ attributes.addClass(['grid', 'grid-cols-1', 'sm:grid-cols-2', 'lg:grid-cols-3', 'xl:grid-cols-4', 'gap-2']) }}>
       {%- for item in items -%}
-        <li{{ item.attributes.addClass('flex flex-row gap-2') }}>{{ item.value }}</li>
+        <li{{ item.attributes.addClass('filter-checkbox') }}>{{ item.value }}</li>
       {%- endfor -%}
       </{{ list_type }}>
     {%- else -%}
-      {{- empty -}}
+      <p class="text-ink-muted text-sm italic">{{- empty -}}</p>
     {%- endif -%}
   </div>
 {%- endif %}
-

@@ -1,16 +1,21 @@
-
 {{ header }}
-<h1 class="font-bold text-2xl py-2 text-white">
-  {% if display_id == 'attachment_1' %}
-    {{ "Curently Reading" |t }}
-  {% else %}
-    {{ "Recent activities" |t }}
-  {% endif %}
-</h1>
-{% if rows -%}
-  {{ rows }}
-{% elseif empty -%}
-  {{ empty }}
+
+{% if display_id == 'attachment_1' %}
+  <section class="mb-10 animate-fade-in-up">
+    <h1 class="text-[1.75rem] font-semibold text-ink text-center mb-6" style="font-family: var(--font-display);">Currently Reading</h1>
+    {% if rows -%}
+      {{ rows }}
+    {% elseif empty -%}
+      <p class="text-center text-ink-muted italic py-8">No books currently being read</p>
+    {% endif %}
+  </section>
+{% else %}
+  <section class="animate-fade-in-up" style="animation-delay: 0.2s;">
+    <h1 class="text-[1.75rem] font-semibold text-ink text-center mb-6" style="font-family: var(--font-display);">Reading History</h1>
+    {% if rows -%}
+      {{ rows }}
+    {% elseif empty -%}
+      <p class="text-center text-ink-muted italic py-8">No reading history yet</p>
+    {% endif %}
+  </section>
 {% endif %}
-
-

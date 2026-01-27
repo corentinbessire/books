@@ -95,10 +95,10 @@ class AddBookForm extends FormBase {
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $isbn = $form_state->getValue('isbn');
     $olBookData = $this->openLibraryService
-      ->getFormatedBookData($isbn);
+      ->getFormatedBookData($isbn) ?? [];
 
     $gbBookData = $this->googleBooksService
-      ->getFormatedBookData($isbn);
+      ->getFormatedBookData($isbn) ?? [];
 
     $bookData = $this->mergeBookData($gbBookData, $olBookData);
 
@@ -114,7 +114,9 @@ class AddBookForm extends FormBase {
       $this->messenger()->addStatus($this->t('Book has been created'));
       $form_state->setRedirect('entity.node.canonical', ['node' => $book->id()]);
     }
-    $this->messenger()->addStatus($this->t('No data found for given ISBN.'));
+    else {
+      $this->messenger()->addWarning($this->t('No data found for given ISBN.'));
+    }
   }
 
   /**

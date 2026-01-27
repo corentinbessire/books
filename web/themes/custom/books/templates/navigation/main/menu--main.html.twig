@@ -1,29 +1,22 @@
-
-{% set classes =  [
-  'p-2',
-  'lg:px-4',
-  'md:mx-2',
-  'text-white',
-  'rounded',
-  'hover:bg-gray-200',
-  'hover:text-gray-700',
-  'transition-colors',
-  'duration-300',
-] %}
-{% set active_classes =  [
-  'p-2',
-  'lg:px-4',
-  'md:mx-2',
-  'rounded',
-  'text-white',
-  'bg-indigo-600',
-] %}
 {% if items %}
   {% for item in items %}
-    {% if item.in_active_trail == true %}
-      {{ link(item.title, item.url, {'class' : active_classes}) }}
-    {% else %}
-      {{ link(item.title, item.url, {'class' : classes}) }}
-    {% endif %}
+    {% set base_classes = [
+      'nav-link',
+      'inline-block',
+      'relative',
+      'px-6',
+      'py-3',
+      'text-base',
+      'font-medium',
+      'tracking-wide',
+      'uppercase',
+      'transition-colors',
+      'duration-300',
+    ] %}
+    {% set color_classes = item.in_active_trail
+      ? ['text-burgundy', 'nav-link--active']
+      : ['text-ink-muted', 'hover:text-ink']
+    %}
+    {{ link(item.title, item.url, {'class': (base_classes|merge(color_classes))|join(' '), 'style': "font-family: var(--font-accent);"}) }}
   {% endfor %}
 {% endif %}

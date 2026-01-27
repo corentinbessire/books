@@ -1,16 +1,38 @@
-<div class="flex flex-row justify-between items-center w-full p-4 rounded-xl bg-gray-900 text-white">
-    <div >
-      {{ content.extra_field_book_cover }}
-    </div>
-  <div>
-    <h3 class="mb-3 font-bold text-xl">{{ label }}</h3>
+<div class="activity-card bg-cream border border-stone-300 rounded-lg p-6 grid grid-cols-[auto_1fr_auto_auto] items-center gap-6 transition-all duration-300 relative overflow-hidden">
+  <!-- Book Cover Thumbnail -->
+  <div class="w-16 h-24 flex-shrink-0 rounded overflow-hidden shadow-sm">
+    {{ content.extra_field_book_cover }}
   </div>
-    <div class="m-4">
-      <p class="mb-3">{{ 'Started' |t }} {{ content.field_start_date }}</p>
-      <p class="mb-3">{{ 'Finished' |t }} {{ content.field_end_date }}</p>
-    </div>
+
+  <!-- Book Title -->
+  <div class="min-w-0">
+    <h3 class="text-lg font-semibold text-ink truncate" style="font-family: var(--font-display);">
+      {{ label }}
+    </h3>
+  </div>
+
+  <!-- Dates -->
+  <div class="text-sm text-ink-muted space-y-1">
+    <p class="flex items-center gap-2">
+      <svg class="w-4 h-4 text-forest" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+      </svg>
+      <span>{{ 'Started' | t }}</span>
+      <span class="font-medium text-ink">{{ content.field_start_date }}</span>
+    </p>
+    {% if content.field_end_date | render %}
+      <p class="flex items-center gap-2">
+        <svg class="w-4 h-4 text-burgundy" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span>{{ 'Finished' | t }}</span>
+        <span class="font-medium text-ink">{{ content.field_end_date }}</span>
+      </p>
+    {% endif %}
+  </div>
+
+  <!-- Status Badge -->
   <div>
     {{ content.field_status }}
   </div>
 </div>
-

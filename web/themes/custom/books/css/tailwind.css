@@ -4,31 +4,97 @@
 @source "../components/**/*.twig";
 @source "../js/**/*.js";
 
+/* ═══════════════════════════════════════════════════════════════════════════
+   LITERARY ANTIQUARIAN THEME
+   A warm, paper-toned aesthetic inspired by vintage bookshops
+   ═══════════════════════════════════════════════════════════════════════════ */
+
 @theme inline {
-  --color-primary: var(--primary);
-  --color-secondary: var(--secondary);
-  --color-accent: var(--accent);
-  --color-info: var(--info);
-  --color-warning: var(--warning);
-  --color-error: var(--error);
-  --color-success: var(--success);
+  /* Custom warm paper tones (Tailwind stone is too neutral) */
+  --color-parchment: #f5f0e6;
+  --color-cream: #faf7f0;
+
+  /* Custom accent colors (no good Tailwind match) */
+  --color-burgundy: #722f37;
+  --color-burgundy-light: #8b3a42;
+  --color-burgundy-dark: #5a252c;
+  --color-forest: #2d4a3e;
+  --color-gold: #b8860b;
+  --color-gold-light: #d4a41c;
+
+  /* Custom ink tones (warm brown-blacks) */
+  --color-ink: #2c2416;
+  --color-ink-muted: #6b5d4d;
+
+  /* Typography scale */
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --font-body: 'Source Serif 4', 'Palatino Linotype', Palatino, Georgia, serif;
+  --font-accent: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-mono: 'IBM Plex Mono', 'Courier New', monospace;
 }
 
 /*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
+ * Color mapping (for reference):
+ * - antique → stone-200
+ * - aged → stone-300
+ * - navy → slate-800
+ * - ink-light → stone-700
+ */
 
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
 @layer base {
   *,
   ::after,
   ::before,
   ::backdrop,
   ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
+    border-color: var(--color-stone-300);
+  }
+
+  html {
+    font-family: var(--font-body);
+    background: var(--color-parchment);
+    color: var(--color-ink);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background:
+      /* Subtle paper texture */
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E"),
+      linear-gradient(180deg, var(--color-cream) 0%, var(--color-parchment) 100%);
+    background-blend-mode: soft-light, normal;
+    min-height: 100vh;
+  }
+
+  /* Elegant heading hierarchy */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    color: var(--color-ink);
+    letter-spacing: -0.01em;
+  }
+
+  h1 { font-size: 2.75rem; line-height: 1.15; }
+  h2 { font-size: 2rem; line-height: 1.2; }
+  h3 { font-size: 1.5rem; line-height: 1.3; }
+
+  a {
+    color: var(--color-burgundy);
+    text-decoration: none;
+    transition: color 0.2s ease;
+  }
+
+  a:hover {
+    color: var(--color-burgundy-light);
+  }
+
+  /* Refined selection */
+  ::selection {
+    background: var(--color-gold);
+    color: var(--color-ink);
   }
 }
 
@@ -69,3 +135,256 @@
 @import './components/typography.css';
 @import './components/ui-dialog.css';
 @import './components/user.css';
+
+/* ═══════════════════════════════════════════════════════════════════════════
+   CUSTOM LIBRARY COMPONENTS
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+@layer components {
+  /* Vintage book card with shadow depth */
+  .book-card {
+    position: relative;
+    border-radius: 0.25rem;
+    overflow: hidden;
+    background: var(--color-cream);
+    box-shadow:
+      0 1px 2px rgba(44, 36, 22, 0.06),
+      0 4px 8px rgba(44, 36, 22, 0.08),
+      0 8px 16px rgba(44, 36, 22, 0.04);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .book-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border: 1px solid var(--color-stone-300);
+    border-radius: 0.25rem;
+    pointer-events: none;
+    transition: border-color 0.3s ease;
+  }
+
+  .book-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow:
+      0 4px 8px rgba(44, 36, 22, 0.08),
+      0 12px 24px rgba(44, 36, 22, 0.12),
+      0 24px 48px rgba(44, 36, 22, 0.08);
+  }
+
+  .book-card:hover::before {
+    border-color: var(--color-burgundy);
+  }
+
+  /* Book cover styling */
+  .book-cover {
+    position: relative;
+    aspect-ratio: 2/3;
+    overflow: hidden;
+  }
+
+  .book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .book-card:hover .book-cover img {
+    transform: scale(1.05);
+  }
+
+  /* Decorative spine effect */
+  .book-cover::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(
+      180deg,
+      var(--color-burgundy) 0%,
+      var(--color-burgundy-dark) 50%,
+      var(--color-burgundy) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .book-card:hover .book-cover::after {
+    opacity: 1;
+  }
+
+  /* Activity card - base styles in template, keep pseudo-elements for accent bar */
+  .activity-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-forest);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+  }
+
+  .activity-card:hover {
+    border-color: var(--color-ink-muted);
+    box-shadow: 0 4px 12px rgba(44, 36, 22, 0.08);
+  }
+
+  .activity-card:hover::before {
+    transform: scaleY(1);
+  }
+
+  /* Navigation - base styles in template, keep ::after for decorative accent */
+  .nav-antiquarian::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 2px;
+    background: var(--color-burgundy);
+  }
+
+  /* Nav link - base styles in template, keep ::after underline animation */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) scaleX(0);
+    width: 80%;
+    height: 2px;
+    background: var(--color-burgundy);
+    transition: transform 0.3s ease;
+  }
+
+  .nav-link:hover::after,
+  .nav-link--active::after {
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  .nav-link--active {
+    color: var(--color-burgundy);
+  }
+
+  /* Checkbox styling - keep for custom checkbox pseudo-elements */
+  .filter-checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 0;
+    cursor: pointer;
+    transition: color 0.2s ease;
+  }
+
+  .filter-checkbox:hover {
+    color: var(--color-burgundy);
+  }
+
+  .filter-checkbox input[type="checkbox"] {
+    appearance: none;
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 2px solid var(--color-stone-300);
+    border-radius: 0.25rem;
+    background: var(--color-cream);
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s ease;
+  }
+
+  .filter-checkbox input[type="checkbox"]:checked {
+    background: var(--color-burgundy);
+    border-color: var(--color-burgundy);
+  }
+
+  .filter-checkbox input[type="checkbox"]:checked::after {
+    content: '✓';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--color-cream);
+    font-size: 0.75rem;
+    font-weight: bold;
+  }
+
+  /* Book detail cover - spine shadow effect */
+  .book-detail-cover {
+    box-shadow:
+      -4px 0 0 var(--color-burgundy),
+      0 8px 24px rgba(44, 36, 22, 0.15);
+    border-radius: 0.25rem;
+    overflow: hidden;
+  }
+
+  /* Currently reading highlight */
+  .reading-now {
+    background: linear-gradient(
+      135deg,
+      var(--color-cream) 0%,
+      rgba(184, 134, 11, 0.08) 100%
+    );
+    border: 2px solid var(--color-gold);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .reading-now::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle,
+      rgba(184, 134, 11, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  /* Animations */
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -200% 0; }
+    100% { background-position: 200% 0; }
+  }
+
+  .animate-fade-in-up {
+    animation: fadeInUp 0.6s ease forwards;
+  }
+
+  .animate-stagger > * {
+    opacity: 0;
+    animation: fadeInUp 0.5s ease forwards;
+  }
+
+  .animate-stagger > *:nth-child(1) { animation-delay: 0.05s; }
+  .animate-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+  .animate-stagger > *:nth-child(3) { animation-delay: 0.15s; }
+  .animate-stagger > *:nth-child(4) { animation-delay: 0.2s; }
+  .animate-stagger > *:nth-child(5) { animation-delay: 0.25s; }
+  .animate-stagger > *:nth-child(6) { animation-delay: 0.3s; }
+  .animate-stagger > *:nth-child(7) { animation-delay: 0.35s; }
+  .animate-stagger > *:nth-child(8) { animation-delay: 0.4s; }
+  .animate-stagger > *:nth-child(n+9) { animation-delay: 0.45s; }
+}
