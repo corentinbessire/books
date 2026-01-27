@@ -2,18 +2,21 @@
 
 # Security Audit Script
 # Checks composer and npm dependencies for known vulnerabilities
-# Creates/updates GitHub issues for direct dependencies only
+# Creates/updates GitHub issues for both direct and transitive dependencies
 
 set -e
 
 ISSUE_LABEL="security"
 ISSUE_LABEL_COMPOSER="composer"
 ISSUE_LABEL_NPM="npm"
+ISSUE_LABEL_DIRECT="direct"
+ISSUE_LABEL_TRANSITIVE="transitive"
 
 # Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
+MAGENTA='\033[0;35m'
 NC='\033[0m' # No Color
 
 echo "🔍 Starting security audit..."
@@ -22,6 +25,7 @@ echo "🔍 Starting security audit..."
 ensure_labels() {
     echo "📋 Ensuring issue labels exist..."
 
+    # Main labels
     for label in "$ISSUE_LABEL" "$ISSUE_LABEL_COMPOSER" "$ISSUE_LABEL_NPM"; do
         if ! gh label list --json name -q ".[].name" | grep -q "^${label}$"; then
             case $label in
@@ -37,6 +41,15 @@ ensure_labels() {
             esac
         fi
     done
+
+    # Dependency type labels
+    if ! gh label list --json name -q ".[].name" | grep -q "^${ISSUE_LABEL_DIRECT}$"; then
+        gh label create "$ISSUE_LABEL_DIRECT" --color "1d76db" --description "Direct dependency" 2>/dev/null || true
+    fi
+
+    if ! gh label list --json name -q ".[].name" | grep -q "^${ISSUE_LABEL_TRANSITIVE}$"; then
+        gh label create "$ISSUE_LABEL_TRANSITIVE" --color "5319e7" --description "Transitive dependency" 2>/dev/null || true
+    fi
 }
 
 # Get direct Composer dependencies from composer.json
@@ -63,6 +76,17 @@ is_direct_npm_dep() {
     get_direct_npm_deps | grep -q "^${package}$"
 }
 
+# Find which direct dependency requires a transitive package
+find_requiring_composer_packages() {
+    local package="$1"
+    composer why "$package" 2>/dev/null | head -5 | awk '{print $1}' | tr '\n' ', ' | sed 's/,$//' || echo "unknown"
+}
+
+find_requiring_npm_packages() {
+    local package="$1"
+    npm why "$package" 2>/dev/null | head -5 | grep -oE '[a-zA-Z0-9@/_-]+' | head -3 | tr '\n' ', ' | sed 's/,$//' || echo "unknown"
+}
+
 # Find existing open issue for a dependency
 find_existing_issue() {
     local dep_name="$1"
@@ -73,8 +97,8 @@ find_existing_issue() {
         --state open \
         --label "$ISSUE_LABEL" \
         --label "$dep_type" \
-        --json number,title,body \
-        --jq ".[] | select(.title | startswith(\"[Security] ${dep_name} \")) | {number, title, body}" \
+        --json number,title,body,labels \
+        --jq ".[] | select(.title | startswith(\"[Security] ${dep_name} \")) | {number, title, body, labels: [.labels[].name]}" \
         2>/dev/null || echo ""
 }
 
@@ -84,13 +108,37 @@ create_or_update_issue() {
     local dep_type="$2"
     local advisories="$3"
     local installed_version="$4"
+    local is_direct="$5"
+
+    local dep_type_label
+    local dep_type_display
+    local dep_type_note=""
+
+    if [ "$is_direct" = "true" ]; then
+        dep_type_label="$ISSUE_LABEL_DIRECT"
+        dep_type_display="Direct"
+    else
+        dep_type_label="$ISSUE_LABEL_TRANSITIVE"
+        dep_type_display="Transitive"
+        local required_by
+        if [ "$dep_type" = "composer" ]; then
+            required_by=$(find_requiring_composer_packages "$dep_name")
+        else
+            required_by=$(find_requiring_npm_packages "$dep_name")
+        fi
+        dep_type_note="
+> **Note:** This is a transitive dependency required by: \`${required_by}\`
+> Updating the parent package(s) may resolve this vulnerability."
+    fi
 
     local title="[Security] ${dep_name} - Vulnerability detected"
-    local body="## Security Vulnerability in \`${dep_name}\`
+    local body="## 🚨 Security Vulnerability in \`${dep_name}\`
 
-**Dependency Type:** ${dep_type}
+**Dependency Type:** ${dep_type_display}
+**Package Manager:** ${dep_type}
 **Installed Version:** ${installed_version}
 **Detected:** $(date -u +"%Y-%m-%d %H:%M UTC")
+${dep_type_note}
 
 ### Advisories
 
@@ -103,7 +151,7 @@ ${advisories}
 "
 
     if [ "$dep_type" = "composer" ]; then
-        body+="Run \`composer update ${dep_name}\` to update to a patched version.
+        body+="Run \`composer update ${dep_name} --with-dependencies\` to update to a patched version.
 
 Check available versions: \`composer show ${dep_name} --all\`"
     else
@@ -123,6 +171,7 @@ Check available versions: \`npm view ${dep_name} versions\`"
     if [ -n "$existing" ]; then
         local issue_number=$(echo "$existing" | jq -r '.number')
         local existing_body=$(echo "$existing" | jq -r '.body')
+        local existing_labels=$(echo "$existing" | jq -r '.labels[]' 2>/dev/null || echo "")
 
         # Check if the content has changed (compare advisories section)
         if echo "$existing_body" | grep -q "$installed_version"; then
@@ -138,7 +187,8 @@ Check available versions: \`npm view ${dep_name} versions\`"
             --title "$title" \
             --body "$body" \
             --label "$ISSUE_LABEL" \
-            --label "$dep_type"
+            --label "$dep_type" \
+            --label "$dep_type_label"
     fi
 }
 
@@ -190,7 +240,6 @@ run_composer_audit() {
     fi
 
     # Parse the audit output
-    local vulnerable_direct_deps=""
     local advisories_json=$(echo "$audit_output" | jq -r '.advisories // {}')
 
     if [ "$advisories_json" = "{}" ] || [ -z "$advisories_json" ]; then
@@ -199,28 +248,41 @@ run_composer_audit() {
         return 0
     fi
 
-    echo -e "${RED}  ⚠ Vulnerabilities found, checking direct dependencies...${NC}"
+    echo -e "${RED}  ⚠ Vulnerabilities found, processing all dependencies...${NC}"
+
+    # Clear temp file
+    rm -f /tmp/vulnerable_composer_deps.txt
 
     # Iterate through each package with advisories
     echo "$advisories_json" | jq -r 'keys[]' | while read -r package; do
+        # Determine if direct or transitive
+        local is_direct="false"
         if is_direct_composer_dep "$package"; then
+            is_direct="true"
             echo -e "${RED}  → ${package} (direct dependency)${NC}"
-            vulnerable_direct_deps="${vulnerable_direct_deps}${package}\n"
-
-            # Get installed version
-            local installed_version=$(composer show "$package" --format=json 2>/dev/null | jq -r '.versions[0] // "unknown"')
-
-            # Format advisories for this package
-            local package_advisories=$(echo "$advisories_json" | jq -r --arg pkg "$package" '.[$pkg][] | "- **\(.title // .cve // "Unknown")**\n  - CVE: \(.cve // "N/A")\n  - Affected versions: \(.affectedVersions // "N/A")\n  - Link: \(.link // "N/A")\n"')
-
-            create_or_update_issue "$package" "composer" "$package_advisories" "$installed_version"
         else
-            echo -e "${YELLOW}  → ${package} (transitive dependency, skipping)${NC}"
+            echo -e "${MAGENTA}  → ${package} (transitive dependency)${NC}"
         fi
+
+        # Track vulnerable dependency
+        echo "$package" >> /tmp/vulnerable_composer_deps.txt
+
+        # Get installed version
+        local installed_version=$(composer show "$package" --format=json 2>/dev/null | jq -r '.versions[0] // "unknown"')
+
+        # Format advisories for this package
+        local package_advisories=$(echo "$advisories_json" | jq -r --arg pkg "$package" '.[$pkg][] | "- **\(.title // .cve // "Unknown")**\n  - CVE: \(.cve // "N/A")\n  - Affected versions: \(.affectedVersions // "N/A")\n  - Link: \(.link // "N/A")\n"')
+
+        create_or_update_issue "$package" "composer" "$package_advisories" "$installed_version" "$is_direct"
     done
 
     # Close resolved issues
-    close_resolved_issues "composer" "$(echo -e "$vulnerable_direct_deps")"
+    if [ -f /tmp/vulnerable_composer_deps.txt ]; then
+        close_resolved_issues "composer" "$(cat /tmp/vulnerable_composer_deps.txt)"
+        rm -f /tmp/vulnerable_composer_deps.txt
+    else
+        close_resolved_issues "composer" ""
+    fi
 }
 
 # Run npm audit
@@ -245,89 +307,64 @@ run_npm_audit() {
         return 0
     fi
 
-    echo -e "${RED}  ⚠ ${vuln_count} vulnerabilities found, checking direct dependencies...${NC}"
+    echo -e "${RED}  ⚠ ${vuln_count} vulnerabilities found, processing all dependencies...${NC}"
 
-    local vulnerable_direct_deps=""
+    # Clear temp file
+    rm -f /tmp/vulnerable_npm_deps.txt
 
-    # Get vulnerabilities grouped by package
-    # npm audit --json structure varies by npm version, handle both formats
-    local vulnerabilities=$(echo "$audit_output" | jq -r '
-        if .vulnerabilities then
-            .vulnerabilities | to_entries[] |
-            select(.value.isDirect == true) |
-            {
-                name: .key,
-                severity: .value.severity,
-                via: .value.via,
-                range: .value.range,
-                fixAvailable: .value.fixAvailable
-            }
-        else
-            .advisories // {} | to_entries[] |
-            {
-                name: .value.module_name,
-                severity: .value.severity,
-                title: .value.title,
-                url: .value.url,
-                range: .value.vulnerable_versions,
-                recommendation: .value.recommendation
-            }
+    # Get all vulnerable packages (both direct and transitive)
+    local all_packages=$(echo "$audit_output" | jq -r '
+        if .vulnerabilities then .vulnerabilities | keys[]
+        else .advisories | .[].module_name
         end
-    ' 2>/dev/null)
+    ' 2>/dev/null | sort -u)
 
-    if [ -z "$vulnerabilities" ]; then
-        # Fallback: check all reported packages against direct deps
-        echo "$audit_output" | jq -r '
-            if .vulnerabilities then .vulnerabilities | keys[]
-            else .advisories | .[].module_name
-            end
-        ' 2>/dev/null | sort -u | while read -r package; do
-            if is_direct_npm_dep "$package"; then
-                echo -e "${RED}  → ${package} (direct dependency)${NC}"
-                vulnerable_direct_deps="${vulnerable_direct_deps}${package}\n"
+    echo "$all_packages" | while read -r package; do
+        if [ -z "$package" ] || [ "$package" = "null" ]; then
+            continue
+        fi
 
-                # Get installed version
-                local installed_version=$(npm list "$package" --depth=0 --json 2>/dev/null | jq -r ".dependencies[\"$package\"].version // \"unknown\"")
+        # Determine if direct or transitive
+        local is_direct="false"
+        if is_direct_npm_dep "$package"; then
+            is_direct="true"
+            echo -e "${RED}  → ${package} (direct dependency)${NC}"
+        else
+            echo -e "${MAGENTA}  → ${package} (transitive dependency)${NC}"
+        fi
 
-                # Get advisory info
-                local package_advisories=$(echo "$audit_output" | jq -r --arg pkg "$package" '
-                    if .vulnerabilities then
-                        .vulnerabilities[$pkg] |
-                        "- **Severity:** \(.severity // "unknown")\n- **Range:** \(.range // "N/A")\n- **Fix available:** \(.fixAvailable // "unknown")\n"
-                    else
-                        .advisories | to_entries[] | select(.value.module_name == $pkg) | .value |
-                        "- **\(.title // "Unknown")**\n  - Severity: \(.severity // "N/A")\n  - Vulnerable versions: \(.vulnerable_versions // "N/A")\n  - Recommendation: \(.recommendation // "N/A")\n  - URL: \(.url // "N/A")\n"
-                    end
-                ' 2>/dev/null)
+        # Track vulnerable dependency
+        echo "$package" >> /tmp/vulnerable_npm_deps.txt
 
-                create_or_update_issue "$package" "npm" "$package_advisories" "$installed_version"
+        # Get installed version
+        local installed_version=$(npm list "$package" --depth=100 --json 2>/dev/null | jq -r ".dependencies[\"$package\"].version // \"unknown\"")
+        if [ "$installed_version" = "unknown" ] || [ -z "$installed_version" ]; then
+            installed_version=$(npm list "$package" --all --json 2>/dev/null | jq -r ".. | .\"$package\"?.version? // empty" 2>/dev/null | head -1 || echo "unknown")
+        fi
+
+        # Get advisory info
+        local package_advisories=$(echo "$audit_output" | jq -r --arg pkg "$package" '
+            if .vulnerabilities then
+                .vulnerabilities[$pkg] |
+                "- **Severity:** \(.severity // "unknown")\n- **Range:** \(.range // "N/A")\n- **Fix available:** \(.fixAvailable // "unknown")\n"
             else
-                echo -e "${YELLOW}  → ${package} (transitive dependency, skipping)${NC}"
-            fi
-        done
-    else
-        # Process direct vulnerabilities from npm audit
-        echo "$vulnerabilities" | jq -r '.name' | sort -u | while read -r package; do
-            if [ -n "$package" ] && [ "$package" != "null" ]; then
-                echo -e "${RED}  → ${package} (direct dependency)${NC}"
-                vulnerable_direct_deps="${vulnerable_direct_deps}${package}\n"
+                .advisories | to_entries[] | select(.value.module_name == $pkg) | .value |
+                "- **\(.title // "Unknown")**\n  - Severity: \(.severity // "N/A")\n  - Vulnerable versions: \(.vulnerable_versions // "N/A")\n  - Recommendation: \(.recommendation // "N/A")\n  - URL: \(.url // "N/A")\n"
+            end
+        ' 2>/dev/null)
 
-                local installed_version=$(npm list "$package" --depth=0 --json 2>/dev/null | jq -r ".dependencies[\"$package\"].version // \"unknown\"")
-
-                local package_advisories=$(echo "$vulnerabilities" | jq -r --arg pkg "$package" '
-                    select(.name == $pkg) |
-                    "- **Severity:** \(.severity // "unknown")\n- **Range:** \(.range // "N/A")\n- **Fix available:** \(.fixAvailable // "unknown")\n"
-                ')
-
-                create_or_update_issue "$package" "npm" "$package_advisories" "$installed_version"
-            fi
-        done
-    fi
+        create_or_update_issue "$package" "npm" "$package_advisories" "$installed_version" "$is_direct"
+    done
 
     cd - > /dev/null
 
     # Close resolved issues
-    close_resolved_issues "npm" "$(echo -e "$vulnerable_direct_deps")"
+    if [ -f /tmp/vulnerable_npm_deps.txt ]; then
+        close_resolved_issues "npm" "$(cat /tmp/vulnerable_npm_deps.txt)"
+        rm -f /tmp/vulnerable_npm_deps.txt
+    else
+        close_resolved_issues "npm" ""
+    fi
 }
 
 # Main execution
