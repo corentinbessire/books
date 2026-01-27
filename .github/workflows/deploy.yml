@@ -1,0 +1,176 @@
+name: Deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy to'
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+env:
+  PHP_VERSION: '8.3'
+  NODE_VERSION: '22'
+  THEME_ROOT: 'web/themes/custom/books'
+
+jobs:
+  build:
+    name: Build Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
+          coverage: none
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies (production)
+        run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --no-dev --ignore-platform-reqs
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+          cache-dependency-path: ${{ env.THEME_ROOT }}/package-lock.json
+
+      - name: Install npm dependencies
+        working-directory: ${{ env.THEME_ROOT }}
+        run: npm ci
+
+      - name: Build theme
+        working-directory: ${{ env.THEME_ROOT }}
+        run: npm run build
+
+      - name: Clean up node_modules
+        run: rm -rf ${{ env.THEME_ROOT }}/node_modules
+
+      - name: Create release archive
+        run: |
+          mkdir -p build/dist
+          tar --exclude=".[^/]*" -czf build/dist/$(date +"%Y%m%d%H%M").tar.gz \
+            composer.json \
+            composer.lock \
+            config \
+            drush \
+            scripts \
+            vendor \
+            web
+
+      - name: Upload release artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release
+          path: build/dist/*.tar.gz
+          retention-days: 7
+
+  deploy:
+    name: Deploy to ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    needs: build
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Download release artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: release
+          path: build/dist
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Notify Slack - Deployment Started
+        if: ${{ vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#0000ff",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Deployment pipeline started* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
+
+      - name: Deploy
+        env:
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          SSH_OPTIONS: ${{ vars.SSH_OPTIONS }}
+          PROJECT_REMOTE_DIR: ${{ vars.PROJECT_REMOTE_DIR }}
+          PROJECT_REMOTE_WEBROOT: ${{ vars.PROJECT_REMOTE_WEBROOT }}
+        run: ./scripts/github/deploy.sh
+
+      - name: Notify Slack - Deployment Succeeded
+        if: ${{ success() && vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#00c100",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Deployment pipeline succeeded* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
+
+      - name: Notify Slack - Deployment Failed
+        if: ${{ failure() && vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#ff0909",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Deployment pipeline failed* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"

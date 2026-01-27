@@ -22,8 +22,11 @@ done
 
 PROJECT_RELEASES_DIR="$PROJECT_REMOTE_DIR/releases"
 
+# SSH key path for GitHub Actions
+SSH_KEY="$HOME/.ssh/deploy_key"
+
 # Configure SSH command with options
-SSH_COMMAND="ssh"
+SSH_COMMAND="ssh -i $SSH_KEY"
 if [ -n "$SSH_PORT" ]; then
   SSH_COMMAND="$SSH_COMMAND -p $SSH_PORT"
 fi
@@ -97,7 +100,7 @@ $SSH "ln -nsf $RELEASE_DIR/ $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT" || {
 
 # Run update script
 echo "🔄 Running update script..."
-$SSH "cd $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT && bash scripts/gitlab/update.sh $PROJECT_REMOTE_DIR $PROJECT_REMOTE_WEBROOT" || {
+$SSH "cd $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT && bash scripts/github/update.sh $PROJECT_REMOTE_DIR $PROJECT_REMOTE_WEBROOT" || {
   echo "Error: Failed to run update script"
   exit 1
 }

@@ -19,6 +19,9 @@ TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
 LOG_FILE="${PROJECT_REMOTE_DIR}/logs/rollback_${TIMESTAMP}.log"
 DRUSH="${PROJECT_REMOTE_DIR}/${PROJECT_REMOTE_WEBROOT}/vendor/bin/drush"
 
+# Create logs directory if it doesn't exist
+mkdir -p "${PROJECT_REMOTE_DIR}/logs"
+
 # Function for logging
 log_message() {
     local message="[$(date '+%Y-%m-%d %H:%M:%S')] $1"
@@ -106,23 +109,3 @@ $DRUSH state:set system.maintenance_mode 0
 log_message "✅ Rollback completed successfully!"
 log_message "⚠️ Note: The current release $CURRENT_RELEASE_NAME has been kept for reference."
 log_message "📝 Detailed log available at: $LOG_FILE"
-
-# Optional: Send notification about rollback
-if [ -n "$SLACK_WEBHOOK_URL" ]; then
-    curl -X POST -H "Content-type: application/json" --data "{
-        'attachments': [
-            {
-                'color': '#FFA500',
-                'blocks': [
-                    {
-                        'type': 'section',
-                        'text': {
-                            'type': 'mrkdwn',
-                            'text': '*Rollback Performed*\n\n*Project:* ${PROJECT_REMOTE_DIR}\n*Rolled back to:* ${PREVIOUS_RELEASE_NAME}\n*Database restored:* ${CORRESPONDING_DB_BACKUP}\n*Time:* $(date)\n'
-                        }
-                    }
-                ]
-            }
-        ]
-    }" "$SLACK_WEBHOOK_URL"
-fi

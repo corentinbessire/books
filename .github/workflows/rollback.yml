@@ -1,0 +1,99 @@
+name: Rollback
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to rollback'
+        required: true
+        type: choice
+        options:
+          - development
+          - staging
+          - production
+
+jobs:
+  rollback:
+    name: Rollback ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
+          chmod 644 ~/.ssh/known_hosts
+
+      - name: Notify Slack - Rollback Started
+        if: ${{ vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#0000ff",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Rollback pipeline started* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
+
+      - name: Rollback
+        env:
+          SSH_HOST: ${{ vars.SSH_HOST }}
+          SSH_PORT: ${{ vars.SSH_PORT }}
+          SSH_OPTIONS: ${{ vars.SSH_OPTIONS }}
+          PROJECT_REMOTE_DIR: ${{ vars.PROJECT_REMOTE_DIR }}
+          PROJECT_REMOTE_WEBROOT: ${{ vars.PROJECT_REMOTE_WEBROOT }}
+        run: ./scripts/github/rollback.sh
+
+      - name: Notify Slack - Rollback Succeeded
+        if: ${{ success() && vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#00c100",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Rollback pipeline succeeded* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
+
+      - name: Notify Slack - Rollback Failed
+        if: ${{ failure() && vars.SLACK_NOTIFICATIONS == 'true' }}
+        run: |
+          curl -X POST -H "Content-type: application/json" --data '{
+            "attachments": [
+              {
+                "color": "#ff0909",
+                "blocks": [
+                  {
+                    "type": "section",
+                    "text": {
+                      "type": "mrkdwn",
+                      "text": "*Rollback pipeline failed* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                    }
+                  }
+                ]
+              }
+            ]
+          }' "${{ secrets.SLACK_WEBHOOK_URL }}"

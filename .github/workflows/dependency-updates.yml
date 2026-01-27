@@ -1,0 +1,56 @@
+name: Drupal Dependency Updates
+
+on:
+  # Run weekly on Monday at 7 AM UTC
+  schedule:
+    - cron: '0 7 * * 1'
+  # Run when composer.lock changes
+  push:
+    branches: [main, stage, develop]
+    paths:
+      - 'composer.lock'
+  # Allow manual trigger
+  workflow_dispatch:
+
+env:
+  PHP_VERSION: '8.3'
+
+permissions:
+  issues: write
+  contents: read
+
+jobs:
+  check-updates:
+    name: Check Drupal Updates
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ env.PHP_VERSION }}
+          extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
+          coverage: none
+
+      - name: Get Composer cache directory
+        id: composer-cache
+        run: echo "dir=$(composer config cache-files-dir)" >> $GITHUB_OUTPUT
+
+      - name: Cache Composer dependencies
+        uses: actions/cache@v4
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
+
+      - name: Install Composer dependencies
+        run: composer install --prefer-dist --no-progress --no-interaction --ignore-platform-reqs
+
+      - name: Check for Drupal updates
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          chmod +x ./scripts/github/dependency-updates.sh
+          ./scripts/github/dependency-updates.sh
