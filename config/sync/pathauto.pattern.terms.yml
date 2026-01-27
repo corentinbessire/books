@@ -3,23 +3,12 @@ langcode: en
 status: true
 dependencies:
   module:
-    - ctools
     - taxonomy
 id: terms
 label: Terms
 type: 'canonical_entities:taxonomy_term'
 pattern: '[term:vocabulary]/[term:name]'
-selection_criteria:
-  e4d3460b-3c8e-4018-a620-450625e26f9e:
-    id: 'entity_bundle:taxonomy_term'
-    negate: false
-    uuid: e4d3460b-3c8e-4018-a620-450625e26f9e
-    context_mapping:
-      taxonomy_term: taxonomy_term
-    bundles:
-      author: author
-      genre: genre
-      serie: serie
+selection_criteria: {  }
 selection_logic: and
 weight: -5
 relationships: {  }
