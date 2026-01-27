@@ -6,17 +6,6 @@ libraries:
   - books/base
   - books/messages
   - core/normalize
-libraries-extend:
-  user/drupal.user:
-    - books/user
-  core/drupal.dropbutton:
-    - books/dropbutton
-  core/drupal.dialog:
-    - books/dialog
-  file/drupal.file:
-    - books/file
-  core/drupal.progress:
-    - books/progress
 description: ''
 core_version_requirement: ^10 || ^11
 regions:

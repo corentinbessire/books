@@ -1,4 +1,8 @@
-@import 'tailwindcss' source('../');
+@import 'tailwindcss';
+
+@source "../templates/**/*.twig";
+@source "../components/**/*.twig";
+@source "../js/**/*.js";
 
 @theme inline {
   --color-primary: var(--primary);
@@ -10,6 +14,23 @@
   --color-success: var(--success);
 }
 
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
 
 /*
  * Components styles
@@ -48,33 +69,3 @@
 @import './components/typography.css';
 @import './components/ui-dialog.css';
 @import './components/user.css';
-
-
-
-/*
- * Print styles
- */
- @import './theme/print.css';
-
-
-
-@import 'tailwindcss';
-
-/*
-  The default border color has changed to `currentcolor` in Tailwind CSS v4,
-  so we've added these compatibility styles to make sure everything still
-  looks the same as it did with Tailwind CSS v3.
-
-  If we ever want to remove these styles, we need to add an explicit border
-  color utility to any element that depends on these defaults.
-*/
-@layer base {
-  *,
-  ::after,
-  ::before,
-  ::backdrop,
-  ::file-selector-button {
-    border-color: var(--color-gray-200, currentcolor);
-  }
-}
-
