@@ -25,7 +25,7 @@
         "drupal/core": "^11.1",
         "drupal/core-composer-scaffold": "^11.1",
         "drupal/core-recommended": "^11.1",
-        "drupal/extra_field": "^2.1",
+        "drupal/extra_field": "^3.0",
         "drupal/extra_field_plus": "^3.0@beta",
         "drupal/facets": "^2.0",
         "drupal/gin": "^4.0 || ^5.0",
