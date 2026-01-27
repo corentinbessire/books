@@ -20,14 +20,14 @@
         "ext-json": "*",
         "composer/composer": "^2.9",
         "composer/installers": "^2.0",
-        "cweagans/composer-patches": "^1.7",
+        "cweagans/composer-patches": "^2.0",
         "drupal/admin_toolbar": "^3.0",
-        "drupal/core": "^11.1",
-        "drupal/core-composer-scaffold": "^11.1",
-        "drupal/core-recommended": "^11.1",
+        "drupal/core": "^11.3",
+        "drupal/core-composer-scaffold": "^11.3",
+        "drupal/core-recommended": "^11.3",
         "drupal/extra_field": "^3.0",
         "drupal/extra_field_plus": "^3.0@beta",
-        "drupal/facets": "^2.0",
+        "drupal/facets": "^3.0",
         "drupal/gin": "^4.0 || ^5.0",
         "drupal/gin_login": "^2.1",
         "drupal/gin_toolbar": "^2.0 || ^3.0",
@@ -117,6 +117,10 @@
                 "drupal/taxonomy_replace"
             ]
         },
-        "patches": {}
+        "patches": {
+            "drupal/webp": {
+                "#3561953 - PHP 8.4 implicit nullable & constructor parameter": "https://git.drupalcode.org/project/webp/-/merge_requests/54.diff"
+            }
+        }
     }
 }

@@ -1,0 +1,17 @@
+{
+    "_hash": "856322d6b33d62c67b84b357c0dbb248e382c1d32e16785ae2215df8406ce96d",
+    "patches": {
+        "drupal/webp": [
+            {
+                "package": "drupal/webp",
+                "description": "#3561953 - PHP 8.4 implicit nullable & constructor parameter",
+                "url": "https://git.drupalcode.org/project/webp/-/merge_requests/54.diff",
+                "sha256": "cde2ca2cc45f9c918cb74c14c0f0a1dc286e924c91091efcb697c268c5155eb4",
+                "depth": 1,
+                "extra": {
+                    "provenance": "root"
+                }
+            }
+        ]
+    }
+}
