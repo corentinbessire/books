@@ -70,10 +70,6 @@ $DRUSH updatedb -y
 log_message "📥 Importing Drupal configuration..."
 $DRUSH config:import -y
 
-# Import configuration
-log_message "📥 Importing Drupal translations..."
-$DRUSH local:update -y
-
 # Clear cache after update
 log_message "🧹 Clearing cache after update..."
 $DRUSH cache:rebuild
