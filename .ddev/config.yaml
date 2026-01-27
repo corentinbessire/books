@@ -1,8 +1,8 @@
 name: books
 type: drupal10
 docroot: web
-php_version: "8.3"
-nodejs_version: "22"
+php_version: "8.4"
+nodejs_version: "24"
 webserver_type: apache-fpm
 xdebug_enabled: false
 additional_hostnames: []
