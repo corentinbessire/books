@@ -1,69 +1,40 @@
 /**
  * @file
- * Styles for system messages.
+ * Styles for system messages using Tailwind CSS.
  */
 
 .messages {
-  padding: 15px 20px 15px 35px; /* LTR */
-  word-wrap: break-word;
-  border: 1px solid;
-  border-width: 1px 1px 1px 0; /* LTR */
-  border-radius: 2px;
-  background: no-repeat 10px 17px; /* LTR */
-  overflow-wrap: break-word;
+  @apply px-[20px] py-[15px] pl-[35px]  border border-solid border-l-0 rounded bg-no-repeat bg-[length:auto] bg-[position:10px_17px] wrap-break-word
+  ;
 }
-[dir="rtl"] .messages {
-  padding-right: 35px;
-  padding-left: 20px;
-  text-align: right;
-  border-width: 1px 0 1px 1px;
-  background-position: right 10px top 17px;
-}
+
 .messages + .messages {
-  margin-top: 1.538em;
+  @apply mt-6;
 }
+
 .messages__list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+  @apply m-0 p-0 list-none;
 }
+
 .messages__item + .messages__item {
-  margin-top: 0.769em;
+  @apply mt-3;
 }
+
 .messages--status {
-  color: #325e1c;
-  border-color: #c9e1bd #c9e1bd #c9e1bd transparent; /* LTR */
-  background-color: #f3faef;
-  background-image: url(../../images/icons/check.svg);
-  box-shadow: -8px 0 0 #77b259; /* LTR */
+  @apply text-[#325e1c] border-[#c9e1bd] border-r-[#c9e1bd] border-b-[#c9e1bd] border-l-transparent bg-[#f3faef] shadow-[-8px_0_0_#77b259];
+  background-image: url(../images/icons/check.svg);
 }
-[dir="rtl"] .messages--status {
-  margin-left: 0;
-  border-color: #c9e1bd transparent #c9e1bd #c9e1bd;
-  box-shadow: 8px 0 0 #77b259;
-}
+
 .messages--warning {
-  color: #734c00;
-  border-color: #f4daa6 #f4daa6 #f4daa6 transparent; /* LTR */
-  background-color: #fdf8ed;
-  background-image: url(../../images/icons/warning.svg);
-  box-shadow: -8px 0 0 #e09600; /* LTR */
+  @apply text-[#734c00] border-[#f4daa6] border-r-[#f4daa6] border-b-[#f4daa6] border-l-transparent bg-[#fdf8ed] shadow-[-8px_0_0_#e09600];
+  background-image: url(../images/icons/warning.svg);
 }
-[dir="rtl"] .messages--warning {
-  border-color: #f4daa6 transparent #f4daa6 #f4daa6;
-  box-shadow: 8px 0 0 #e09600;
-}
+
 .messages--error {
-  color: #a51b00;
-  border-color: #f9c9bf #f9c9bf #f9c9bf transparent; /* LTR */
-  background-color: #fcf4f2;
-  background-image: url(../../images/icons/error.svg);
-  box-shadow: -8px 0 0 #e62600; /* LTR */
+  @apply text-[#a51b00] border-[#f9c9bf] border-r-[#f9c9bf] border-b-[#f9c9bf] border-l-transparent bg-[#fcf4f2] shadow-[-8px_0_0_#e62600];
+  background-image: url(../images/icons/error.svg);
 }
-[dir="rtl"] .messages--error {
-  border-color: #f9c9bf transparent #f9c9bf #f9c9bf;
-  box-shadow: 8px 0 0 #e62600;
-}
+
 .messages--error p.error {
-  color: #a51b00;
+  @apply text-[#a51b00];
 }

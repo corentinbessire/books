@@ -1,15 +1,14 @@
 /**
  * @file
- * Visual styles for buttons.
+ * Visual styles for buttons using Tailwind CSS.
  */
 
 .button,
 .image-button {
-  margin-right: 1em;
-  margin-left: 1em;
+  @apply rounded-md bg-primary px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-primary;
 }
+
 .button:first-child,
 .image-button:first-child {
-  margin-right: 0;
-  margin-left: 0;
+  @apply mx-0;
 }

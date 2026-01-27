@@ -1,21 +1,15 @@
 /**
  * @file
- * Visual styles for icons.
+ * Visual styles for icons using Tailwind CSS.
  */
 
 .icon-help {
-  padding: 1px 0 1px 20px; /* LTR */
-  background: url(../../images/icons/help.png) 0 50% no-repeat; /* LTR */
+  @apply pl-5 py-px bg-no-repeat bg-left bg-[length:auto];
+  background-image: url(../images/icons/help.png);
+  background-position-y: 50%;
 }
-[dir="rtl"] .icon-help {
-  padding: 1px 20px 1px 0;
-  background-position: 100% 50%;
-}
+
 .feed-icon {
-  display: block;
-  overflow: hidden;
-  width: 16px;
-  height: 16px;
-  text-indent: -9999px;
-  background: url(../../images/icons/feed.svg) no-repeat;
+  @apply block overflow-hidden w-4 h-4 -indent-[9999px] bg-no-repeat;
+  background-image: url(../images/icons/feed.svg);
 }

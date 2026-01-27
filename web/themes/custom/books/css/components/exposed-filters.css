@@ -1,46 +1,34 @@
 /**
  * @file
- * Visual styles for exposed filters.
+ * Visual styles for exposed filters using Tailwind CSS.
  */
 
-.exposed-filters .filters {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
-}
-[dir="rtl"] .exposed-filters .filters {
-  float: right;
-  margin-right: 0;
-  margin-left: 1em;
-}
-.exposed-filters .form-item {
-  margin: 0 0 0.1em 0;
-  padding: 0;
-}
-.exposed-filters .form-item label {
-  float: left; /* LTR */
-  width: 10em;
-  font-weight: normal;
-}
-[dir="rtl"] .exposed-filters .form-item label {
-  float: right;
-}
-.exposed-filters .form-select {
-  width: 14em;
-}
-/* Current filters */
-.exposed-filters .current-filters {
-  margin-bottom: 1em;
-}
-.exposed-filters .current-filters .placeholder {
-  font-weight: bold;
-  font-style: normal;
-}
-.exposed-filters .additional-filters {
-  float: left; /* LTR */
-  margin-right: 1em; /* LTR */
-}
-[dir="rtl"] .exposed-filters .additional-filters {
-  float: right;
-  margin-right: 0;
-  margin-left: 1em;
+.exposed-filters {
+  .filters {
+    @apply float-left mr-4;
+  }
+
+  .form-item {
+    @apply m-0 mb-0.5 p-0;
+
+    label {
+      @apply float-left w-40 font-normal;
+    }
+  }
+
+  .form-select {
+    @apply w-56;
+  }
+
+  .current-filters {
+    @apply mb-4;
+
+    .placeholder {
+      @apply font-bold not-italic;
+    }
+  }
+
+  .additional-filters {
+    @apply float-left mr-4;
+  }
 }

@@ -19,7 +19,6 @@ libraries-extend:
     - books/progress
 description: ''
 core_version_requirement: ^10 || ^11
-generator: 'starterkit_theme:10.3.5'
 regions:
   header: Header
   highlighted: Highlighted
@@ -27,3 +26,8 @@ regions:
   filters: Filters
   content: Content
   footer: Footer
+libraries-override:
+  system/base:
+    css:
+      component:
+        css/components/hidden.module.css: css/components/hidden.css

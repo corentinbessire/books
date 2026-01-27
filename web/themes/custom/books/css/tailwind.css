@@ -1,7 +1,80 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss' source('../');
 
-[x-cloak] {
-  display: none !important;
+@theme inline {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --color-info: var(--info);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-success: var(--success);
 }
+
+
+/*
+ * Components styles
+ */
+@import './components/action-links.css';
+@import './components/breadcrumb.css';
+@import './components/button.css';
+@import './components/container-inline.css';
+@import './components/details.css';
+@import './components/dialog.css';
+@import './components/dropbutton.css';
+@import './components/exposed-filters.css';
+@import './components/field.css';
+@import './components/file.css';
+@import './components/form.css';
+@import './components/hidden.css';
+@import './components/icons.css';
+@import './components/image-widget.css';
+@import './components/indented.css';
+@import './components/inline-form.css';
+@import './components/item-list.css';
+@import './components/link.css';
+@import './components/links.css';
+@import './components/menu.css';
+@import './components/messages.css';
+@import './components/more-link.css';
+@import './components/node.css';
+@import './components/pager.css';
+@import './components/progress.css';
+@import './components/search-results.css';
+@import './components/tabledrag.css';
+@import './components/tableselect.css';
+@import './components/tablesort.css';
+@import './components/tabs.css';
+@import './components/textarea.css';
+@import './components/typography.css';
+@import './components/ui-dialog.css';
+@import './components/user.css';
+
+
+
+/*
+ * Print styles
+ */
+ @import './theme/print.css';
+
+
+
+@import 'tailwindcss';
+
+/*
+  The default border color has changed to `currentcolor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+}
+

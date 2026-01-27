@@ -1,20 +1,19 @@
 /**
  * @file
- * Collapsible details.
+ * Collapsible details using Tailwind CSS.
  *
  * @see collapse.js
  * @see http://nicolasgallagher.com/css-background-image-hacks/
  */
 
 details {
-  margin-top: 1em;
-  margin-bottom: 1em;
-  border: 1px solid #ccc;
+  @apply mt-4 mb-4 border border-gray-300;
+
+  > .details-wrapper {
+    @apply px-6 py-2;
+  }
 }
-details > .details-wrapper {
-  padding: 0.5em 1.5em;
-}
+
 summary {
-  padding: 0.2em 0.5em;
-  cursor: pointer;
+  @apply px-2 py-1 cursor-pointer;
 }

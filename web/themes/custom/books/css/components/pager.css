@@ -1,16 +1,17 @@
 /**
  * @file
- * Visual styles for pager.
+ * Visual styles for pager using Tailwind CSS.
  */
 
+
 .pager__items {
-  clear: both;
-  text-align: center;
+  @apply clear-both text-center;
 }
+
 .pager__item {
-  display: inline;
-  padding: 0.5em;
+  @apply inline px-2 py-2;
 }
+
 .pager__item.is-active {
-  font-weight: bold;
+  @apply font-bold;
 }

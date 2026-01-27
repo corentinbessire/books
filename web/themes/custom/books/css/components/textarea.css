@@ -1,11 +1,8 @@
-/**
+/****
  * @file
- * Visual styles for a resizable textarea.
+ * Visual styles for a resizable textarea using Tailwind CSS.
  */
 
 .form-textarea-wrapper textarea {
-  display: block;
-  box-sizing: border-box;
-  width: 100%;
-  margin: 0;
+  @apply block box-border w-full m-0;
 }

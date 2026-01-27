@@ -1,0 +1,58 @@
+@layer base {
+  .wysiwyg {
+    p:not(:last-child) {
+      @apply mb-[1lh];
+    }
+
+    ul:not([class]) {
+      @apply list-disc pl-6;
+    }
+
+    ol:not([class]) {
+      @apply list-decimal pl-6;
+    }
+
+    li:not([class]) {
+      @apply mb-2;
+    }
+
+    strong {
+      @apply font-bold;
+    }
+
+    a {
+      @apply underline text-black;
+    }
+
+    h2 {
+      @apply text-2xl font-bold;
+    }
+
+    h3 {
+      @apply text-2xl font-bold;
+    }
+
+    h4 {
+      @apply text-xl font-bold;
+    }
+
+    h5 {
+      @apply text-base font-bold;
+    }
+
+    h6 {
+      @apply text-base font-bold;
+    }
+
+    em {
+      @apply italic;
+    }
+
+    hr {
+      @apply mx-2 my-auto border border-b-gray-500;
+    }
+  }
+
+}
+
+

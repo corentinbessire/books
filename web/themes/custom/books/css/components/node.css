@@ -1,8 +1,8 @@
-/**
+/ **
  * @file
- * Visual styles for nodes.
+ * Visual styles for nodes using Tailwind CSS.
  */
 
 .node--unpublished {
-  background-color: #fff4f4;
+  @apply bg-[#fff4f4];
 }

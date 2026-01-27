@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Description: Build the Sillage theme
+## Usage: books:build
+## Example: "ddev books:build"
+
+if [ ! -d "/var/www/html/web/themes/custom/books" ]; then
+    echo "Error: Theme 'books' not found in web/themes/custom/"
+    exit 1
+fi
+cd /var/www/html/web/themes/custom/books || exit
+npm run build

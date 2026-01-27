@@ -1,0 +1,13 @@
+#!/bin/bash
+
+## Description: Start the Dev Server of the Sillage theme
+## Usage: books:watch
+## Example: "ddev books:watch "
+
+
+if [ ! -d "/var/www/html/web/themes/custom/books" ]; then
+    echo "Error: Theme 'books' not found in web/themes/custom/"
+    exit 1
+fi
+cd /var/www/html/web/themes/custom/books || exit
+npm run watch

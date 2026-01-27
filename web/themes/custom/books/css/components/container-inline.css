@@ -1,22 +1,26 @@
-/**
+/****
  * @file
- * Inline items.
+ * Inline items using Tailwind CSS.
  */
 
-.container-inline label::after,
-.container-inline .label::after {
-  content: ":";
+.container-inline {
+  & label::after,
+  & .label::after {
+    content: ":";
+  }
+
+  .form-actions,
+  &.form-actions {
+    @apply mt-0 mb-0;
+  }
+
+  .form-type-radio,
+  .form-type-checkbox {
+    @apply mx-4;
+  }
 }
+
 .form-type-radios .container-inline label::after,
 .form-type-checkboxes .container-inline label::after {
   content: "";
-}
-.form-type-radios .container-inline .form-type-radio,
-.form-type-checkboxes .container-inline .form-type-checkbox {
-  margin: 0 1em;
-}
-.container-inline .form-actions,
-.container-inline.form-actions {
-  margin-top: 0;
-  margin-bottom: 0;
 }

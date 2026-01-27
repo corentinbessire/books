@@ -1,0 +1,12 @@
+#!/bin/bash
+
+## Description: NODE Command in Sillage theme folder
+## Usage:  books:node  <node-command> [args]
+## Example: "ddev books:node install
+
+if [ ! -d "/var/www/html/web/themes/custom/books" ]; then
+    echo "Error: Theme 'books' not found in web/themes/custom/"
+    exit 1
+fi
+cd /var/www/html/web/themes/custom/books || exit
+exec node "$@"

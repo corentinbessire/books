@@ -6,6 +6,21 @@
  */
 
 /**
+ * Implements hook_preprocess_html().
+ */
+function books_preprocess_html(&$variables) {
+  $themeSettings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
+  $variables['attributes']['style'] =
+    ';--primary:' . $themeSettings->getSetting('primary') .
+    ';--secondary: ' . $themeSettings->getSetting('secondary') .
+    ';--accent: ' . $themeSettings->getSetting('accent') .
+    ';--info: ' . $themeSettings->getSetting('info') .
+    ';--warning: ' . $themeSettings->getSetting('warning') .
+    ';--error: ' . $themeSettings->getSetting('error') .
+    ';--success: ' . $themeSettings->getSetting('success') . ';';
+}
+
+/**
  * Implements hook_preprocess_image_widget().
  */
 function books_preprocess_image_widget(array &$variables) {

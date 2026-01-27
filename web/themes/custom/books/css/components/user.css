@@ -1,29 +1,31 @@
 /**
  * @file
- * Theme styling for user module.
+ * Theme styling for user module using Tailwind CSS.
  */
 
 /* Visual styling for the Password strength indicator */
 .password-strength__meter {
-  margin-top: 0.5em;
-  background-color: #ebeae4;
+  @apply mt-2 bg-[#ebeae4];
 }
+
 .password-strength__indicator {
-  -webkit-transition: width 0.5s ease-out;
-  transition: width 0.5s ease-out;
-  background-color: #77b259;
+  @apply transition-[width] duration-500 ease-out bg-[#77b259];
 }
+
 .password-strength__indicator.is-weak {
-  background-color: #e62600;
+  @apply bg-[#e62600];
 }
+
 .password-strength__indicator.is-fair {
-  background-color: #e09600;
+  @apply bg-[#e09600];
 }
+
 .password-strength__indicator.is-good {
-  background-color: #0074bd;
+  @apply bg-[#0074bd];
 }
+
 .password-strength__indicator.is-strong {
-  background-color: #77b259;
+  @apply bg-[#77b259];
 }
 
 .password-confirm,
@@ -31,37 +33,26 @@
 .password-strength,
 .password-confirm-match,
 .password-confirm-message {
-  width: 55%;
+  @apply w-[55%];
 }
 
 .password-suggestions {
-  max-width: 34.7em;
-  margin: 0.7em 0;
-  padding: 0.2em 0.5em;
-  border: 1px solid #b4b4b4;
+  @apply max-w-[34.7em] my-[0.7em] px-2 py-1 border border-[#b4b4b4];
 }
+
 .password-suggestions ul {
-  margin-bottom: 0;
+  @apply mb-0;
 }
 
 .confirm-parent,
 .password-parent {
-  clear: left; /* LTR */
-  overflow: hidden;
-  max-width: 33em;
-  margin: 0;
-}
-[dir="rtl"] .confirm-parent,
-[dir="rtl"] .password-parent {
-  clear: right;
+  @apply clear-left overflow-hidden max-w-[33em] m-0;
 }
 
-/* Styling for the status indicator of the passwords match test.  */
 .password-confirm .ok {
-  color: #325e1c;
-  font-weight: bold;
+  @apply text-[#325e1c] font-bold;
 }
+
 .password-confirm .error {
-  color: #a51b00;
-  font-weight: bold;
+  @apply text-[#a51b00] font-bold;
 }

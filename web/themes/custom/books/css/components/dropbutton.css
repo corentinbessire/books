@@ -1,33 +1,32 @@
 /**
  * @file
- * General styles for dropbuttons.
+ * General styles for dropbuttons using Tailwind CSS.
  */
 
 .js .dropbutton-widget {
-  border: 1px solid #ccc;
-  background-color: white;
+  @apply border border-gray-300 bg-white;
+
+  &:hover {
+    @apply border-gray-400;
+  }
 }
-.js .dropbutton-widget:hover {
-  border-color: #b8b8b8;
+
+.dropbutton {
+  .dropbutton-action > * {
+    @apply px-2 py-0.5 whitespace-nowrap;
+  }
+
+  .secondary-action {
+    @apply border-t border-gray-200;
+  }
 }
-.dropbutton .dropbutton-action > * {
-  padding: 0.1em 0.5em;
-  white-space: nowrap;
-}
-.dropbutton .secondary-action {
-  border-top: 1px solid #e8e8e8;
-}
-.dropbutton-multiple .dropbutton {
-  border-right: 1px solid #e8e8e8; /* LTR */
-}
-[dir="rtl"] .dropbutton-multiple .dropbutton {
-  border-right: 0 none;
-  border-left: 1px solid #e8e8e8;
-}
-.dropbutton-multiple .dropbutton .dropbutton-action > * {
-  margin-right: 0.25em; /* LTR */
-}
-[dir="rtl"] .dropbutton-multiple .dropbutton .dropbutton-action > * {
-  margin-right: 0;
-  margin-left: 0.25em;
+
+.dropbutton-multiple {
+  .dropbutton {
+    @apply border-r border-gray-200;
+
+    .dropbutton-action > * {
+      @apply mr-1;
+    }
+  }
 }

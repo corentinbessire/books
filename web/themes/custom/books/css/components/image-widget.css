@@ -1,22 +1,16 @@
 /**
  * @file
- * Image upload widget.
+ * Image upload widget using Tailwind CSS.
  */
 
 .image-preview {
-  float: left; /* LTR */
-  padding: 0 10px 10px 0; /* LTR */
+  @apply float-left pr-2.5 pb-2.5;
 }
-[dir="rtl"] .image-preview {
-  float: right;
-  padding: 0 0 10px 10px;
-}
+
 .image-widget-data {
-  float: left; /* LTR */
-}
-[dir="rtl"] .image-widget-data {
-  float: right;
-}
-.image-widget-data .text-field {
-  width: auto;
+  @apply float-left;
+
+  .text-field {
+    @apply w-auto;
+  }
 }

@@ -1,14 +1,16 @@
 /**
  * @file
- * Visual styles for table drag.
+ * Visual styles for table drag using Tailwind CSS.
  */
 
 tr.drag {
-  background-color: #fffff0;
+  @apply bg-[#fffff0];
 }
+
 tr.drag-previous {
-  background-color: #ffd;
+  @apply bg-[#ffffdd];
 }
+
 body div.tabledrag-changed-warning {
-  margin-bottom: 0.5em;
+  @apply mb-2;
 }
