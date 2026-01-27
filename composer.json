@@ -119,7 +119,7 @@
         },
         "patches": {
             "drupal/webp": {
-                "#3561953 - PHP 8.4 implicit nullable & constructor parameter": "https://git.drupalcode.org/project/webp/-/merge_requests/54.diff"
+                "#3561953 - PHP 8.4 implicit nullable & constructor parameter": "https://git.drupalcode.org/project/webp/-/commit/d3130cfa2a28a2953d51bcb32049e8928497062e.diff"
             },
             "drupal/rabbit_hole": {
                 "#3516167 - PHP 8.4 implicit nullable & constructor parameter": "https://www.drupal.org/files/issues/2025-11-10/3516167_8.4_compatibility.patch"
