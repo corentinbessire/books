@@ -16,8 +16,8 @@ on:
   workflow_dispatch:
 
 env:
-  PHP_VERSION: '8.2'
-  NODE_VERSION: '22'
+  PHP_VERSION: '8.4'
+  NODE_VERSION: '24'
   THEME_ROOT: 'web/themes/custom/books'
 
 permissions:
