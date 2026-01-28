@@ -14,13 +14,44 @@ on:
 
 env:
   PHP_VERSION: '8.4'
-  NODE_VERSION: '22'
-  THEME_ROOT: 'web/themes/custom/books'
+  NODE_VERSION: '24'
+  THEME_ROOT: 'web/themes/custom/lug'
 
 jobs:
+  qa-gate:
+    name: Verify CI Passed
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check CI workflow status
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "🔍 Checking CI status for commit ${{ github.sha }}..."
+
+          # Get the CI workflow runs for this commit
+          CI_STATUS=$(gh api \
+            -H "Accept: application/vnd.github+json" \
+            "/repos/${{ github.repository }}/actions/workflows/ci.yml/runs?head_sha=${{ github.sha }}&status=completed" \
+            --jq '.workflow_runs[0].conclusion // "not_found"')
+
+          echo "CI workflow status: $CI_STATUS"
+
+          if [ "$CI_STATUS" = "success" ]; then
+            echo "✅ CI workflow passed for this commit"
+          elif [ "$CI_STATUS" = "not_found" ]; then
+            echo "❌ No CI workflow run found for this commit"
+            echo "Please ensure CI has run and passed before deploying."
+            exit 1
+          else
+            echo "❌ CI workflow did not pass (status: $CI_STATUS)"
+            echo "Please fix CI issues before deploying."
+            exit 1
+          fi
+
   build:
     name: Build Release
     runs-on: ubuntu-latest
+    needs: qa-gate
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
