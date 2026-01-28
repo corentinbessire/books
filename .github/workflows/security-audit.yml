@@ -10,15 +10,15 @@ on:
     paths:
       - 'composer.json'
       - 'composer.lock'
-      - 'web/themes/custom/lug/package.json'
-      - 'web/themes/custom/lug/package-lock.json'
+      - 'web/themes/custom/books/package.json'
+      - 'web/themes/custom/books/package-lock.json'
   # Allow manual trigger
   workflow_dispatch:
 
 env:
   PHP_VERSION: '8.4'
   NODE_VERSION: '24'
-  THEME_ROOT: 'web/themes/custom/lug'
+  THEME_ROOT: 'web/themes/custom/books'
 
 permissions:
   issues: write

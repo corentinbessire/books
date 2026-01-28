@@ -10,7 +10,7 @@ on:
 env:
   PHP_VERSION: '8.4'
   NODE_VERSION: '24'
-  THEME_ROOT: 'web/themes/custom/lug'
+  THEME_ROOT: 'web/themes/custom/books'
 
 jobs:
   composer:
