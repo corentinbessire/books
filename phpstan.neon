@@ -1,11 +1,16 @@
+includes:
+  - phpstan-baseline.neon
+
 parameters:
+  level: 6
+  paths:
+    - web/modules/custom
+    - web/themes/custom
   customRulesetUsed: true
   reportUnmatchedIgnoredErrors: false
-  # Ignore phpstan-drupal extension's rules.
   ignoreErrors:
     - '#Unsafe usage of new static\(\)#'
     - '#\Drupal calls should be avoided in classes, use dependency injection instead#'
     - '#Plugin definitions cannot be altered.#'
     - '#Missing cache backend declaration for performance.#'
     - '#Plugin manager has cache backend specified but does not declare cache tags.#'
-

@@ -60,3 +60,11 @@ ddev cy:test         # Run Cypress tests
 ddev project:sync @project.prod   # Sync local from remote (db + files)
 ddev browsersync                  # Run BrowserSync proxy on port 3000
 ```
+
+## Issue Workflow
+
+When fixing a GitHub issue, always follow this process:
+
+1. **Create a new branch** from `origin/main` (e.g., `fix/issue-42-null-safety`).
+2. **Commit often** as you work — small, focused commits are preferred.
+3. **Once everything is committed**, open a Pull Request against `main`.

@@ -1,15 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/4.1/phpunit.xsd"
-         backupGlobals="false"
+         bootstrap="web/core/tests/bootstrap.php"
          colors="true"
-         bootstrap="vendor/autoload.php"
-         verbose="true"
-        >
-    <testsuites>
-        <testsuite name="drupal-composer-project tests">
-            <directory>./test/</directory>
-        </testsuite>
-    </testsuites>
+         beStrictAboutTestsThatDoNotTestAnything="true"
+         beStrictAboutOutputDuringTests="true"
+         beStrictAboutChangesToGlobalState="true"
+         failOnRisky="true"
+         failOnWarning="true"
+         cacheResult="false"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
+         cacheDirectory=".phpunit.cache">
+  <php>
+    <ini name="error_reporting" value="32767"/>
+    <ini name="memory_limit" value="-1"/>
+    <!-- DDEV defaults: override via environment or phpunit.xml (copy this file). -->
+    <env name="SIMPLETEST_BASE_URL" value="https://books.ddev.site"/>
+    <env name="SIMPLETEST_DB" value="mysql://db:db@db/db"/>
+    <env name="BROWSERTEST_OUTPUT_DIRECTORY" value="web/sites/simpletest/browser_output"/>
+    <env name="SYMFONY_DEPRECATIONS_HELPER" value="disabled"/>
+  </php>
+  <testsuites>
+    <testsuite name="unit">
+      <directory>web/modules/custom/**/tests/src/Unit</directory>
+      <directory>web/themes/custom/**/tests/src/Unit</directory>
+    </testsuite>
+    <testsuite name="kernel">
+      <directory>web/modules/custom/**/tests/src/Kernel</directory>
+      <directory>web/themes/custom/**/tests/src/Kernel</directory>
+    </testsuite>
+    <testsuite name="functional">
+      <directory>web/modules/custom/**/tests/src/Functional</directory>
+      <directory>web/themes/custom/**/tests/src/Functional</directory>
+    </testsuite>
+  </testsuites>
+  <source>
+    <include>
+      <directory>web/modules/custom</directory>
+      <directory>web/themes/custom</directory>
+    </include>
+    <exclude>
+      <directory>web/modules/custom/*/tests</directory>
+      <directory>web/themes/custom/*/tests</directory>
+    </exclude>
+  </source>
 </phpunit>

@@ -1,0 +1,13 @@
+{
+  "name": "books-e2e-tests",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Cypress E2E tests for Books Drupal project",
+  "scripts": {
+    "cy:open": "cypress open --config-file cypress.config.js",
+    "cy:run": "cypress run --config-file cypress.config.js"
+  },
+  "devDependencies": {
+    "cypress": "^13.0.0"
+  }
+}
