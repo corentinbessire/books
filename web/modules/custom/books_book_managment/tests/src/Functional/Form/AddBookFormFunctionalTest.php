@@ -51,11 +51,6 @@ class AddBookFormFunctionalTest extends BrowserTestBase {
    */
   public function testAnonymousAccessDenied(): void {
     $this->drupalGet('/add-book');
-    $statusCode = $this->getSession()->getStatusCode();
-    if ($statusCode === 500) {
-      $body = $this->getSession()->getPage()->getContent();
-      $this->fail('Got 500 response. Body: ' . substr($body, 0, 2000));
-    }
     $this->assertSession()->statusCodeEquals(403);
   }
 

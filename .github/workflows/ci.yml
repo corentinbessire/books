@@ -297,7 +297,7 @@ jobs:
           DRUPAL_HASH_SALT: test_hash_salt
           DRUPAL_BASE_URL: localhost
         run: |
-          cd web && php -S localhost:8080 .ht.router.php > /tmp/php-server.log 2>&1 &
+          cd web && php -S localhost:8080 .ht.router.php &
           sleep 2
 
       - name: Run PHPUnit functional tests
@@ -314,6 +314,3 @@ jobs:
           DRUPAL_BASE_URL: localhost
         run: php vendor/bin/phpunit --testsuite functional --no-progress --colors=always
 
-      - name: Show PHP server log on failure
-        if: failure()
-        run: cat /tmp/php-server.log | tail -200
