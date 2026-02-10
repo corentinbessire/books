@@ -3,6 +3,7 @@
 namespace Drupal\Tests\books_book_managment\Unit\Services;
 
 use Drupal\books_book_managment\Services\CoverDownloadService;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -175,7 +176,7 @@ class CoverDownloadServiceTest extends UnitTestCase {
   public function testCreateMedia(): void {
     $isbn = '9780142437247';
     $image = $this->createMock(EntityInterface::class);
-    $media = $this->createMock(EntityInterface::class);
+    $media = $this->createMock(ContentEntityInterface::class);
 
     $media->expects($this->exactly(2))
       ->method('set');

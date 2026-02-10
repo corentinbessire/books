@@ -3,6 +3,7 @@
 namespace Drupal\Tests\books_book_managment\Unit\Services;
 
 use Drupal\books_book_managment\Services\BooksUtilsService;
+use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
@@ -165,7 +166,7 @@ class BooksUtilsServiceTest extends UnitTestCase {
    * @covers ::getTermByName
    */
   public function testGetTermByNameCreatesNew(): void {
-    $newTerm = $this->createMock(EntityInterface::class);
+    $newTerm = $this->createMock(ContentEntityInterface::class);
 
     $query = $this->createMock(QueryInterface::class);
     $query->method('condition')->willReturnSelf();

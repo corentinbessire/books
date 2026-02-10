@@ -8,6 +8,7 @@ use Drupal\Core\Entity\EntityStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Entity\Query\QueryInterface;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\StringTranslation\TranslationInterface;
 use Drupal\isbn\IsbnToolsService;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\UnitTestCase;
@@ -70,12 +71,16 @@ class ActivityControllerTest extends UnitTestCase {
 
     $request = new Request();
 
-    // Set up the container for ControllerBase::entityTypeManager().
+    $stringTranslation = $this->createMock(TranslationInterface::class);
+    $stringTranslation->method('translateString')->willReturnArgument(0);
+
+    // Set up the container for ControllerBase dependencies.
     $container = $this->createMock(ContainerInterface::class);
     $container->method('get')
       ->willReturnMap([
         ['entity_type.manager', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->entityTypeManager],
         ['messenger', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $this->messenger],
+        ['string_translation', ContainerInterface::EXCEPTION_ON_INVALID_REFERENCE, $stringTranslation],
       ]);
     \Drupal::setContainer($container);
 
@@ -85,6 +90,11 @@ class ActivityControllerTest extends UnitTestCase {
       $this->isbnToolsService,
       $request
     );
+
+    // Set the entityTypeManager property directly since the controller
+    // accesses it as a property, not through the lazy-loading method.
+    $ref = new \ReflectionProperty($this->controller, 'entityTypeManager');
+    $ref->setValue($this->controller, $this->entityTypeManager);
   }
 
   /**
