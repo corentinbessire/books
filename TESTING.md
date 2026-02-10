@@ -93,7 +93,8 @@ Functional tests run full HTTP request/response cycles including routing, permis
 | Test file | What it covers |
 |-----------|----------------|
 | `AddBookFormFunctionalTest` | Form access (anonymous denied, authenticated allowed), ISBN validation |
-| `ActivityControllerFunctionalTest` | Activity finish/abandon routes, permission enforcement |
+
+**Note:** `ActivityControllerFunctionalTest` was not included because `ActivityController::create()` has a bug (passes 3 of 4 required constructor args). Fix the controller first, then add functional tests for activity routes.
 
 ```bash
 ddev phpunit --testsuite functional
