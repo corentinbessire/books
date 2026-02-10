@@ -112,7 +112,7 @@ jobs:
         with:
           name: release
           path: build/dist/*.tar.gz
-          retention-days: 7
+          retention-days: 1
 
   deploy:
     name: Deploy to ${{ inputs.environment }}

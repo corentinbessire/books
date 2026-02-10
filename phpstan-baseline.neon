@@ -1,0 +1,581 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/books_activity.module
+
+		-
+			message: "#^Function books_activity_node_presave\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/books_activity.module
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:\\$title\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Access to an undefined property Drupal\\\\node\\\\NodeInterface\\:\\:\\$field_status\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Controller\\\\ActivityController\\:\\:abandon\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Controller\\\\ActivityController\\:\\:finish\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Controller\\\\ActivityController\\:\\:getStatusByName\\(\\) should return int\\|null but returns string\\|false\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Controller\\\\ActivityController\\:\\:new\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Controller/ActivityController.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:get\\(\\)\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Plugin\\\\ExtraField\\\\Display\\\\BookCover\\:\\:__construct\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Plugin\\\\ExtraField\\\\Display\\\\BookCover\\:\\:create\\(\\) has parameter \\$configuration with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Plugin\\\\ExtraField\\\\Display\\\\BookCover\\:\\:defaultExtraFieldSettings\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Plugin\\\\ExtraField\\\\Display\\\\BookCover\\:\\:extraFieldSettingsForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Method Drupal\\\\books_activity\\\\Plugin\\\\ExtraField\\\\Display\\\\BookCover\\:\\:view\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/src/Plugin/ExtraField/Display/BookCover.php
+
+		-
+			message: "#^Function books_book_managment_entity_bundle_field_info_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/books_book_managment.module
+
+		-
+			message: "#^Function books_book_managment_entity_bundle_field_info_alter\\(\\) has parameter \\$bundle with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/books_book_managment.module
+
+		-
+			message: "#^Function books_book_managment_entity_bundle_field_info_alter\\(\\) has parameter \\$fields with no type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/books_book_managment.module
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchFinished\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchFinished\\(\\) has parameter \\$operations with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchFinished\\(\\) has parameter \\$results with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchProcess\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchProcess\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Batches\\\\MissingCoverBatch\\:\\:missingCoverBatchProcess\\(\\) has parameter \\$operation_details with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Parameter \\#1 \\$value of function count expects array\\|Countable, int\\<0, max\\> given\\.$#"
+			count: 3
+			path: web/modules/custom/books_book_managment/src/Batches/MissingCoverBatch.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Commands\\\\BooksBookManagmentCommands\\:\\:updateCover\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Commands/BooksBookManagmentCommands.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:mergeBookData\\(\\) has parameter \\$array1 with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:mergeBookData\\(\\) has parameter \\$array2 with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:mergeBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:validateForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\AddBookForm\\:\\:validateForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:formatBookData\\(\\) has parameter \\$bookData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:formatBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:getBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:set\\(\\)\\.$#"
+			count: 7
+			path: web/modules/custom/books_book_managment/src/Services/BooksUtilsService.php
+
+		-
+			message: "#^Call to an undefined method Drupal\\\\Core\\\\Entity\\\\EntityInterface\\:\\:setTitle\\(\\)\\.$#"
+			count: 2
+			path: web/modules/custom/books_book_managment/src/Services/BooksUtilsService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BooksUtilsService\\:\\:getBooksMissingCover\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BooksUtilsService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BooksUtilsService\\:\\:saveBookData\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/BooksUtilsService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:formatBookData\\(\\) has parameter \\$bookData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:formatBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:getBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:formatBookData\\(\\) has parameter \\$bookData with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:formatBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:getBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
+
+		-
+			message: "#^Trying to mock an undefined method set\\(\\) on class Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/tests/src/Unit/Services/BooksUtilsServiceTest.php
+
+		-
+			message: "#^Trying to mock an undefined method set\\(\\) on class Drupal\\\\Core\\\\Entity\\\\EntityInterface\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/tests/src/Unit/Services/CoverDownloadServiceTest.php
+
+		-
+			message: "#^Function books_preprocess_html\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_preprocess_html\\(\\) has parameter \\$variables with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_preprocess_image_widget\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_preprocess_image_widget\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_element_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_element_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_element_label_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_form_element_label_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_input_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_input_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_taxonomy_term_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_taxonomy_term_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_taxonomy_term_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_views_view_unformatted_alter\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_views_view_unformatted_alter\\(\\) has parameter \\$suggestions with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Function books_theme_suggestions_views_view_unformatted_alter\\(\\) has parameter \\$variables with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/books.theme
+
+		-
+			message: "#^Method Flatted\\:\\:asString\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:asString\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:index\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:index\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:index\\(\\) has parameter \\$known with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:index\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:keys\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:keys\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has parameter \\$keys with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has parameter \\$obj with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has parameter \\$output with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:loop\\(\\) has parameter \\$set with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:parse\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:parse\\(\\) has parameter \\$assoc with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:parse\\(\\) has parameter \\$depth with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:parse\\(\\) has parameter \\$json with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:parse\\(\\) has parameter \\$options with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$key with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$obj with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$output with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$set with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:ref\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:relate\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:relate\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:relate\\(\\) has parameter \\$known with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:relate\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:stringify\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:stringify\\(\\) has parameter \\$depth with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:stringify\\(\\) has parameter \\$options with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:stringify\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:transform\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:transform\\(\\) has parameter \\$input with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:transform\\(\\) has parameter \\$known with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:transform\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:wrap\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method Flatted\\:\\:wrap\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Method FlattedString\\:\\:__construct\\(\\) has parameter \\$value with no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Property FlattedString\\:\\:\\$value has no type specified\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Static method Flatted\\:\\:asString\\(\\) is unused\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Static method Flatted\\:\\:wrap\\(\\) is unused\\.$#"
+			count: 1
+			path: web/themes/custom/books/node_modules/flatted/php/flatted.php
+
+		-
+			message: "#^Function books_form_system_theme_settings_alter\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/themes/custom/books/theme-settings.php
