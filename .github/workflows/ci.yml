@@ -50,6 +50,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -101,6 +103,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -138,6 +142,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -175,6 +181,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -216,6 +224,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -260,6 +270,8 @@ jobs:
           path: |
             vendor
             web/autoload.php
+            web/index.php
+            web/.ht.router.php
             web/core
             web/modules/contrib
             web/profiles/contrib
@@ -269,7 +281,7 @@ jobs:
           key: vendor-installed-${{ github.run_id }}
 
       - name: Start PHP built-in server
-        run: php -S localhost:8080 -t web &
+        run: php -S localhost:8080 -t web web/.ht.router.php &
 
       - name: Run PHPUnit functional tests
         env:
