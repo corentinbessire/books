@@ -3,7 +3,9 @@
 namespace Drupal\Tests\books_book_managment\Unit\Batches;
 
 use Drupal\books_book_managment\Batches\MissingCoverBatch;
+use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\Tests\UnitTestCase;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Unit tests for MissingCoverBatch.
@@ -19,12 +21,12 @@ class MissingCoverBatchTest extends UnitTestCase {
    * @covers ::missingCoverBatchFinished
    */
   public function testBatchFinishedFailure(): void {
-    $messenger = $this->createMock(\Drupal\Core\Messenger\MessengerInterface::class);
+    $messenger = $this->createMock(MessengerInterface::class);
     $messenger->expects($this->once())
       ->method('addMessage')
       ->with($this->stringContains('An error occurred'));
 
-    $container = $this->createMock(\Symfony\Component\DependencyInjection\ContainerInterface::class);
+    $container = $this->createMock(ContainerInterface::class);
     $container->method('get')
       ->with('messenger')
       ->willReturn($messenger);
