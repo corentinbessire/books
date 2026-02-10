@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\books_activity\Kernel;
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
@@ -21,6 +23,7 @@ class ActivityPresaveTest extends KernelTestBase {
     'node',
     'field',
     'text',
+    'file',
     'user',
     'books_activity',
     'books_book_managment',
@@ -34,11 +37,26 @@ class ActivityPresaveTest extends KernelTestBase {
 
     $this->installEntitySchema('node');
     $this->installEntitySchema('user');
+    $this->installEntitySchema('file');
     $this->installConfig(['system', 'node', 'field']);
 
     // Create content types.
     NodeType::create(['type' => 'book', 'name' => 'Book'])->save();
     NodeType::create(['type' => 'activity', 'name' => 'Activity'])->save();
+
+    // Create field_book entity reference on activity content type.
+    FieldStorageConfig::create([
+      'field_name' => 'field_book',
+      'entity_type' => 'node',
+      'type' => 'entity_reference',
+      'settings' => ['target_type' => 'node'],
+    ])->save();
+    FieldConfig::create([
+      'field_name' => 'field_book',
+      'entity_type' => 'node',
+      'bundle' => 'activity',
+      'label' => 'Book',
+    ])->save();
   }
 
   /**

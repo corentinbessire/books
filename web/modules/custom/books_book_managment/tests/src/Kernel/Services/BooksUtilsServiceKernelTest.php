@@ -2,6 +2,8 @@
 
 namespace Drupal\Tests\books_book_managment\Kernel\Services;
 
+use Drupal\field\Entity\FieldConfig;
+use Drupal\field\Entity\FieldStorageConfig;
 use Drupal\KernelTests\KernelTestBase;
 use Drupal\node\Entity\Node;
 use Drupal\node\Entity\NodeType;
@@ -24,6 +26,7 @@ class BooksUtilsServiceKernelTest extends KernelTestBase {
     'taxonomy',
     'field',
     'text',
+    'file',
     'user',
     'books_book_managment',
   ];
@@ -44,12 +47,39 @@ class BooksUtilsServiceKernelTest extends KernelTestBase {
     $this->installEntitySchema('node');
     $this->installEntitySchema('taxonomy_term');
     $this->installEntitySchema('user');
+    $this->installEntitySchema('file');
     $this->installConfig(['system', 'node', 'taxonomy', 'field']);
 
     // Create the 'book' content type.
     NodeType::create([
       'type' => 'book',
       'name' => 'Book',
+    ])->save();
+
+    // Create field_isbn on book content type.
+    FieldStorageConfig::create([
+      'field_name' => 'field_isbn',
+      'entity_type' => 'node',
+      'type' => 'string',
+    ])->save();
+    FieldConfig::create([
+      'field_name' => 'field_isbn',
+      'entity_type' => 'node',
+      'bundle' => 'book',
+      'label' => 'ISBN',
+    ])->save();
+
+    // Create field_cover on book content type.
+    FieldStorageConfig::create([
+      'field_name' => 'field_cover',
+      'entity_type' => 'node',
+      'type' => 'string',
+    ])->save();
+    FieldConfig::create([
+      'field_name' => 'field_cover',
+      'entity_type' => 'node',
+      'bundle' => 'book',
+      'label' => 'Cover',
     ])->save();
 
     // Create vocabularies.

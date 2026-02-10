@@ -42,7 +42,8 @@ class CoverDownloadServiceKernelTest extends KernelTestBase {
     $this->installEntitySchema('media');
     $this->installEntitySchema('file');
     $this->installEntitySchema('user');
-    $this->installConfig(['system', 'media', 'file']);
+    $this->installEntitySchema('node');
+    $this->installConfig(['system', 'media', 'file', 'field']);
 
     $this->coverDownloadService = $this->container->get('books.cover_download');
   }
