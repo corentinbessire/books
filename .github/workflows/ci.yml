@@ -280,11 +280,29 @@ jobs:
             drush/Commands
           key: vendor-installed-${{ github.run_id }}
 
+      - name: Prepare test environment
+        run: |
+          mkdir -p web/sites/simpletest/browser_output
+          mkdir -p web/sites/default/files
+          chmod -R 777 web/sites/simpletest
+          chmod -R 777 web/sites/default
+
       - name: Start PHP built-in server
-        run: php -S localhost:8080 -t web web/.ht.router.php &
+        env:
+          DRUPAL_DB_NAME: drupal
+          DRUPAL_DB_USER: root
+          DRUPAL_DB_PASS: root
+          DRUPAL_DB_HOST: 127.0.0.1
+          DRUPAL_DB_PORT: '3306'
+          DRUPAL_HASH_SALT: test_hash_salt
+          DRUPAL_BASE_URL: localhost
+        run: |
+          php -S localhost:8080 -t web web/.ht.router.php &
+          sleep 2
 
       - name: Run PHPUnit functional tests
         env:
           SIMPLETEST_DB: mysql://root:root@127.0.0.1:3306/drupal
           SIMPLETEST_BASE_URL: http://localhost:8080
+          BROWSERTEST_OUTPUT_DIRECTORY: web/sites/simpletest/browser_output
         run: php vendor/bin/phpunit --testsuite functional --no-progress --colors=always
