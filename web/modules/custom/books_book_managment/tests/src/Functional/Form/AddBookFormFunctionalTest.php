@@ -2,6 +2,7 @@
 
 namespace Drupal\Tests\books_book_managment\Functional\Form;
 
+use Drupal\node\Entity\NodeType;
 use Drupal\Tests\BrowserTestBase;
 
 /**
@@ -31,6 +32,19 @@ class AddBookFormFunctionalTest extends BrowserTestBase {
    * {@inheritdoc}
    */
   protected $defaultTheme = 'stark';
+
+  /**
+   * {@inheritdoc}
+   */
+  protected function setUp(): void {
+    parent::setUp();
+
+    // Create the 'book' content type (required for 'create book content'
+    // permission and the /add-book route).
+    if (!NodeType::load('book')) {
+      NodeType::create(['type' => 'book', 'name' => 'Book'])->save();
+    }
+  }
 
   /**
    * Tests anonymous users are denied access to add-book form.
