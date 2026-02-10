@@ -44,10 +44,9 @@ jobs:
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction --optimize-autoloader --ignore-platform-reqs
 
-      - name: Upload vendor artifact
-        uses: actions/upload-artifact@v4
+      - name: Cache installed vendor
+        uses: actions/cache/save@v4
         with:
-          name: vendor
           path: |
             vendor
             web/core
@@ -56,7 +55,7 @@ jobs:
             web/themes/contrib
             web/libraries
             drush/Commands
-          retention-days: 1
+          key: vendor-installed-${{ github.run_id }}
 
   npm:
     name: Theme Build
@@ -80,13 +79,6 @@ jobs:
         working-directory: ${{ env.THEME_ROOT }}
         run: npm run build
 
-      - name: Upload theme artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: theme
-          path: ${{ env.THEME_ROOT }}
-          retention-days: 1
-
   phpcs:
     name: PHPCS
     runs-on: ubuntu-latest
@@ -102,11 +94,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
           coverage: none
 
-      - name: Download vendor artifact
-        uses: actions/download-artifact@v4
+      - name: Restore installed vendor
+        uses: actions/cache/restore@v4
         with:
-          name: vendor
-          path: .
+          path: |
+            vendor
+            web/core
+            web/modules/contrib
+            web/profiles/contrib
+            web/themes/contrib
+            web/libraries
+            drush/Commands
+          key: vendor-installed-${{ github.run_id }}
 
       - name: Run PHPCS
         run: |
@@ -131,11 +130,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
           coverage: none
 
-      - name: Download vendor artifact
-        uses: actions/download-artifact@v4
+      - name: Restore installed vendor
+        uses: actions/cache/restore@v4
         with:
-          name: vendor
-          path: .
+          path: |
+            vendor
+            web/core
+            web/modules/contrib
+            web/profiles/contrib
+            web/themes/contrib
+            web/libraries
+            drush/Commands
+          key: vendor-installed-${{ github.run_id }}
 
       - name: Run PHPStan
         run: |
@@ -160,11 +166,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
           coverage: none
 
-      - name: Download vendor artifact
-        uses: actions/download-artifact@v4
+      - name: Restore installed vendor
+        uses: actions/cache/restore@v4
         with:
-          name: vendor
-          path: .
+          path: |
+            vendor
+            web/core
+            web/modules/contrib
+            web/profiles/contrib
+            web/themes/contrib
+            web/libraries
+            drush/Commands
+          key: vendor-installed-${{ github.run_id }}
 
       - name: Run PHPUnit unit tests
         run: php vendor/bin/phpunit --testsuite unit --no-progress --colors=always
@@ -193,11 +206,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
           coverage: none
 
-      - name: Download vendor artifact
-        uses: actions/download-artifact@v4
+      - name: Restore installed vendor
+        uses: actions/cache/restore@v4
         with:
-          name: vendor
-          path: .
+          path: |
+            vendor
+            web/core
+            web/modules/contrib
+            web/profiles/contrib
+            web/themes/contrib
+            web/libraries
+            drush/Commands
+          key: vendor-installed-${{ github.run_id }}
 
       - name: Run PHPUnit kernel tests
         env:
@@ -229,11 +249,18 @@ jobs:
           extensions: dom, curl, libxml, mbstring, zip, pdo, mysql, pdo_mysql, gd
           coverage: none
 
-      - name: Download vendor artifact
-        uses: actions/download-artifact@v4
+      - name: Restore installed vendor
+        uses: actions/cache/restore@v4
         with:
-          name: vendor
-          path: .
+          path: |
+            vendor
+            web/core
+            web/modules/contrib
+            web/profiles/contrib
+            web/themes/contrib
+            web/libraries
+            drush/Commands
+          key: vendor-installed-${{ github.run_id }}
 
       - name: Start PHP built-in server
         run: php -S localhost:8080 -t web &
