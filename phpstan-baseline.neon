@@ -6,6 +6,11 @@ parameters:
 			path: web/modules/custom/books_activity/books_activity.module
 
 		-
+			message: "#^If condition is always true\\.$#"
+			count: 1
+			path: web/modules/custom/books_activity/books_activity.module
+
+		-
 			message: "#^Function books_activity_node_presave\\(\\) has no return type specified\\.$#"
 			count: 1
 			path: web/modules/custom/books_activity/books_activity.module
