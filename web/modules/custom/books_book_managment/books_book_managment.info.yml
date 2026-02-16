@@ -3,3 +3,8 @@ type: module
 description: The description.
 package: Books
 core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:media
+  - drupal:file
