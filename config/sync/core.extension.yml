@@ -46,7 +46,6 @@ module:
   token: 0
   toolbar: 0
   user: 0
-  views_ui: 0
   webp: 0
   pathauto: 1
   views: 10
