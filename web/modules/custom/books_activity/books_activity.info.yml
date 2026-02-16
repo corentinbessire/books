@@ -1,6 +1,6 @@
 name: Books - Activity
 type: module
-description: The description.
+description: Manages reading activities, tracking book reading progress and status.
 package: Books
 core_version_requirement: ^10 || ^11
 dependencies:
