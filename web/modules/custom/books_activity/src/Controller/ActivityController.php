@@ -5,10 +5,10 @@ namespace Drupal\books_activity\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\books_book_managment\Services\BooksUtilsService;
-use Drupal\isbn\IsbnToolsService;
+use Drupal\isbn\IsbnToolsServiceInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Returns responses for Books - Activity routes.
@@ -22,16 +22,16 @@ class ActivityController extends ControllerBase {
    *   Drupal Messagenger Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
    *   Custom Books Utilitary service.
-   * @param \Drupal\isbn\IsbnToolsService $isbnToolsService
+   * @param \Drupal\isbn\IsbnToolsServiceInterface $isbnToolsService
    *   ISBN Tools service.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The Current Request.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
    */
   public function __construct(
     protected MessengerInterface $messengerInterface,
     protected BooksUtilsService $booksUtilsService,
-    private IsbnToolsService $isbnToolsService,
-    protected Request $request,
+    private IsbnToolsServiceInterface $isbnToolsService,
+    protected RequestStack $requestStack,
   ) {
   }
 
@@ -43,6 +43,7 @@ class ActivityController extends ControllerBase {
       $container->get('messenger'),
       $container->get('books.books_utils'),
       $container->get('isbn.isbn_service'),
+      $container->get('request_stack'),
     );
   }
 
@@ -69,15 +70,26 @@ class ActivityController extends ControllerBase {
           ]));
         return $this->redirect('view.activities.page_1');
       }
-    }
-    else {
       $this->messengerInterface
+<<<<<<< fix/issue-50-missing-return-path
+        ->addError($this->t('No book found for ISBN @isbn.', ['@isbn' => $isbn]));
+      return $this->redirect('<front>');
+    }
+
+    $this->messengerInterface
+      ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
+    if (!$url = $this->request->headers->get('referer')) {
+      $url = '<front>';
+=======
         ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-      if (!$url = $this->request->headers->get('referer')) {
+      $request = $this->requestStack->getCurrentRequest();
+      if (!$request || !$url = $request->headers->get('referer')) {
         $url = '<front>';
       }
       return $this->redirect($url);
+>>>>>>> main
     }
+    return $this->redirect($url);
   }
 
   /**
@@ -134,7 +146,7 @@ class ActivityController extends ControllerBase {
    */
   protected function getStatusByName(string $name): ?int {
     $results = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
-      ->condition('name', "%$name%", 'LIKE')
+      ->condition('name', $name)
       ->condition('vid', 'sta')
       ->accessCheck()
       ->execute();

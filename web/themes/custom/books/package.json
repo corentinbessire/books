@@ -1,11 +1,12 @@
 {
   "name": "books",
   "version": "2.0.0",
-  "description": "Lug Theme's front End dependencies",
+  "description": "Books theme frontend dependencies",
   "author": "Corentin Bessire",
   "license": "GPL-3.0",
   "scripts": {
-    "build": "vite build --mode development",
+    "build": "vite build",
+    "build:dev": "vite build --mode development",
     "watch": "vite build --watch --mode development",
     "dev": "vite",
     "preview": "vite preview",
