@@ -69,15 +69,17 @@ class ActivityController extends ControllerBase {
           ]));
         return $this->redirect('view.activities.page_1');
       }
-    }
-    else {
       $this->messengerInterface
-        ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-      if (!$url = $this->request->headers->get('referer')) {
-        $url = '<front>';
-      }
-      return $this->redirect($url);
+        ->addError($this->t('No book found for ISBN @isbn.', ['@isbn' => $isbn]));
+      return $this->redirect('<front>');
     }
+
+    $this->messengerInterface
+      ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
+    if (!$url = $this->request->headers->get('referer')) {
+      $url = '<front>';
+    }
+    return $this->redirect($url);
   }
 
   /**
