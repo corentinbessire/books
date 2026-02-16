@@ -30,7 +30,7 @@ class ActivityController extends ControllerBase {
   public function __construct(
     protected MessengerInterface $messengerInterface,
     protected BooksUtilsService $booksUtilsService,
-    private IsbnToolsService $isbnToolsService,
+    private IsbnToolsServiceInterface $isbnToolsService,
     protected RequestStack $requestStack,
   ) {
   }
