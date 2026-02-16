@@ -41,26 +41,19 @@ class BooksUtilsService {
    */
   public function saveBookData(string $isbn, array $data): EntityInterface {
     $book = $this->getBook($isbn);
-    if (isset($data['title'])) {
-      $book->setTitle($data['title']);
-    }
-    else {
-      $book->setTitle($isbn);
-    }
-    if (!empty($data['field_pages'])) {
-      $book->set('field_pages', $data['field_pages']);
-    }
-    if (!empty($data['field_isbn'])) {
-      $book->set('field_isbn', $data['field_isbn']);
-    }
-    if (!empty($data['field_release'])) {
-      $book->set('field_release', $data['field_release']);
-    }
-    if (!empty($data['field_excerpt'])) {
-      $book->set('field_excerpt', $data['field_excerpt']);
-    }
-    if (!empty($data['field_cover'])) {
-      $book->set('field_cover', $data['field_cover']);
+    $book->setTitle($data['title'] ?? $isbn);
+
+    $simpleFields = [
+      'field_pages',
+      'field_isbn',
+      'field_release',
+      'field_excerpt',
+      'field_cover',
+    ];
+    foreach ($simpleFields as $field) {
+      if (!empty($data[$field])) {
+        $book->set($field, $data[$field]);
+      }
     }
 
     if (!empty($data['field_publisher'])) {
