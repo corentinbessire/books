@@ -198,9 +198,9 @@ class GoogleBooksServiceTest extends UnitTestCase {
   }
 
   /**
-   * Tests getFormatedBookData() with successful response.
+   * Tests getFormattedBookData() with successful response.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataSuccess(): void {
     $isbn = '9780142437247';
@@ -232,16 +232,16 @@ class GoogleBooksServiceTest extends UnitTestCase {
       ->method('request')
       ->willReturn($response);
 
-    $result = $this->googleBooksService->getFormatedBookData($isbn);
+    $result = $this->googleBooksService->getFormattedBookData($isbn);
     $this->assertIsArray($result);
     $this->assertEquals('Moby-Dick', $result['title']);
     $this->assertEquals($isbn, $result['field_isbn']);
   }
 
   /**
-   * Tests getFormatedBookData() with null response.
+   * Tests getFormattedBookData() with null response.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataNull(): void {
     $isbn = '9780123456789';
@@ -252,7 +252,7 @@ class GoogleBooksServiceTest extends UnitTestCase {
         new RequestException('Not found', new Request('GET', 'test'))
       );
 
-    $result = $this->googleBooksService->getFormatedBookData($isbn);
+    $result = $this->googleBooksService->getFormattedBookData($isbn);
     $this->assertNull($result);
   }
 
