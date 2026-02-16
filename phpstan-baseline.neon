@@ -181,6 +181,56 @@ parameters:
 			path: web/modules/custom/books_book_managment/src/Form/AddBookForm.php
 
 		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:create\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:buildForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:buildForm\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:submitForm\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:submitForm\\(\\) has parameter \\$form with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:updateBookProcess\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:updateBookProcess\\(\\) has parameter \\$context with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:updateBookFinished\\(\\) has no return type specified\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:updateBookFinished\\(\\) has parameter \\$operations with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
+			message: "#^Method Drupal\\\\books_book_managment\\\\Form\\\\UpdateBookForm\\:\\:updateBookFinished\\(\\) has parameter \\$results with no value type specified in iterable type array\\.$#"
+			count: 1
+			path: web/modules/custom/books_book_managment/src/Form/UpdateBookForm.php
+
+		-
 			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:formatBookData\\(\\) has parameter \\$bookData with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
@@ -196,7 +246,7 @@ parameters:
 			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
 
 		-
-			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\BookDataServiceInterface\\:\\:getFormattedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: web/modules/custom/books_book_managment/src/Services/BookDataServiceInterface.php
 
@@ -236,7 +286,7 @@ parameters:
 			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
 
 		-
-			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\GoogleBooksService\\:\\:getFormattedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: web/modules/custom/books_book_managment/src/Services/GoogleBooksService.php
 
@@ -256,7 +306,7 @@ parameters:
 			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
 
 		-
-			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:getFormatedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
+			message: "#^Method Drupal\\\\books_book_managment\\\\Services\\\\OpenLibraryService\\:\\:getFormattedBookData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: web/modules/custom/books_book_managment/src/Services/OpenLibraryService.php
 

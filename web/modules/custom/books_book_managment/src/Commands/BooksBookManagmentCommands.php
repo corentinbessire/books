@@ -25,7 +25,7 @@ class BooksBookManagmentCommands extends DrushCommands {
    * BooksBookManagmentCommands constructor.
    *
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
-   *   Utils for Book managment service.
+   *   Utils for Book management service.
    */
   public function __construct(
     private BooksUtilsService $booksUtilsService,
@@ -34,46 +34,43 @@ class BooksBookManagmentCommands extends DrushCommands {
   }
 
   /**
-   * Command description here.
+   * Download missing book covers from external sources.
    *
-   * @usage books_book_managment-commandName foo
-   *   Usage description
+   * @usage update-cover
+   *   Download covers for all books missing one.
    *
    * @command update-cover
    * @aliases buc
    */
-  public function updateCover() {
+  public function updateCover(): void {
     $books = $this->booksUtilsService->getBooksMissingCover();
 
+    if (empty($books)) {
+      $this->logger()->warning('No books without cover.');
+      return;
+    }
+
     $operations = [];
-    $numOperations = 0;
-    $batchId = 1;
-    if (!empty($books)) {
-      $books_count = count($books);
-      foreach ($books as $nid) {
-        $operations[] = [
-          '\Drupal\books_book_managment\Batches\MissingCoverBatch::missingCoverBatchProcess',
-          [
-            $nid,
-            $books_count,
-            $this->t('Getting cover for @nid', ['@nid' => $nid]),
-          ],
-        ];
-        $batchId++;
-        $numOperations++;
-      }
+    $books_count = count($books);
+    foreach ($books as $nid) {
+      $operations[] = [
+        '\Drupal\books_book_managment\Batches\MissingCoverBatch::missingCoverBatchProcess',
+        [
+          $nid,
+          $books_count,
+          $this->t('Getting cover for @nid', ['@nid' => $nid]),
+        ],
+      ];
     }
-    else {
-      $this->logger->warning('No Books without Cover');
-    }
+
     $batch = [
-      'title' => $this->t('Getting Covers for @num book(s)', ['@num' => $numOperations]),
+      'title' => $this->t('Getting Covers for @num book(s)', ['@num' => count($operations)]),
       'operations' => $operations,
       'finished' => '\Drupal\books_book_managment\Batches\MissingCoverBatch::missingCoverBatchFinished',
     ];
     batch_set($batch);
     drush_backend_batch_process();
-    $this->logger->info('Archive batch operations end.');
+    $this->logger()->info('Cover batch operations completed.');
   }
 
 }
