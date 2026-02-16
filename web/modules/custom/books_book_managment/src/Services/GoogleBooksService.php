@@ -33,7 +33,12 @@ class GoogleBooksService implements BookDataServiceInterface {
    */
   public function getBookData(string|int $isbn): array|null {
     $googleApiKey = $this->settings->get('google_api_key');
-    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=' . $googleApiKey;
+    if (empty($googleApiKey)) {
+      $this->loggerChannelFactory->get('GoogleBooksService')
+        ->warning('Google API key is not configured.');
+      return NULL;
+    }
+    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . urlencode((string) $isbn) . '&key=' . urlencode($googleApiKey);
     $data = NULL;
     try {
       $request = $this->httpClient->request('GET', $uri);
