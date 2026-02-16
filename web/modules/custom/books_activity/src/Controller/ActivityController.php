@@ -134,7 +134,7 @@ class ActivityController extends ControllerBase {
    */
   protected function getStatusByName(string $name): ?int {
     $results = $this->entityTypeManager->getStorage('taxonomy_term')->getQuery()
-      ->condition('name', "%$name%", 'LIKE')
+      ->condition('name', $name)
       ->condition('vid', 'sta')
       ->accessCheck()
       ->execute();
