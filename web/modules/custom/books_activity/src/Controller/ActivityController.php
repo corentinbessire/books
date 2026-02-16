@@ -8,7 +8,7 @@ use Drupal\books_book_managment\Services\BooksUtilsService;
 use Drupal\isbn\IsbnToolsServiceInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Returns responses for Books - Activity routes.
@@ -24,14 +24,14 @@ class ActivityController extends ControllerBase {
    *   Custom Books Utilitary service.
    * @param \Drupal\isbn\IsbnToolsServiceInterface $isbnToolsService
    *   ISBN Tools service.
-   * @param \Symfony\Component\HttpFoundation\Request $request
-   *   The Current Request.
+   * @param \Symfony\Component\HttpFoundation\RequestStack $requestStack
+   *   The request stack.
    */
   public function __construct(
     protected MessengerInterface $messengerInterface,
     protected BooksUtilsService $booksUtilsService,
-    private IsbnToolsServiceInterface $isbnToolsService,
-    protected Request $request,
+    private IsbnToolsService $isbnToolsService,
+    protected RequestStack $requestStack,
   ) {
   }
 
@@ -43,6 +43,7 @@ class ActivityController extends ControllerBase {
       $container->get('messenger'),
       $container->get('books.books_utils'),
       $container->get('isbn.isbn_service'),
+      $container->get('request_stack'),
     );
   }
 
@@ -73,7 +74,8 @@ class ActivityController extends ControllerBase {
     else {
       $this->messengerInterface
         ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-      if (!$url = $this->request->headers->get('referer')) {
+      $request = $this->requestStack->getCurrentRequest();
+      if (!$request || !$url = $request->headers->get('referer')) {
         $url = '<front>';
       }
       return $this->redirect($url);
