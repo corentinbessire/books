@@ -202,9 +202,9 @@ class GoogleBooksServiceTest extends UnitTestCase {
   }
 
   /**
-   * Tests getFormatedBookData() with successful response.
+   * Tests getFormattedBookData() with successful response.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataSuccess(): void {
     $isbn = '9780142437247';
@@ -232,24 +232,24 @@ class GoogleBooksServiceTest extends UnitTestCase {
 
     $response = new Response(200, [], json_encode($mockData));
 
-    // getFormatedBookData calls getBookData twice (known bug in source).
+    // getFormattedBookData calls getBookData twice (known bug in source).
     $this->httpClient->expects($this->exactly(2))
       ->method('request')
       ->willReturn($response);
 
-    $result = $this->googleBooksService->getFormatedBookData($isbn);
+    $result = $this->googleBooksService->getFormattedBookData($isbn);
     $this->assertIsArray($result);
     $this->assertEquals('Moby-Dick', $result['title']);
     $this->assertEquals($isbn, $result['field_isbn']);
   }
 
   /**
-   * Tests getFormatedBookData() with null response.
+   * Tests getFormattedBookData() with null response.
    *
    * The source code has a known bug: getBookData() crashes with TypeError
-   * when the HTTP request fails, so getFormatedBookData() also throws.
+   * when the HTTP request fails, so getFormattedBookData() also throws.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataNull(): void {
     $isbn = '9780123456789';
@@ -262,7 +262,7 @@ class GoogleBooksServiceTest extends UnitTestCase {
 
     $this->expectException(\TypeError::class);
     // Suppress the "array offset on null" warning from the source code bug.
-    @$this->googleBooksService->getFormatedBookData($isbn);
+    @$this->googleBooksService->getFormattedBookData($isbn);
   }
 
 }
