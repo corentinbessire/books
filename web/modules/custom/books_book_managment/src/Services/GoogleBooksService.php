@@ -77,7 +77,6 @@ class GoogleBooksService implements BookDataServiceInterface {
    */
   public function getFormatedBookData(int|string $isbn): array|null {
     $bookData = $this->getBookData($isbn);
-    $bookData = $this->getBookData($isbn);
     return ($bookData) ? $this->formatBookData($bookData) : $bookData;
   }
 
