@@ -112,9 +112,6 @@ class GoogleBooksServiceTest extends UnitTestCase {
   /**
    * Tests getBookData() with API error (RequestException).
    *
-   * The source code has a known bug: after catching RequestException, $data
-   * remains NULL and accessing $data['totalItems'] triggers a TypeError.
-   *
    * @covers ::getBookData
    */
   public function testGetBookDataError(): void {
@@ -126,12 +123,11 @@ class GoogleBooksServiceTest extends UnitTestCase {
         new RequestException('Server error', new Request('GET', 'test'))
       );
 
-    $this->logger->expects($this->once())
+    $this->logger->expects($this->atLeastOnce())
       ->method('alert');
 
-    $this->expectException(\TypeError::class);
-    // Suppress the "array offset on null" warning from the source code bug.
-    @$this->googleBooksService->getBookData($isbn);
+    $result = $this->googleBooksService->getBookData($isbn);
+    $this->assertNull($result);
   }
 
   /**
@@ -232,8 +228,7 @@ class GoogleBooksServiceTest extends UnitTestCase {
 
     $response = new Response(200, [], json_encode($mockData));
 
-    // getFormattedBookData calls getBookData twice (known bug in source).
-    $this->httpClient->expects($this->exactly(2))
+    $this->httpClient->expects($this->once())
       ->method('request')
       ->willReturn($response);
 
@@ -246,9 +241,6 @@ class GoogleBooksServiceTest extends UnitTestCase {
   /**
    * Tests getFormattedBookData() with null response.
    *
-   * The source code has a known bug: getBookData() crashes with TypeError
-   * when the HTTP request fails, so getFormattedBookData() also throws.
-   *
    * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataNull(): void {
@@ -260,9 +252,8 @@ class GoogleBooksServiceTest extends UnitTestCase {
         new RequestException('Not found', new Request('GET', 'test'))
       );
 
-    $this->expectException(\TypeError::class);
-    // Suppress the "array offset on null" warning from the source code bug.
-    @$this->googleBooksService->getFormattedBookData($isbn);
+    $result = $this->googleBooksService->getFormattedBookData($isbn);
+    $this->assertNull($result);
   }
 
 }

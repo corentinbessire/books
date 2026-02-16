@@ -47,27 +47,27 @@ class BooksUtilsService {
     else {
       $book->setTitle($isbn);
     }
-    if ($data['field_pages']) {
+    if (!empty($data['field_pages'])) {
       $book->set('field_pages', $data['field_pages']);
     }
-    if ($data['field_isbn']) {
+    if (!empty($data['field_isbn'])) {
       $book->set('field_isbn', $data['field_isbn']);
     }
-    if ($data['field_release']) {
+    if (!empty($data['field_release'])) {
       $book->set('field_release', $data['field_release']);
     }
-    if ($data['field_excerpt']) {
+    if (!empty($data['field_excerpt'])) {
       $book->set('field_excerpt', $data['field_excerpt']);
     }
-    if ($data['field_cover']) {
+    if (!empty($data['field_cover'])) {
       $book->set('field_cover', $data['field_cover']);
     }
 
-    if ($data['field_publisher']) {
+    if (!empty($data['field_publisher'])) {
       $publisher = $this->getTermByName($data['field_publisher'], 'publisher');
       $book->set('field_publisher', $publisher);
     }
-    if ($data['field_authors']) {
+    if (!empty($data['field_authors'])) {
       $authors = [];
       foreach ($data['field_authors'] as $author) {
         $authors[]['target_id'] = $this->getTermByName($author, 'author')->id();
