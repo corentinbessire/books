@@ -55,7 +55,7 @@ class ActivityController extends ControllerBase {
         $values = [
           'type' => 'activity',
           'title' => $book->title->value,
-          'field_start_date' => date('Y-m-d'),
+          'field_start_date' => (new \DateTimeImmutable())->format('Y-m-d'),
           'field_book' => ['target_id' => $book->id()],
           'field_status' => ['target_id' => $this->getStatusByName('Reading')],
         ];
@@ -113,7 +113,7 @@ class ActivityController extends ControllerBase {
     }
     else {
       $activity->field_status = ['target_id' => $this->getStatusByName($status)];
-      $activity->set('field_end_date', date('Y-m-d'));
+      $activity->set('field_end_date', (new \DateTimeImmutable())->format('Y-m-d'));
       $activity->save();
       $this->messengerInterface
         ->addStatus($this->t('@label has been updated.', ['@label' => $activity->label()]));
