@@ -19,7 +19,7 @@ class ActivityController extends ControllerBase {
    * The controller constructor.
    *
    * @param \Drupal\Core\Messenger\MessengerInterface $messengerInterface
-   *   Drupal Messagenger Service.
+   *   Drupal Messenger Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
    *   Custom Books Utilitary service.
    * @param \Drupal\isbn\IsbnToolsServiceInterface $isbnToolsService
@@ -71,23 +71,15 @@ class ActivityController extends ControllerBase {
         return $this->redirect('view.activities.page_1');
       }
       $this->messengerInterface
-<<<<<<< fix/issue-50-missing-return-path
         ->addError($this->t('No book found for ISBN @isbn.', ['@isbn' => $isbn]));
       return $this->redirect('<front>');
     }
 
     $this->messengerInterface
       ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-    if (!$url = $this->request->headers->get('referer')) {
+    $request = $this->requestStack->getCurrentRequest();
+    if (!$request || !$url = $request->headers->get('referer')) {
       $url = '<front>';
-=======
-        ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-      $request = $this->requestStack->getCurrentRequest();
-      if (!$request || !$url = $request->headers->get('referer')) {
-        $url = '<front>';
-      }
-      return $this->redirect($url);
->>>>>>> main
     }
     return $this->redirect($url);
   }

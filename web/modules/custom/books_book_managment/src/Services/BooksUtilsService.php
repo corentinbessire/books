@@ -17,7 +17,7 @@ class BooksUtilsService {
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
    *   The logger channel factory.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
-   *   The file system service.
+   *   The entity type manager.
    */
   public function __construct(
     protected LoggerChannelFactoryInterface $loggerChannelFactory,
@@ -149,7 +149,7 @@ class BooksUtilsService {
   }
 
   /**
-   * Get ann array of NIDS of Boonks noed without Cover.
+   * Get an array of NIDs of Book nodes without Cover.
    *
    * @return array
    *   Array of Nids.

@@ -28,7 +28,7 @@ class AddBookForm extends FormBase {
    * @param \Drupal\books_book_managment\Services\CoverDownloadService $coverDownloadService
    *   Cover Downloader Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
-   *   Book Utilities Serice.
+   *   Book Utilities Service.
    */
   public function __construct(
     protected IsbnToolsServiceInterface $isbnToolsService,

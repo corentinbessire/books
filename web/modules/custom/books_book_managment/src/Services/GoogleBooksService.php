@@ -51,7 +51,7 @@ class GoogleBooksService implements BookDataServiceInterface {
 
     if ($data === NULL || $data['totalItems'] === 0) {
       $this->loggerChannelFactory->get('GoogleBooksService')
-        ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+        ->alert('No data for ISBN : ' . $isbn . '(' . $uri . ')');
       return NULL;
     }
     return array_pop($data['items']);
