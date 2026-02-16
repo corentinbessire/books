@@ -5,7 +5,7 @@ namespace Drupal\books_activity\Controller;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Messenger\MessengerInterface;
 use Drupal\books_book_managment\Services\BooksUtilsService;
-use Drupal\isbn\IsbnToolsService;
+use Drupal\isbn\IsbnToolsServiceInterface;
 use Drupal\node\NodeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,7 +22,7 @@ class ActivityController extends ControllerBase {
    *   Drupal Messagenger Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
    *   Custom Books Utilitary service.
-   * @param \Drupal\isbn\IsbnToolsService $isbnToolsService
+   * @param \Drupal\isbn\IsbnToolsServiceInterface $isbnToolsService
    *   ISBN Tools service.
    * @param \Symfony\Component\HttpFoundation\Request $request
    *   The Current Request.
@@ -30,7 +30,7 @@ class ActivityController extends ControllerBase {
   public function __construct(
     protected MessengerInterface $messengerInterface,
     protected BooksUtilsService $booksUtilsService,
-    private IsbnToolsService $isbnToolsService,
+    private IsbnToolsServiceInterface $isbnToolsService,
     protected Request $request,
   ) {
   }
