@@ -61,13 +61,15 @@ class GoogleBooksService implements BookDataServiceInterface {
    * {@inheritdoc}
    */
   public function formatBookData(array $bookData): array {
-    $release = date('Y-m-d', strtotime($bookData['volumeInfo']['publishedDate']));
-    $formattedBookData['title'] = $bookData['volumeInfo']['title'];
-    $formattedBookData['field_pages'] = $bookData['volumeInfo']['pageCount'];
-    $formattedBookData['field_authors'] = $bookData['volumeInfo']['authors'];
-    $formattedBookData['field_publisher'] = $bookData['volumeInfo']['publisher'];
-    $formattedBookData['field_excerpt'] = $bookData['volumeInfo']['description'];
-    foreach ($bookData['volumeInfo']['industryIdentifiers'] as $industryIdentifier) {
+    $volumeInfo = $bookData['volumeInfo'] ?? [];
+    $publishedDate = $volumeInfo['publishedDate'] ?? NULL;
+    $release = $publishedDate ? date('Y-m-d', strtotime($publishedDate)) : NULL;
+    $formattedBookData['title'] = $volumeInfo['title'] ?? '';
+    $formattedBookData['field_pages'] = $volumeInfo['pageCount'] ?? NULL;
+    $formattedBookData['field_authors'] = $volumeInfo['authors'] ?? [];
+    $formattedBookData['field_publisher'] = $volumeInfo['publisher'] ?? NULL;
+    $formattedBookData['field_excerpt'] = $volumeInfo['description'] ?? NULL;
+    foreach ($volumeInfo['industryIdentifiers'] ?? [] as $industryIdentifier) {
       if ($industryIdentifier['type'] === 'ISBN_13') {
         $formattedBookData['field_isbn'] = $industryIdentifier['identifier'];
       }
