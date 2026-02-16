@@ -56,8 +56,12 @@ class GoogleBooksService implements BookDataServiceInterface {
    * {@inheritdoc}
    */
   public function formatBookData(array $bookData): array {
-    $timestamp = strtotime($bookData['volumeInfo']['publishedDate'] ?? '');
-    $release = $timestamp !== FALSE ? (new \DateTimeImmutable('@' . $timestamp))->format('Y-m-d') : NULL;
+    try {
+      $release = (new \DateTimeImmutable($bookData['volumeInfo']['publishedDate'] ?? ''))->format('Y-m-d');
+    }
+    catch (\Exception) {
+      $release = NULL;
+    }
     $formattedBookData['title'] = $bookData['volumeInfo']['title'];
     $formattedBookData['field_pages'] = $bookData['volumeInfo']['pageCount'];
     $formattedBookData['field_authors'] = $bookData['volumeInfo']['authors'];
