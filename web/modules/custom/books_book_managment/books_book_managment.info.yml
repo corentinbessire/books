@@ -1,5 +1,10 @@
 name: Books - Book Management
 type: module
-description: The description.
+description: Provides book management features including ISBN lookup, cover downloads, and data import from external APIs.
 package: Books
 core_version_requirement: ^10 || ^11
+dependencies:
+  - drupal:node
+  - drupal:taxonomy
+  - drupal:media
+  - drupal:file

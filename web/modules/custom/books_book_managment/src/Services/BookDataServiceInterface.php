@@ -38,6 +38,6 @@ interface BookDataServiceInterface {
    * @return array|null
    *   Formatted Data or null if not found.
    */
-  public function getFormatedBookData(string|int $isbn): array|null;
+  public function getFormattedBookData(string|int $isbn): array|null;
 
 }

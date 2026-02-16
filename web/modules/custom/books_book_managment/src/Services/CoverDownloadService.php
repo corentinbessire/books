@@ -20,7 +20,7 @@ class CoverDownloadService {
    * @param \GuzzleHttp\ClientInterface $httpClient
    *   Guzzle Client Interface Service.
    * @param \Drupal\Core\Logger\LoggerChannelFactoryInterface $loggerChannelFactory
-   *   Drupal Logger Channel Factopry Service.
+   *   Drupal Logger Channel Factory Service.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entityTypeManager
    *   Drupal Entity Type Manager service.
    * @param \Drupal\file\FileRepositoryInterface $fileRepository
@@ -34,7 +34,7 @@ class CoverDownloadService {
   ) {}
 
   /**
-   * Main Entruy method to get Medai entity with Book cover.
+   * Main Entry method to get Media entity with Book cover.
    *
    * @param string $isbn
    *   ISBN of the book to get cover of.
@@ -88,7 +88,7 @@ class CoverDownloadService {
    * @param string $image_url
    *   The URL of the Image to download.
    * @param string $isbn
-   *   ISBN of the Booke to get the cover of.
+   *   ISBN of the Book to get the cover of.
    *
    * @return \Drupal\Core\Entity\EntityInterface|null
    *   The File entity if exists.
@@ -166,7 +166,7 @@ class CoverDownloadService {
    */
   protected function getMediaByIsbn(string $isbn) {
     $result = $this->entityTypeManager->getStorage('media')->getQuery()
-      ->condition('name', '$isbn')
+      ->condition('name', $isbn)
       ->accessCheck()
       ->execute();
     return (empty($result)) ? FALSE : $this->entityTypeManager->getStorage('media')

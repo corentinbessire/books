@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 class OpenLibraryService implements BookDataServiceInterface {
 
   /**
-   * Constructs an GoogleBooksService object.
+   * Constructs an OpenLibraryService object.
    *
    * @param \GuzzleHttp\ClientInterface $httpClient
    *   Guzzle Client Service.
@@ -29,6 +29,7 @@ class OpenLibraryService implements BookDataServiceInterface {
    */
   public function getBookData(string|int $isbn): array|null {
     $uri = 'https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:' . $isbn;
+    $data = NULL;
 
     try {
       $request = $this->httpClient->request('GET', $uri);
@@ -39,9 +40,9 @@ class OpenLibraryService implements BookDataServiceInterface {
         ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
 
-    if (!isset($data['ISBN:' . $isbn])) {
+    if ($data === NULL || !isset($data['ISBN:' . $isbn])) {
       $this->loggerChannelFactory->get('OpenLibraryService')
-        ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+        ->alert('No data for ISBN : ' . $isbn . '(' . $uri . ')');
       return NULL;
     }
     $bookData = $data['ISBN:' . $isbn];
@@ -68,7 +69,7 @@ class OpenLibraryService implements BookDataServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getFormatedBookData(int|string $isbn): array|null {
+  public function getFormattedBookData(int|string $isbn): array|null {
     $bookData = $this->getBookData($isbn);
     return ($bookData) ? $this->formatBookData($bookData) : $bookData;
   }

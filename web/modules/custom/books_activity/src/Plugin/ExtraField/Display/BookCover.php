@@ -77,8 +77,11 @@ class BookCover extends ExtraFieldPlusDisplayBase implements ContainerFactoryPlu
    * @return \Drupal\Core\Entity\EntityInterface
    *   The First entity referenced inf given field.
    */
-  protected function getFirstReference(EntityInterface $entity, string $fieldName): EntityInterface {
+  protected function getFirstReference(EntityInterface $entity, string $fieldName): ?EntityInterface {
     $referencedEntities = $entity->get($fieldName)->referencedEntities();
+    if (empty($referencedEntities)) {
+      return NULL;
+    }
     return reset($referencedEntities);
   }
 
