@@ -63,9 +63,9 @@ class MissingCoverBatch {
       $failure = count($results['failure']);
       $success = count($results['success']);
       $total = $failure + $success;
-      $messenger->addMessage(t('@count results processed.', ['@count' => count($total)]));
-      $messenger->addMessage(t('@count covers found.', ['@count' => count($success)]));
-      $messenger->addMessage(t('@count covers not found.', ['@count' => count($failure)]));
+      $messenger->addMessage(t('@count results processed.', ['@count' => $total]));
+      $messenger->addMessage(t('@count covers found.', ['@count' => $success]));
+      $messenger->addMessage(t('@count covers not found.', ['@count' => $failure]));
     }
     else {
       // An error occurred.

@@ -4,7 +4,6 @@ type: theme
 version: 1.0.0
 libraries:
   - books/base
-  - books/messages
   - core/normalize
 description: ''
 core_version_requirement: ^10 || ^11

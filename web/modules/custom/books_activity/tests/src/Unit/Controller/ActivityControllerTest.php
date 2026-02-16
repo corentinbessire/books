@@ -13,7 +13,7 @@ use Drupal\isbn\IsbnToolsService;
 use Drupal\node\NodeInterface;
 use Drupal\Tests\UnitTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\RequestStack;
 
 /**
  * Unit tests for ActivityController.
@@ -69,7 +69,7 @@ class ActivityControllerTest extends UnitTestCase {
     $this->isbnToolsService = $this->createMock(IsbnToolsService::class);
     $this->entityTypeManager = $this->createMock(EntityTypeManagerInterface::class);
 
-    $request = new Request();
+    $requestStack = $this->createMock(RequestStack::class);
 
     $stringTranslation = $this->createMock(TranslationInterface::class);
     $stringTranslation->method('translateString')->willReturnArgument(0);
@@ -88,7 +88,7 @@ class ActivityControllerTest extends UnitTestCase {
       $this->messenger,
       $this->booksUtilsService,
       $this->isbnToolsService,
-      $request
+      $requestStack
     );
 
     // Set the entityTypeManager property directly since the controller
