@@ -77,7 +77,8 @@ class ActivityController extends ControllerBase {
 
     $this->messengerInterface
       ->addError($this->t('@isbn is not a valid ISBN number.', ['@isbn' => $isbn]));
-    if (!$url = $this->request->headers->get('referer')) {
+    $request = $this->requestStack->getCurrentRequest();
+    if (!$request || !$url = $request->headers->get('referer')) {
       $url = '<front>';
     }
     return $this->redirect($url);
