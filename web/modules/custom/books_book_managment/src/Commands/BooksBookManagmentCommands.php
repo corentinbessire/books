@@ -25,7 +25,7 @@ class BooksBookManagmentCommands extends DrushCommands {
    * BooksBookManagmentCommands constructor.
    *
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
-   *   Utils for Book managment service.
+   *   Utils for Book management service.
    */
   public function __construct(
     private BooksUtilsService $booksUtilsService,

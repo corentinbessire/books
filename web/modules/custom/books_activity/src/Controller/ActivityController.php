@@ -19,9 +19,9 @@ class ActivityController extends ControllerBase {
    * The controller constructor.
    *
    * @param \Drupal\Core\Messenger\MessengerInterface $messengerInterface
-   *   Drupal Messagenger Service.
+   *   Drupal Messenger Service.
    * @param \Drupal\books_book_managment\Services\BooksUtilsService $booksUtilsService
-   *   Custom Books Utilitary service.
+   *   Custom Books Utility service.
    * @param \Drupal\isbn\IsbnToolsService $isbnToolsService
    *   ISBN Tools service.
    * @param \Symfony\Component\HttpFoundation\Request $request

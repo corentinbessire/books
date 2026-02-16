@@ -12,7 +12,7 @@ use GuzzleHttp\Exception\RequestException;
 class OpenLibraryService implements BookDataServiceInterface {
 
   /**
-   * Constructs an GoogleBooksService object.
+   * Constructs an OpenLibraryService object.
    *
    * @param \GuzzleHttp\ClientInterface $httpClient
    *   Guzzle Client Service.
@@ -41,7 +41,7 @@ class OpenLibraryService implements BookDataServiceInterface {
 
     if (!isset($data['ISBN:' . $isbn])) {
       $this->loggerChannelFactory->get('OpenLibraryService')
-        ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+        ->alert('No data for ISBN : ' . $isbn . '(' . $uri . ')');
       return NULL;
     }
     $bookData = $data['ISBN:' . $isbn];
