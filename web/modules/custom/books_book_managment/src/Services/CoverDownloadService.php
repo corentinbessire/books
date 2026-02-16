@@ -166,7 +166,7 @@ class CoverDownloadService {
    */
   protected function getMediaByIsbn(string $isbn) {
     $result = $this->entityTypeManager->getStorage('media')->getQuery()
-      ->condition('name', '$isbn')
+      ->condition('name', $isbn)
       ->accessCheck()
       ->execute();
     return (empty($result)) ? FALSE : $this->entityTypeManager->getStorage('media')

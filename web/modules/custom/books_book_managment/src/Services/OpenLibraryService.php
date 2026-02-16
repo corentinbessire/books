@@ -29,6 +29,7 @@ class OpenLibraryService implements BookDataServiceInterface {
    */
   public function getBookData(string|int $isbn): array|null {
     $uri = 'https://openlibrary.org/api/books?jscmd=data&format=json&bibkeys=ISBN:' . $isbn;
+    $data = NULL;
 
     try {
       $request = $this->httpClient->request('GET', $uri);
@@ -39,7 +40,7 @@ class OpenLibraryService implements BookDataServiceInterface {
         ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
 
-    if (!isset($data['ISBN:' . $isbn])) {
+    if ($data === NULL || !isset($data['ISBN:' . $isbn])) {
       $this->loggerChannelFactory->get('OpenLibraryService')
         ->alert('No data for ISBN : ' . $isbn . '(' . $uri . ')');
       return NULL;
