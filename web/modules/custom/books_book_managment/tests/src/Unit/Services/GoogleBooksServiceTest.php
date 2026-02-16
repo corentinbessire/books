@@ -232,8 +232,7 @@ class GoogleBooksServiceTest extends UnitTestCase {
 
     $response = new Response(200, [], json_encode($mockData));
 
-    // getFormatedBookData calls getBookData twice (known bug in source).
-    $this->httpClient->expects($this->exactly(2))
+    $this->httpClient->expects($this->once())
       ->method('request')
       ->willReturn($response);
 
