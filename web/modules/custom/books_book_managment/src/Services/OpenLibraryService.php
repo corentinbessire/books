@@ -62,7 +62,12 @@ class OpenLibraryService implements BookDataServiceInterface {
     $bookData['publishers'] = reset($bookData['publishers']);
     $formattedBookData['field_publisher'] = $bookData['publishers']['name'];
     $formattedBookData['field_isbn'] = $bookData['isbn'];
-    $formattedBookData['field_release'] = date('Y-m-d', strtotime($bookData['publish_date']));
+    try {
+      $formattedBookData['field_release'] = (new \DateTimeImmutable($bookData['publish_date'] ?? ''))->format('Y-m-d');
+    }
+    catch (\Exception) {
+      $formattedBookData['field_release'] = NULL;
+    }
     return $formattedBookData;
   }
 

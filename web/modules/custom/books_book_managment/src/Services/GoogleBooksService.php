@@ -63,7 +63,12 @@ class GoogleBooksService implements BookDataServiceInterface {
   public function formatBookData(array $bookData): array {
     $volumeInfo = $bookData['volumeInfo'] ?? [];
     $publishedDate = $volumeInfo['publishedDate'] ?? NULL;
-    $release = $publishedDate ? date('Y-m-d', strtotime($publishedDate)) : NULL;
+    try {
+      $release = $publishedDate ? (new \DateTimeImmutable($publishedDate))->format('Y-m-d') : NULL;
+    }
+    catch (\Exception) {
+      $release = NULL;
+    }
     $formattedBookData['title'] = $volumeInfo['title'] ?? '';
     $formattedBookData['field_pages'] = $volumeInfo['pageCount'] ?? NULL;
     $formattedBookData['field_authors'] = $volumeInfo['authors'] ?? [];
