@@ -13,6 +13,7 @@ use Drupal\Core\Form\FormState;
  * Implements hook_form_system_theme_settings_alter().
  */
 function books_form_system_theme_settings_alter(array &$form, FormState $form_state): void {
+  $themeSettings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
   $stringTranslation = \Drupal::translation();
 
   $form['books'] = [
@@ -24,36 +25,36 @@ function books_form_system_theme_settings_alter(array &$form, FormState $form_st
   $form['books']['primary'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Primary Color - Default'),
-    '#default_value' => theme_get_setting('primary'),
+    '#default_value' => $themeSettings->getSetting('primary'),
   ];
   $form['books']['secondary'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Secondary Color - Default'),
-    '#default_value' => theme_get_setting('secondary'),
+    '#default_value' => $themeSettings->getSetting('secondary'),
   ];
   $form['books']['accent'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Accent Color - Default'),
-    '#default_value' => theme_get_setting('accent'),
+    '#default_value' => $themeSettings->getSetting('accent'),
   ];
   $form['books']['info'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Info Color'),
-    '#default_value' => theme_get_setting('info'),
+    '#default_value' => $themeSettings->getSetting('info'),
   ];
   $form['books']['warning'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Warning Color'),
-    '#default_value' => theme_get_setting('warning'),
+    '#default_value' => $themeSettings->getSetting('warning'),
   ];
   $form['books']['error'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Error Color'),
-    '#default_value' => theme_get_setting('error'),
+    '#default_value' => $themeSettings->getSetting('error'),
   ];
   $form['books']['success'] = [
     '#type' => 'textfield',
     '#title' => $stringTranslation->translate('Success Color'),
-    '#default_value' => theme_get_setting('success'),
+    '#default_value' => $themeSettings->getSetting('success'),
   ];
 }
