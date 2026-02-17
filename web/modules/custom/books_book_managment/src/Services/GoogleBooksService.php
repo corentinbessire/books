@@ -33,7 +33,12 @@ class GoogleBooksService implements BookDataServiceInterface {
    */
   public function getBookData(string|int $isbn): array|null {
     $googleApiKey = $this->settings->get('google_api_key');
-    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . $isbn . '&key=' . $googleApiKey;
+    if (empty($googleApiKey)) {
+      $this->loggerChannelFactory->get('GoogleBooksService')
+        ->warning('Google API key is not configured.');
+      return NULL;
+    }
+    $uri = 'https://www.googleapis.com/books/v1/volumes?q=isbn:' . urlencode((string) $isbn) . '&key=' . urlencode($googleApiKey);
     $data = NULL;
     try {
       $request = $this->httpClient->request('GET', $uri);
@@ -44,9 +49,9 @@ class GoogleBooksService implements BookDataServiceInterface {
         ->alert($e->getCode() . ' : ' . $e->getMessage());
     }
 
-    if ($data['totalItems'] === 0) {
+    if ($data === NULL || $data['totalItems'] === 0) {
       $this->loggerChannelFactory->get('GoogleBooksService')
-        ->alert('No data fo ISBN : ' . $isbn . '(' . $uri . ')');
+        ->alert('No data for ISBN : ' . $isbn . '(' . $uri . ')');
       return NULL;
     }
     return array_pop($data['items']);
@@ -56,18 +61,20 @@ class GoogleBooksService implements BookDataServiceInterface {
    * {@inheritdoc}
    */
   public function formatBookData(array $bookData): array {
+    $volumeInfo = $bookData['volumeInfo'] ?? [];
+    $publishedDate = $volumeInfo['publishedDate'] ?? NULL;
     try {
-      $release = (new \DateTimeImmutable($bookData['volumeInfo']['publishedDate'] ?? ''))->format('Y-m-d');
+      $release = $publishedDate ? (new \DateTimeImmutable($publishedDate))->format('Y-m-d') : NULL;
     }
     catch (\Exception) {
       $release = NULL;
     }
-    $formattedBookData['title'] = $bookData['volumeInfo']['title'];
-    $formattedBookData['field_pages'] = $bookData['volumeInfo']['pageCount'];
-    $formattedBookData['field_authors'] = $bookData['volumeInfo']['authors'];
-    $formattedBookData['field_publisher'] = $bookData['volumeInfo']['publisher'];
-    $formattedBookData['field_excerpt'] = $bookData['volumeInfo']['description'];
-    foreach ($bookData['volumeInfo']['industryIdentifiers'] as $industryIdentifier) {
+    $formattedBookData['title'] = $volumeInfo['title'] ?? '';
+    $formattedBookData['field_pages'] = $volumeInfo['pageCount'] ?? NULL;
+    $formattedBookData['field_authors'] = $volumeInfo['authors'] ?? [];
+    $formattedBookData['field_publisher'] = $volumeInfo['publisher'] ?? NULL;
+    $formattedBookData['field_excerpt'] = $volumeInfo['description'] ?? NULL;
+    foreach ($volumeInfo['industryIdentifiers'] ?? [] as $industryIdentifier) {
       if ($industryIdentifier['type'] === 'ISBN_13') {
         $formattedBookData['field_isbn'] = $industryIdentifier['identifier'];
       }
@@ -80,8 +87,7 @@ class GoogleBooksService implements BookDataServiceInterface {
   /**
    * {@inheritdoc}
    */
-  public function getFormatedBookData(int|string $isbn): array|null {
-    $bookData = $this->getBookData($isbn);
+  public function getFormattedBookData(int|string $isbn): array|null {
     $bookData = $this->getBookData($isbn);
     return ($bookData) ? $this->formatBookData($bookData) : $bookData;
   }

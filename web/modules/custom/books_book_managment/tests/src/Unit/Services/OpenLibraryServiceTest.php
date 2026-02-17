@@ -157,9 +157,9 @@ class OpenLibraryServiceTest extends UnitTestCase {
   }
 
   /**
-   * Tests getFormatedBookData() with successful response.
+   * Tests getFormattedBookData() with successful response.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataSuccess(): void {
     $isbn = '9780123456789';
@@ -187,7 +187,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
       ->with($isbn)
       ->willReturn($mockData);
 
-    $result = $this->openLibraryService->getFormatedBookData($isbn);
+    $result = $this->openLibraryService->getFormattedBookData($isbn);
 
     $this->assertIsArray($result);
     $this->assertArrayHasKey('title', $result);
@@ -195,9 +195,9 @@ class OpenLibraryServiceTest extends UnitTestCase {
   }
 
   /**
-   * Tests getFormatedBookData() with null response.
+   * Tests getFormattedBookData() with null response.
    *
-   * @covers ::getFormatedBookData
+   * @covers ::getFormattedBookData
    */
   public function testGetFormatedBookDataNull(): void {
     $isbn = '9780123456789';
@@ -213,7 +213,7 @@ class OpenLibraryServiceTest extends UnitTestCase {
       ->with($isbn)
       ->willReturn(NULL);
 
-    $result = $this->openLibraryService->getFormatedBookData($isbn);
+    $result = $this->openLibraryService->getFormattedBookData($isbn);
     $this->assertNull($result);
   }
 
