@@ -3,7 +3,7 @@ _core:
 langcode: en
 uuid: 6f51d33e-5f11-40ed-908d-3a105fba2236
 name: 'My Library'
-mail: admin@example.com
+mail: hello@gealion.ch
 slogan: ''
 page:
   403: ''
