@@ -9,7 +9,7 @@
  * Implements hook_preprocess_html().
  */
 function books_preprocess_html(&$variables) {
-  $themeSettings = \Drupal::service('theme_settings_provider');
+  $themeSettings = \Drupal::service('Drupal\Core\Extension\ThemeSettingsProvider');
   $variables['attributes']['style'] =
     ';--primary:' . $themeSettings->getSetting('primary') .
     ';--secondary: ' . $themeSettings->getSetting('secondary') .
