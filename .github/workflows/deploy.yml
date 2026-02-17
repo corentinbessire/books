@@ -1,6 +1,9 @@
 name: Deploy
 
 on:
+  push:
+    tags:
+      - 'v*'
   workflow_dispatch:
     inputs:
       environment:
@@ -115,10 +118,10 @@ jobs:
           retention-days: 1
 
   deploy:
-    name: Deploy to ${{ inputs.environment }}
+    name: Deploy to ${{ inputs.environment || 'production' }}
     runs-on: ubuntu-latest
     needs: build
-    environment: ${{ inputs.environment }}
+    environment: ${{ inputs.environment || 'production' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -149,7 +152,7 @@ jobs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "*Deployment pipeline started* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                      "text": "*Deployment pipeline started* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
                     }
                   }
                 ]
@@ -178,7 +181,7 @@ jobs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "*Deployment pipeline succeeded* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                      "text": "*Deployment pipeline succeeded* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
                     }
                   }
                 ]
@@ -198,7 +201,7 @@ jobs:
                     "type": "section",
                     "text": {
                       "type": "mrkdwn",
-                      "text": "*Deployment pipeline failed* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
+                      "text": "*Deployment pipeline failed* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
                     }
                   }
                 ]
