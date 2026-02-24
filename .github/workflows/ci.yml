@@ -9,7 +9,7 @@ on:
 
 env:
   PHP_VERSION: '8.4'
-  BUN_VERSION: 'latest'
+  BUN_VERSION: '1.3.5'
   THEME_ROOT: 'web/themes/custom/books'
 
 jobs:
