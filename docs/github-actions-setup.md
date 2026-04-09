@@ -10,8 +10,8 @@ Before setting up GitHub Actions, ensure you have:
 2. SSH access to your deployment server(s)
 3. Server(s) configured with the expected directory structure:
    ```
-   /var/www/project/           # PROJECT_REMOTE_DIR
-   ├── current/                # PROJECT_REMOTE_WEBROOT (symlink to active release)
+   /var/www/project/           # DEPLOY_PATH
+   ├── current/                # DEPLOY_SYMLINK (symlink to active release)
    ├── releases/               # Release archives
    ├── shared/                 # Shared files across releases
    │   ├── files/              # Drupal public files
@@ -46,7 +46,6 @@ Add the following repository secrets:
 |--------|-------------|---------------|
 | `SSH_PRIVATE_KEY` | Private SSH key content | `cat ~/.ssh/github_deploy_key` |
 | `SSH_KNOWN_HOSTS` | Known hosts entry for your server | `ssh-keyscan -H your-server.com` |
-| `SLACK_WEBHOOK_URL` | Slack incoming webhook URL (optional) | Create at https://api.slack.com/messaging/webhooks |
 
 ### Getting SSH_KNOWN_HOSTS
 
@@ -97,9 +96,8 @@ Go to **Settings** → **Environments** → Select environment → **Environment
 | `SSH_HOST` | Server hostname or IP | `dev.example.com` |
 | `SSH_PORT` | SSH port | `22` |
 | `SSH_OPTIONS` | Extra SSH options (optional) | `-o StrictHostKeyChecking=no` |
-| `PROJECT_REMOTE_DIR` | Absolute path to project on server | `/var/www/myproject` |
-| `PROJECT_REMOTE_WEBROOT` | Symlink name for current release | `current` |
-| `SLACK_NOTIFICATIONS` | Enable Slack notifications | `true` |
+| `DEPLOY_PATH` | Absolute path to project on server | `/var/www/myproject` |
+| `DEPLOY_SYMLINK` | Symlink name for current release | `current` |
 
 ### Example Configuration
 
@@ -107,27 +105,24 @@ Go to **Settings** → **Environments** → Select environment → **Environment
 ```
 SSH_HOST=dev.example.com
 SSH_PORT=22
-PROJECT_REMOTE_DIR=/var/www/dev-site
-PROJECT_REMOTE_WEBROOT=current
-SLACK_NOTIFICATIONS=true
+DEPLOY_PATH=/var/www/dev-site
+DEPLOY_SYMLINK=current
 ```
 
 **Staging:**
 ```
 SSH_HOST=staging.example.com
 SSH_PORT=22
-PROJECT_REMOTE_DIR=/var/www/staging-site
-PROJECT_REMOTE_WEBROOT=current
-SLACK_NOTIFICATIONS=true
+DEPLOY_PATH=/var/www/staging-site
+DEPLOY_SYMLINK=current
 ```
 
 **Production:**
 ```
 SSH_HOST=prod.example.com
 SSH_PORT=22
-PROJECT_REMOTE_DIR=/var/www/prod-site
-PROJECT_REMOTE_WEBROOT=current
-SLACK_NOTIFICATIONS=true
+DEPLOY_PATH=/var/www/prod-site
+DEPLOY_SYMLINK=current
 ```
 
 ## Step 5: Prepare Your Server
@@ -302,7 +297,7 @@ The dependency updates workflow tracks available updates for Drupal modules:
 ### Permission Denied on Server
 
 1. Check file ownership matches web server user
-2. Verify the SSH user has write access to `PROJECT_REMOTE_DIR`
+2. Verify the SSH user has write access to `DEPLOY_PATH`
 3. Check if SELinux or AppArmor is blocking access
 
 ### Deployment Stuck in Maintenance Mode
@@ -340,11 +335,3 @@ These are code quality issues that need to be fixed in your code:
 4. **Rotate secrets**: Periodically rotate SSH keys and update secrets
 5. **Audit logs**: Review deployment logs in GitHub Actions and on the server
 
-## Migration from GitLab CI
-
-If you were previously using GitLab CI:
-
-1. The GitLab CI configuration (`.gitlab-ci.yml`) is preserved and still functional
-2. Both CI systems can coexist if you mirror to GitLab
-3. Server scripts in `scripts/gitlab/` remain for GitLab, `scripts/github/` for GitHub Actions
-4. Environment variable names are the same; just configure them in GitHub instead of GitLab

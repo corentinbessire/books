@@ -404,71 +404,11 @@ jobs:
           echo "${{ secrets.SSH_KNOWN_HOSTS }}" > ~/.ssh/known_hosts
           chmod 644 ~/.ssh/known_hosts
 
-      - name: Notify Slack - Deployment Started
-        if: ${{ vars.SLACK_NOTIFICATIONS == 'true' }}
-        run: |
-          curl -X POST -H "Content-type: application/json" --data '{
-            "attachments": [
-              {
-                "color": "#0000ff",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "*Deployment pipeline started* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
-                    }
-                  }
-                ]
-              }
-            ]
-          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
-
       - name: Deploy
         env:
           SSH_HOST: ${{ vars.SSH_HOST }}
           SSH_PORT: ${{ vars.SSH_PORT }}
           SSH_OPTIONS: ${{ vars.SSH_OPTIONS }}
-          PROJECT_REMOTE_DIR: ${{ vars.PROJECT_REMOTE_DIR }}
-          PROJECT_REMOTE_WEBROOT: ${{ vars.PROJECT_REMOTE_WEBROOT }}
+          DEPLOY_PATH: ${{ vars.DEPLOY_PATH }}
+          DEPLOY_SYMLINK: ${{ vars.DEPLOY_SYMLINK }}
         run: ./scripts/github/deploy.sh
-
-      - name: Notify Slack - Deployment Succeeded
-        if: ${{ success() && vars.SLACK_NOTIFICATIONS == 'true' }}
-        run: |
-          curl -X POST -H "Content-type: application/json" --data '{
-            "attachments": [
-              {
-                "color": "#00c100",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "*Deployment pipeline succeeded* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
-                    }
-                  }
-                ]
-              }
-            ]
-          }' "${{ secrets.SLACK_WEBHOOK_URL }}"
-
-      - name: Notify Slack - Deployment Failed
-        if: ${{ failure() && vars.SLACK_NOTIFICATIONS == 'true' }}
-        run: |
-          curl -X POST -H "Content-type: application/json" --data '{
-            "attachments": [
-              {
-                "color": "#ff0909",
-                "blocks": [
-                  {
-                    "type": "section",
-                    "text": {
-                      "type": "mrkdwn",
-                      "text": "*Deployment pipeline failed* \n\n *Project:* ${{ github.repository }} \n *Environment:* ${{ inputs.environment || 'production' }} \n *Run ID:* <${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}|${{ github.run_id }}> \n *Triggered by:* ${{ github.actor }}"
-                    }
-                  }
-                ]
-              }
-            ]
-          }' "${{ secrets.SLACK_WEBHOOK_URL }}"

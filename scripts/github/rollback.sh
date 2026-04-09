@@ -9,8 +9,8 @@ set -e
 # Validate required environment variables
 required_vars=(
   "SSH_HOST"
-  "PROJECT_REMOTE_DIR"
-  "PROJECT_REMOTE_WEBROOT"
+  "DEPLOY_PATH"
+  "DEPLOY_SYMLINK"
 )
 
 for var in "${required_vars[@]}"; do
@@ -38,7 +38,7 @@ SSH="$SSH_COMMAND $SSH_HOST"
 echo "🔄 Starting remote rollback process..."
 
 # Execute the rollback script on the remote server
-$SSH "cd $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT && bash scripts/github/rollback-remote.sh $PROJECT_REMOTE_DIR $PROJECT_REMOTE_WEBROOT" || {
+$SSH "cd $DEPLOY_PATH/$DEPLOY_SYMLINK && bash scripts/github/rollback-remote.sh $DEPLOY_PATH $DEPLOY_SYMLINK" || {
   echo "Error: Failed to run rollback script"
   exit 1
 }

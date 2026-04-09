@@ -9,18 +9,18 @@ set -e
 # Validate input parameters
 if [ "$#" -ne 2 ]; then
     echo "Error: Missing required parameters"
-    echo "Usage: $0 PROJECT_REMOTE_DIR PROJECT_REMOTE_WEBROOT"
+    echo "Usage: $0 DEPLOY_PATH DEPLOY_SYMLINK"
     exit 1
 fi
 
-PROJECT_REMOTE_DIR=$1
-PROJECT_REMOTE_WEBROOT=$2
+DEPLOY_PATH=$1
+DEPLOY_SYMLINK=$2
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-LOG_FILE="${PROJECT_REMOTE_DIR}/logs/rollback_${TIMESTAMP}.log"
-DRUSH="${PROJECT_REMOTE_DIR}/${PROJECT_REMOTE_WEBROOT}/vendor/bin/drush"
+LOG_FILE="${DEPLOY_PATH}/logs/rollback_${TIMESTAMP}.log"
+DRUSH="${DEPLOY_PATH}/${DEPLOY_SYMLINK}/vendor/bin/drush"
 
 # Create logs directory if it doesn't exist
-mkdir -p "${PROJECT_REMOTE_DIR}/logs"
+mkdir -p "${DEPLOY_PATH}/logs"
 
 # Function for logging
 log_message() {
@@ -44,8 +44,8 @@ trap 'handle_error "$BASH_COMMAND"' ERR
 log_message "🔄 Starting rollback process..."
 
 # Get current and previous release paths
-RELEASES_DIR="${PROJECT_REMOTE_DIR}/releases"
-CURRENT_RELEASE=$(readlink -f "${PROJECT_REMOTE_DIR}/${PROJECT_REMOTE_WEBROOT}")
+RELEASES_DIR="${DEPLOY_PATH}/releases"
+CURRENT_RELEASE=$(readlink -f "${DEPLOY_PATH}/${DEPLOY_SYMLINK}")
 CURRENT_RELEASE_NAME=$(basename "$CURRENT_RELEASE")
 PREVIOUS_RELEASE=$(ls -1dt "${RELEASES_DIR}"/* | grep -v "$CURRENT_RELEASE_NAME" | head -n1)
 
@@ -58,7 +58,7 @@ log_message "📂 Current release: $CURRENT_RELEASE"
 log_message "📂 Rolling back to: $PREVIOUS_RELEASE"
 
 # Find the corresponding database backup
-DUMPS_DIR="${PROJECT_REMOTE_DIR}/dumps"
+DUMPS_DIR="${DEPLOY_PATH}/dumps"
 PREVIOUS_RELEASE_TIMESTAMP=$(echo "$PREVIOUS_RELEASE" | grep -oE "[0-9]{8}_[0-9]{6}")
 CORRESPONDING_DB_BACKUP=$(ls -1t "${DUMPS_DIR}" | grep -m1 "dump_${PREVIOUS_RELEASE_TIMESTAMP}")
 
@@ -90,7 +90,7 @@ gunzip -c "${DUMPS_DIR}/${CORRESPONDING_DB_BACKUP}" | $DRUSH sql:cli
 
 # Switch symlink to previous release
 log_message "🔄 Switching to previous release..."
-ln -nsf "$PREVIOUS_RELEASE" "${PROJECT_REMOTE_DIR}/${PROJECT_REMOTE_WEBROOT}"
+ln -nsf "$PREVIOUS_RELEASE" "${DEPLOY_PATH}/${DEPLOY_SYMLINK}"
 
 # Update database and rebuild cache
 log_message "🔄 Running database updates..."
