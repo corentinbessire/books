@@ -9,8 +9,8 @@ set -e
 # Validate required environment variables
 required_vars=(
   "SSH_HOST"
-  "PROJECT_REMOTE_DIR"
-  "PROJECT_REMOTE_WEBROOT"
+  "DEPLOY_PATH"
+  "DEPLOY_SYMLINK"
 )
 
 for var in "${required_vars[@]}"; do
@@ -20,7 +20,7 @@ for var in "${required_vars[@]}"; do
   fi
 done
 
-PROJECT_RELEASES_DIR="$PROJECT_REMOTE_DIR/releases"
+PROJECT_RELEASES_DIR="$DEPLOY_PATH/releases"
 
 # SSH key path for GitHub Actions
 SSH_KEY="$HOME/.ssh/deploy_key"
@@ -82,10 +82,10 @@ $SSH "
   rm -rf $RELEASE_DIR/private_files;
   rm -rf $RELEASE_DIR/web/sites/default/settings.local.php
   rm -rf $RELEASE_DIR/web/.htaccess
-  ln -nsf $PROJECT_REMOTE_DIR/shared/private_files $RELEASE_DIR/private_files
-  ln -nsf $PROJECT_REMOTE_DIR/shared/files $RELEASE_DIR/web/sites/default/files
-  ln -nsf $PROJECT_REMOTE_DIR/shared/settings.local.php $RELEASE_DIR/web/sites/default/settings.local.php
-  ln -nsf $PROJECT_REMOTE_DIR/shared/.htaccess $RELEASE_DIR/web/.htaccess
+  ln -nsf $DEPLOY_PATH/shared/private_files $RELEASE_DIR/private_files
+  ln -nsf $DEPLOY_PATH/shared/files $RELEASE_DIR/web/sites/default/files
+  ln -nsf $DEPLOY_PATH/shared/settings.local.php $RELEASE_DIR/web/sites/default/settings.local.php
+  ln -nsf $DEPLOY_PATH/shared/.htaccess $RELEASE_DIR/web/.htaccess
 " || {
   echo "Error: Failed to prepare release"
   exit 1
@@ -93,14 +93,14 @@ $SSH "
 
 # Update symlink
 echo "🔄 Updating symlink to new release..."
-$SSH "ln -nsf $RELEASE_DIR/ $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT" || {
+$SSH "ln -nsf $RELEASE_DIR/ $DEPLOY_PATH/$DEPLOY_SYMLINK" || {
   echo "Error: Failed to update symlink"
   exit 1
 }
 
 # Run update script
 echo "🔄 Running update script..."
-$SSH "cd $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT && bash scripts/github/update.sh $PROJECT_REMOTE_DIR $PROJECT_REMOTE_WEBROOT" || {
+$SSH "cd $DEPLOY_PATH/$DEPLOY_SYMLINK && bash scripts/github/update.sh $DEPLOY_PATH $DEPLOY_SYMLINK" || {
   echo "Error: Failed to run update script"
   exit 1
 }

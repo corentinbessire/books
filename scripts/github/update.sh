@@ -1,23 +1,23 @@
 #!/bin/bash
 
-# This script should be executed from $PROJECT_REMOTE_DIR/$PROJECT_REMOTE_WEBROOT
+# This script should be executed from $DEPLOY_PATH/$DEPLOY_SYMLINK
 set -e
 
 # Validate input parameters
 if [ "$#" -ne 2 ]; then
     echo "Error: Missing required parameters"
-    echo "Usage: $0 PROJECT_REMOTE_DIR PROJECT_REMOTE_WEBROOT"
+    echo "Usage: $0 DEPLOY_PATH DEPLOY_SYMLINK"
     exit 1
 fi
 
-PROJECT_REMOTE_DIR=$1
-PROJECT_REMOTE_WEBROOT=$2
-DRUSH="${PROJECT_REMOTE_DIR}/${PROJECT_REMOTE_WEBROOT}/vendor/bin/drush"
+DEPLOY_PATH=$1
+DEPLOY_SYMLINK=$2
+DRUSH="${DEPLOY_PATH}/${DEPLOY_SYMLINK}/vendor/bin/drush"
 TIMESTAMP=$(date "+%Y%m%d_%H%M%S")
-LOG_FILE="${PROJECT_REMOTE_DIR}/logs/update_${TIMESTAMP}.log"
+LOG_FILE="${DEPLOY_PATH}/logs/update_${TIMESTAMP}.log"
 
 # Create logs directory if it doesn't exist
-mkdir -p "${PROJECT_REMOTE_DIR}/logs"
+mkdir -p "${DEPLOY_PATH}/logs"
 
 # Function for logging
 log_message() {
@@ -47,14 +47,14 @@ fi
 log_message "🚀 Starting Drupal update process..."
 
 # Create dumps directory if it doesn't exist
-mkdir -p "${PROJECT_REMOTE_DIR}/dumps"
+mkdir -p "${DEPLOY_PATH}/dumps"
 
 # Enable maintenance mode
 log_message "🔒 Enabling maintenance mode..."
 $DRUSH state:set system.maintenance_mode 1
 
 # Database backup
-BACKUP_FILE="${PROJECT_REMOTE_DIR}/dumps/dump_${TIMESTAMP}.sql"
+BACKUP_FILE="${DEPLOY_PATH}/dumps/dump_${TIMESTAMP}.sql"
 log_message "💾 Creating database backup..."
 $DRUSH sql:dump --gzip --result-file="$BACKUP_FILE"
 
@@ -80,7 +80,7 @@ $DRUSH state:set system.maintenance_mode 0
 
 # Cleanup old database dumps
 log_message "🗑️ Cleaning up old database dumps..."
-cd "${PROJECT_REMOTE_DIR}/dumps/" || exit 1
+cd "${DEPLOY_PATH}/dumps/" || exit 1
 if [ "$(ls -1 | wc -l)" -gt 3 ]; then
     ls -1tr | head -n -3 | while IFS= read -r file; do
         chmod -R 755 "$file"
@@ -91,7 +91,7 @@ fi
 
 # Cleanup old releases
 log_message "🗑️ Cleaning up old releases..."
-cd "${PROJECT_REMOTE_DIR}/releases/" || exit 1
+cd "${DEPLOY_PATH}/releases/" || exit 1
 if [ "$(ls -1 | wc -l)" -gt 3 ]; then
     ls -1tr | head -n -3 | while IFS= read -r dir; do
         chmod -R 755 "$dir"
